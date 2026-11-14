@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Icon } from './Icon';
 import { BeforeAfter } from './client';
 import { Btn, Container, Wordmark, cx } from './ui';
-import { APP_URL, BY_CATEGORY, CATEGORIES, NAV, PIPELINE, STORIES } from '@/content/site';
+import { appUrl, BY_CATEGORY, CATEGORIES, NAV, PIPELINE, STORIES } from '@/content/site';
 
 export function CategoryMarquee({ dark = false }: { dark?: boolean }) {
   const row = [...CATEGORIES, ...CATEGORIES];
@@ -92,8 +92,8 @@ export function CtaBand() {
             <h2 className="text-[38px] leading-[1] font-extrabold text-forest sm:text-6xl">Your street is waiting. Report it in two minutes.</h2>
             <p className="mx-auto mt-5 max-w-lg text-lg text-forest/75">Free, works on low data, in English and Pidgin. No forms, no knowing which office to call.</p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Btn href={`${APP_URL}/report`} size="lg" icon="arrowR">Report an issue</Btn>
-              <Btn href={`${APP_URL}/explore`} size="lg" variant="ghost">Explore your area</Btn>
+              <Btn href={appUrl('/report')} size="lg" icon="arrowR">Report an issue</Btn>
+              <Btn href={appUrl('/explore')} size="lg" variant="ghost">Explore your area</Btn>
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@ export function Footer() {
             <p className="mt-5 flex items-start gap-2 rounded-2xl bg-white/5 p-3 text-[13px] text-white/80"><Icon name="alert" size={16} className="mt-0.5 shrink-0 text-sun" />Not for emergencies. If a life is in danger, call 112 first.</p>
           </div>
           <FooterCol title="Explore" links={[{ href: '/', label: 'Home' }, ...NAV]} />
-          <FooterCol title="Use NaijaWorks" links={[{ href: `${APP_URL}/report`, label: 'Report an issue' }, { href: `${APP_URL}/explore`, label: 'Issue map' }, { href: `${APP_URL}/data`, label: 'Open data' }, { href: `${APP_URL}/gov`, label: 'Government sign in' }]} />
+          <FooterCol title="Use NaijaWorks" links={[{ href: appUrl('/report'), label: 'Report an issue' }, { href: appUrl('/explore'), label: 'Issue map' }, { href: appUrl('/data'), label: 'Open data' }, { href: appUrl('/gov'), label: 'Government sign in' }]} />
           <FooterCol title="Trust" links={[{ href: '/how-it-works#statuses', label: 'What each status means' }, { href: '/how-it-works#privacy', label: 'Privacy & safety' }, { href: '/impact#limits', label: 'About our data' }, { href: '/#faq', label: 'FAQ' }]} />
         </div>
         <div className="mt-14 flex flex-col justify-between gap-3 border-t border-white/10 pt-6 text-[13px] sm:flex-row">

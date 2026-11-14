@@ -5,7 +5,7 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode 
 import { Icon } from './Icon';
 import { Scene } from './Scene';
 import { Btn, Wordmark, cx } from './ui';
-import { APP_URL, HERO, JOURNEY, LEVELS, NAV, ROUTES, type Lang } from '@/content/site';
+import { appUrl, HERO, JOURNEY, LEVELS, NAV, ROUTES, type Lang } from '@/content/site';
 
 /* ---------------- Language (English / Naija Pidgin) ---------------- */
 const LangCtx = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({ lang: 'en', setLang: () => {} });
@@ -76,7 +76,7 @@ export function Header() {
         </nav>
         <div className="ml-auto hidden items-center gap-3 sm:flex">
           <LangToggle dark={onDark} />
-          <Btn href={`${APP_URL}/report`} variant="sun" icon="plus">Report an issue</Btn>
+          <Btn href={appUrl('/report')} variant="sun" icon="plus">Report an issue</Btn>
         </div>
         <button className={cx('ml-auto grid h-11 w-11 place-items-center rounded-xl xl:hidden sm:ml-0', onDark ? 'text-white hover:bg-white/10' : 'text-forest hover:bg-forest/5')}
           onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Close menu' : 'Open menu'}>
@@ -90,7 +90,7 @@ export function Header() {
               <Link key={n.href} href={n.href} className="flex items-center justify-between border-b border-line py-4 text-lg font-semibold text-forest">{n.label}<Icon name="chevronR" size={18} /></Link>
             ))}
           </nav>
-          <div className="mt-5 flex items-center justify-between gap-3"><LangToggle /><Btn href={`${APP_URL}/report`} variant="sun" icon="plus">Report an issue</Btn></div>
+          <div className="mt-5 flex items-center justify-between gap-3"><LangToggle /><Btn href={appUrl('/report')} variant="sun" icon="plus">Report an issue</Btn></div>
         </div>
       )}
     </header>

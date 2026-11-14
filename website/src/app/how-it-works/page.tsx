@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Icon } from '@/components/Icon';
 import { CtaBand } from '@/components/sections';
 import { Btn, Container, IconTile, PageHero, SectionHead, cx } from '@/components/ui';
-import { APP_URL, GROUP_COLOR, JOURNEY, PRINCIPLES, STATUSES } from '@/content/site';
+import { appUrl, GROUP_COLOR, JOURNEY, PRINCIPLES, STATUSES } from '@/content/site';
 
 export const metadata: Metadata = { title: 'How it works', description: 'From a photo of a pothole to a confirmed repair: every step of a NaijaWorks report.' };
 
@@ -18,7 +18,7 @@ export default function HowItWorks() {
     <>
       <PageHero icon="layers" eyebrow="How it works" title={<>From &ldquo;see am&rdquo; to <span className="text-sun">&ldquo;e don fix&rdquo;</span>.</>}
         body="Every report has a visible journey, like tracking a parcel. Here is what happens after you tap Submit, who is responsible at each step, and what comes next.">
-        <Btn href={`${APP_URL}/report`} variant="sun" size="lg" icon="arrowR">Report an issue</Btn>
+        <Btn href={appUrl('/report')} variant="sun" size="lg" icon="arrowR">Report an issue</Btn>
         <Btn href="#statuses" variant="outline-light" size="lg">What each status means</Btn>
       </PageHero>
 

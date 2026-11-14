@@ -2,17 +2,21 @@
 
 The public marketing site for NaijaWorks: what it is, how a report travels from photo to confirmed fix, who handles what in Nigerian government, community impact, and what the platform offers government teams.
 
-It is a separate Next.js app from the product in `../src`, so the two can ship independently. It has no `node_modules` of its own and resolves packages from the parent folder.
+It is a separate Next.js app from the product in `../src`, with its own `package.json`, so it can be built and deployed on its own.
 
 ## Run
 
-From the repository root:
-
 ```bash
-node node_modules/next/dist/bin/next dev website -p 3001
+cd website && npm install && npm run dev
 ```
 
-Then open http://localhost:3001. Calls to action ("Report an issue", "Try the portal demo") link to the app, set with `NEXT_PUBLIC_APP_URL` (default `http://localhost:3000`).
+Then open http://localhost:3001.
+
+## Deploy (Vercel)
+
+Import the GitHub repo into Vercel and set **Root Directory** to `website`. Vercel detects Next.js; no other settings are needed.
+
+Buttons that open the app ("Report an issue", "Try the portal demo") go to `/launching` until the app is live. When it is, set the environment variable `NEXT_PUBLIC_APP_URL` (for example `https://app.naijaworks.ng`) in Vercel and redeploy.
 
 ## Pages
 
@@ -23,6 +27,7 @@ Then open http://localhost:3001. Calls to action ("Report an issue", "Try the po
 | `/who-handles-what` | Federal, state, LGA and utility responsibilities, interactive explainer, transparent transfers, stalled projects, electricity routing |
 | `/impact` | Impact counters, before/after gallery, transparency funnel, community score with its caveat, honest data limitations |
 | `/for-government` | Portal preview, workflow, features, field apps, rejection reasons, audit log |
+| `/launching` | "The app is launching soon" page that app buttons use until `NEXT_PUBLIC_APP_URL` is set |
 
 ## Structure
 

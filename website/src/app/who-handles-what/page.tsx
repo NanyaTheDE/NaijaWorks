@@ -3,7 +3,7 @@ import { Icon } from '@/components/Icon';
 import { RouteExplainer } from '@/components/client';
 import { CtaBand } from '@/components/sections';
 import { Btn, Container, PageHero, SectionHead, cx } from '@/components/ui';
-import { APP_URL, LEVELS } from '@/content/site';
+import { appUrl, LEVELS } from '@/content/site';
 
 export const metadata: Metadata = { title: 'Who handles what', description: 'Federal, state, Local Government and utilities: who usually fixes what in Nigeria, explained simply.' };
 
@@ -78,7 +78,7 @@ export default function WhoHandlesWhat() {
               <span className="grid h-12 w-12 place-items-center rounded-2xl bg-sun text-forest"><Icon name="crane" size={24} /></span>
               <h3 className="mt-5 text-2xl font-extrabold">Abandoned or stalled project?</h3>
               <p className="mt-2 text-[16px] leading-relaxed text-white/75">There is a special report type for public projects that have stopped: how long work appears paused, its condition now, and how it affects your community.</p>
-              <div className="mt-6"><Btn href={`${APP_URL}/report`} variant="sun" icon="arrowR">Report a stalled project</Btn></div>
+              <div className="mt-6"><Btn href={appUrl('/report')} variant="sun" icon="arrowR">Report a stalled project</Btn></div>
             </div>
             <div className="rounded-[32px] bg-clay-soft p-7 sm:p-9" data-reveal>
               <span className="grid h-12 w-12 place-items-center rounded-2xl bg-clay text-white"><Icon name="bolt" size={24} /></span>

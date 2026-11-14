@@ -2,7 +2,10 @@
 // NaijaWorks public-data API can replace this file without touching the UI.
 // Names, streets and figures are fictional illustrations.
 
-export const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+/** Where the NaijaWorks app lives. Set NEXT_PUBLIC_APP_URL once the app is deployed;
+ *  until then, app links go to the on-site "launching soon" page. */
+export const APP_URL = (process.env.NEXT_PUBLIC_APP_URL ?? '').replace(/\/$/, '');
+export const appUrl = (path: string) => (APP_URL ? `${APP_URL}${path}` : `/launching?to=${encodeURIComponent(path)}`);
 
 export type Lang = 'en' | 'pcm';
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Icon } from '@/components/Icon';
 import { CtaBand, GovPreview } from '@/components/sections';
 import { Btn, Container, IconTile, PageHero, SectionHead, cx } from '@/components/ui';
-import { APP_URL, GOV_FEATURES } from '@/content/site';
+import { appUrl, GOV_FEATURES } from '@/content/site';
 
 export const metadata: Metadata = { title: 'For government', description: 'Triage, inspections, work orders and analytics for LGAs, state agencies, federal bodies and utilities.' };
 
@@ -29,8 +29,8 @@ export default function ForGovernment() {
     <>
       <PageHero icon="building" eyebrow="For LGAs, state agencies, federal bodies & utilities" title={<>Run the work. <span className="text-sun">Show the work.</span></>}
         body="NaijaWorks gives public works teams a practical system for triage, inspection, scheduling and repair, and turns every action into a clear public update automatically.">
-        <Btn href={`${APP_URL}/gov`} variant="sun" size="lg" icon="arrowR">Try the portal demo</Btn>
-        <Btn href={`${APP_URL}/inspector`} variant="outline-light" size="lg">Inspector app demo</Btn>
+        <Btn href={appUrl('/gov')} variant="sun" size="lg" icon="arrowR">Try the portal demo</Btn>
+        <Btn href={appUrl('/inspector')} variant="outline-light" size="lg">Inspector app demo</Btn>
       </PageHero>
 
       <section className="relative -mt-10 pb-20 sm:pb-28">
@@ -141,7 +141,7 @@ export default function ForGovernment() {
               <h2 className="text-2xl font-extrabold text-forest sm:text-3xl">Ready to onboard your agency?</h2>
               <p className="mt-2 max-w-2xl text-[16px] text-ink-2">We set up jurisdictions, departments, routing rules and accounts for LGAs, state ministries, federal agencies, utilities and contractors. Integrations with your existing systems come through open APIs.</p>
             </div>
-            <Btn href={`${APP_URL}/gov`} size="lg" icon="arrowR">See the portal</Btn>
+            <Btn href={appUrl('/gov')} size="lg" icon="arrowR">See the portal</Btn>
           </div>
         </Container>
       </section>

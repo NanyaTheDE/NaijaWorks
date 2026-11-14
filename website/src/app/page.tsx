@@ -3,7 +3,7 @@ import { Icon } from '@/components/Icon';
 import { CountUp, HeroCopy, RouteExplainer, TrackerDemo } from '@/components/client';
 import { CategoryMarquee, CtaBand, GovPreview, StoryCard } from '@/components/sections';
 import { Btn, Container, IconTile, SectionHead, cx } from '@/components/ui';
-import { ACCESS, APP_URL, BADGES, FAQ, FOUR_QUESTIONS, QUOTES, STATS, STORIES } from '@/content/site';
+import { ACCESS, appUrl, BADGES, FAQ, FOUR_QUESTIONS, QUOTES, STATS, STORIES } from '@/content/site';
 
 const TONE: Record<string, { bg: string; fg: string; ring: string }> = {
   sun: { bg: 'bg-sun', fg: 'text-forest', ring: 'bg-white/40' },
@@ -24,7 +24,7 @@ export default function Home() {
           <div>
             <HeroCopy />
             <div className="mt-9 flex flex-wrap gap-3">
-              <Btn href={`${APP_URL}/report`} size="lg" icon="arrowR">Report an issue</Btn>
+              <Btn href={appUrl('/report')} size="lg" icon="arrowR">Report an issue</Btn>
               <Btn href="/how-it-works" size="lg" variant="ghost">See how it works</Btn>
             </div>
             <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-medium text-ink-2">
@@ -212,7 +212,7 @@ export default function Home() {
         <Container className="relative grid items-center gap-14 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <SectionHead light eyebrow={<><Icon name="building" size={14} />For government teams</>} title="Operational tools, not a complaint inbox." body="Triage, inspections, work orders, contractors and analytics in one place. Every action updates the public timeline automatically, so transparency is built into the work, not extra work." />
-            <div className="mt-8 flex flex-wrap gap-3" data-reveal><Btn href="/for-government" variant="sun" icon="arrowR">Explore the portal</Btn><Btn href={`${APP_URL}/gov`} variant="outline-light">Try the demo</Btn></div>
+            <div className="mt-8 flex flex-wrap gap-3" data-reveal><Btn href="/for-government" variant="sun" icon="arrowR">Explore the portal</Btn><Btn href={appUrl('/gov')} variant="outline-light">Try the demo</Btn></div>
           </div>
           <div data-reveal><GovPreview /></div>
         </Container>

@@ -3,7 +3,7 @@ import { Icon } from '@/components/Icon';
 import { CountUp } from '@/components/client';
 import { CtaBand, StoryCard } from '@/components/sections';
 import { Btn, Container, PageHero, SectionHead } from '@/components/ui';
-import { APP_URL, IMPACT_TILES, STORIES } from '@/content/site';
+import { appUrl, IMPACT_TILES, STORIES } from '@/content/site';
 
 export const metadata: Metadata = { title: 'Impact', description: 'Roads repaired, streetlights restored, drains cleared: see what Nigerian communities have fixed with NaijaWorks.' };
 
@@ -26,7 +26,7 @@ export default function Impact() {
     <>
       <PageHero icon="star" eyebrow="Community impact" title={<>Small reports. <span className="text-sun">Visible change.</span></>}
         body="Every number here started with one person taking a photo. Celebrate the fixes, and see honestly where things are still stuck.">
-        <Btn href={`${APP_URL}/data`} variant="sun" size="lg" icon="arrowR">Open the public data</Btn>
+        <Btn href={appUrl('/data')} variant="sun" size="lg" icon="arrowR">Open the public data</Btn>
       </PageHero>
 
       <section className="py-20 sm:py-24">
