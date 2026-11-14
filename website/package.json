@@ -1,0 +1,12 @@
+{
+  "name": "naijaworks-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Public marketing website for NaijaWorks. Uses the parent folder's node_modules.",
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start -p 3001",
+    "typecheck": "tsc --noEmit"
+  }
+}
