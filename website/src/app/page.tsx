@@ -26,7 +26,7 @@ export default function Home() {
               ))}
             </ul>
           </div>
-          <div className="panel-indigo relative overflow-hidden rounded-[24px] px-4 pb-6 pt-10 sm:px-8 sm:pt-12">
+          <div className="panel-calm relative overflow-hidden rounded-[24px] px-4 pb-6 pt-10 ring-1 ring-[#D3DFD5] sm:px-8 sm:pt-12">
             <span className="absolute right-5 top-5 z-20 hidden rounded-lg bg-paper/95 p-1 sm:block" aria-hidden><span className="stamp stamp-green"><Icon name="shield" size={14} />Verified</span></span>
             <div className="relative mx-auto max-w-[340px]">
               <TrackerDemo />
