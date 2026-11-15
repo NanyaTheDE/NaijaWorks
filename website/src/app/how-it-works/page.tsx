@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { Icon } from '@/components/Icon';
 import { CtaBand } from '@/components/sections';
 import { StatusCards } from '@/components/status-cards';
+import { JourneyTimeline } from '@/components/journey';
 import { Btn, Container, IconTile, PageHero, SectionHead, cx } from '@/components/ui';
-import { appUrl, JOURNEY, PRINCIPLES } from '@/content/site';
+import { appUrl, PRINCIPLES } from '@/content/site';
 
 export const metadata: Metadata = { title: 'How it works', description: 'From a photo of a pothole to a confirmed repair: every step of a NaijaWorks report.' };
 
@@ -25,8 +26,8 @@ export default function HowItWorks() {
 
       {/* Journey timeline */}
       <section className="py-20 sm:py-28">
-        <Container className="grid gap-14 lg:grid-cols-[1fr_1.3fr]">
-          <div className="lg:sticky lg:top-28 lg:self-start">
+        <Container className="grid gap-12 lg:grid-cols-[1fr_1.25fr] lg:gap-16">
+          <div className="lg:sticky lg:top-32 lg:self-start">
             <SectionHead eyebrow={<><Icon name="clock" size={14} />A real-looking timeline</>} title="One pothole, twenty days, total visibility." body="This is what a resolved report on Adeola Street looks like. Each government action adds a dated entry, so you always know what has happened and what should happen next." />
             <div className="mt-8 rounded-[20px] bg-white p-6 shadow-soft ring-1 ring-line" data-reveal>
               <div className="text-[13px] font-semibold text-ink-3">After you submit, you&apos;ll see</div>
@@ -37,26 +38,15 @@ export default function HowItWorks() {
               </dl>
             </div>
           </div>
-          <ol className="relative">
-            <span className="absolute bottom-6 left-[27px] top-6 w-1 rounded-full bg-gradient-to-b from-brand via-sun to-brand" aria-hidden />
-            {JOURNEY.map((j, i) => (
-              <li key={j.key} className="relative flex gap-5 pb-6 last:pb-0" data-reveal style={{ ['--d' as string]: `${i * 60}ms` }}>
-                <span className={cx('relative z-10 grid h-14 w-14 shrink-0 place-items-center rounded-2xl ring-4 ring-paper', i === JOURNEY.length - 1 ? 'bg-brand text-white' : 'bg-white text-ink shadow-soft')}><Icon name={j.icon} size={22} /></span>
-                <div className="flex-1 rounded-[24px] bg-white p-5 ring-1 ring-line">
-                  <div className="flex flex-wrap items-center justify-between gap-2"><h3 className="text-lg font-medium text-ink">{j.label}</h3><span className="rounded-full bg-paper-2 px-3 py-1 text-[13px] font-semibold text-ink-2">{j.date}</span></div>
-                  <p className="mt-1.5 text-[15px] leading-relaxed text-ink-2">{j.text}</p>
-                  <div className="mt-2 text-[13px] font-semibold text-ink-3">{j.who}</div>
-                  {i === 4 && (
-                    <div className="mt-4 rounded-2xl bg-sun-soft p-4 text-[14px] text-[#5C4100]">
-                      <div className="flex items-center gap-2 font-bold"><Icon name="cloudrain" size={16} />Rescheduled</div>
-                      <div className="mt-2 grid grid-cols-2 gap-3"><div><div className="text-[12px] opacity-70">Original date</div><div className="font-semibold line-through">25 Nov</div></div><div><div className="text-[12px] opacity-70">New date</div><div className="font-semibold">30 Nov</div></div></div>
-                      <div className="mt-2">Reason: heavy rainfall made asphalt work unsafe.</div>
-                    </div>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ol>
+          <JourneyTimeline extra={{
+            4: (
+              <div className="mt-5 rounded-2xl bg-sun-soft p-4 text-[14px] text-[#5C4100]">
+                <div className="flex items-center gap-2 font-semibold"><Icon name="cloudrain" size={16} />Rescheduled</div>
+                <div className="mt-2 grid grid-cols-2 gap-3"><div><div className="text-[12px] opacity-70">Original date</div><div className="font-medium line-through">25 Nov</div></div><div><div className="text-[12px] opacity-70">New date</div><div className="font-medium">30 Nov</div></div></div>
+                <div className="mt-2">Reason: heavy rainfall made asphalt work unsafe.</div>
+              </div>
+            ),
+          }} />
         </Container>
       </section>
 
