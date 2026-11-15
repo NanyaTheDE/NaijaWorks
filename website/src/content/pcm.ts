@@ -288,7 +288,6 @@ export const PCM: Record<string, string> = {
   'Inspection used to be paper and memory. Now photos, GPS and time are recorded on site and go straight to the work order.': 'Before, inspection na paper and memory. Now photos, GPS and time dey record for the site and go straight enter the work order.',
   'Community rep, Kaduna North': 'Community rep, Kaduna North',
   'Field inspector, Oyo State': 'Field inspector, Oyo State',
-  'Illustrative quotes for this demo.': 'Example quotes for this demo.',
 
   // ---------- FAQ ----------
   'Questions people ask us.': 'Questions wey people dey ask us.',
@@ -481,7 +480,6 @@ export const PCM: Record<string, string> = {
   'Water issues resolved': 'Water wahala wey dem solve',
   'Dumpsites cleared': 'Dumpsites wey dem clear',
   'Communities reached': 'Communities wey we reach',
-  'Illustrative demo figures, last 12 months.': 'Example demo numbers, last 12 months.',
   'Before → After': 'Before → After',
   'Drag to see the transformation.': 'Drag am to see the change.',
   'Citizen photo on the left, the completion photo from the works team on the right.': 'Citizen photo for left, the finish photo from works team for right.',

@@ -248,7 +248,6 @@ export default function Home() {
               </figure>
             ))}
           </div>
-          <p className="mt-6 text-[13px] text-ink-3">Illustrative quotes for this demo.</p>
         </Container>
       </section>
 

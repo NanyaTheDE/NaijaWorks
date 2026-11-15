@@ -41,7 +41,6 @@ export default function Impact() {
               </div>
             ))}
           </div>
-          <p className="mt-4 text-[13px] text-ink-3">Illustrative demo figures, last 12 months.</p>
         </Container>
       </section>
 
