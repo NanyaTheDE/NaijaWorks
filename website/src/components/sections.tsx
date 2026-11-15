@@ -52,8 +52,8 @@ export function GovPreview() {
           <div className="flex items-center justify-between"><div><div className="text-[11px] text-ink-3">Lagos State Public Works</div><div className="display text-lg font-extrabold text-forest">Good morning, Folake</div></div><span className="rounded-full bg-clay-soft px-2.5 py-1 text-[11px] font-bold text-clay">6 urgent</span></div>
           <div className="mt-4 grid grid-cols-5 gap-1.5">
             {PIPELINE.map((p) => (
-              <div key={p.label} className="rounded-xl bg-paper p-2 sm:p-2.5" style={{ boxShadow: `inset 0 3px 0 ${p.color}` }}>
-                <div className="truncate text-[10px] font-semibold text-ink-3 sm:text-[11px]">{p.label}</div>
+              <div key={p.label} className="tint-card-paper rounded-xl p-2 sm:p-2.5" style={{ ['--tint' as string]: p.color }}>
+                <div className="flex items-center gap-1.5 truncate text-[10px] font-semibold text-ink-3 sm:text-[11px]"><span className="hidden h-1.5 w-1.5 shrink-0 rounded-full sm:inline-block" style={{ background: p.color }} />{p.label}</div>
                 <div className="display text-lg font-extrabold text-forest sm:text-2xl">{p.count}</div>
                 <div className="truncate text-[9px] font-semibold sm:text-[10px]" style={{ color: p.color }}>{p.sub}</div>
               </div>
@@ -118,8 +118,8 @@ export function Footer() {
           <FooterCol title="Trust" links={[{ href: '/how-it-works#statuses', label: 'What each status means' }, { href: '/how-it-works#privacy', label: 'Privacy & safety' }, { href: '/impact#limits', label: 'About our data' }, { href: '/#faq', label: 'FAQ' }]} />
         </div>
         <div className="mt-14 flex flex-col justify-between gap-3 border-t border-white/10 pt-6 text-[13px] sm:flex-row">
-          <span>© 2026 NaijaWorks. Demo website: names, places and figures are illustrative.</span>
-          <span>Made for every LGA, from Lagos to Maiduguri.</span>
+          <span>© 2026 NaijaWorks.</span>
+          <span>Made for every LGA, from Lagos to Enugu.</span>
         </div>
       </Container>
     </footer>

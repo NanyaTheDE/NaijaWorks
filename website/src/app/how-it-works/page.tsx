@@ -85,8 +85,7 @@ export default function HowItWorks() {
             {STATUSES.map((s, i) => {
               const c = GROUP_COLOR[s.group];
               return (
-                <div key={s.name} className="relative overflow-hidden rounded-[24px] bg-white p-5 ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${(i % 3) * 70}ms` }}>
-                  <span className="absolute inset-y-0 left-0 w-1.5" style={{ background: c }} aria-hidden />
+                <div key={s.name} className="tint-card relative overflow-hidden rounded-[24px] p-5 ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${(i % 3) * 70}ms`, ['--tint' as string]: c }}>
                   <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[13px] font-bold" style={{ background: `color-mix(in srgb, ${c} 12%, white)`, color: c }}><span className="h-2 w-2 rounded-full" style={{ background: c }} />{s.name}</span>
                   <p className="mt-3 text-[15px] font-medium text-forest">{s.meaning}</p>
                   <div className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[13px]"><span className="text-ink-3">Who</span><span className="text-ink-2">{s.who}</span><span className="text-ink-3">Next</span><span className="text-ink-2">{s.next}</span></div>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Header, LangProvider, RevealObserver } from '@/components/client';
+import { Header, LangProvider, RevealObserver, Translator } from '@/components/client';
 import { Footer } from '@/components/sections';
 import './globals.css';
 
@@ -27,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main id="main">{children}</main>
           <Footer />
           <RevealObserver />
+          <Translator />
         </LangProvider>
       </body>
     </html>

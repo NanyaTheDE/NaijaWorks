@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode 
 import { Icon } from './Icon';
 import { Scene } from './Scene';
 import { Btn, Wordmark, cx } from './ui';
+import { PCM, PCM_PATTERNS } from '@/content/pcm';
 import { appUrl, HERO, JOURNEY, LEVELS, NAV, ROUTES, type Lang } from '@/content/site';
 
 /* ---------------- Language (English / Naija Pidgin) ---------------- */
@@ -51,6 +52,71 @@ export function HeroCopy() {
       <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink-2 sm:text-xl">{h.body}</p>
     </div>
   );
+}
+
+/* ---------------- Translator ----------------
+   Swaps page text to the selected language using the dictionaries in content/.
+   It only changes text values (never adds or removes nodes), remembers each original,
+   and re-applies itself when React renders new or changed text. */
+const textSrc = new WeakMap<Text, string>();
+const textSet = new WeakMap<Text, string>();
+const attrSrc = new WeakMap<Element, string>();
+const attrSet = new WeakMap<Element, string>();
+const SKIP = 'script,style,noscript,[data-no-translate]';
+
+function lookup(dict: Record<string, string> | null, s: string): string {
+  if (!dict) return s;
+  const key = s.replace(/\s+/g, ' ').trim();
+  if (!key) return s;
+  let v: string | undefined = dict[key];
+  if (v === undefined) for (const [re, rep] of PCM_PATTERNS) if (re.test(key)) { v = key.replace(re, rep); break; }
+  if (v === undefined) return s;
+  return (s.match(/^\s*/)?.[0] ?? '') + v + (s.match(/\s*$/)?.[0] ?? '');
+}
+
+export function Translator() {
+  const { lang } = useLang();
+  useEffect(() => {
+    document.documentElement.lang = lang === 'pcm' ? 'pcm' : 'en-NG';
+    const dict = lang === 'pcm' ? PCM : null;
+    const doText = (n: Text) => {
+      if (n.parentElement?.closest(SKIP)) return;
+      const cur = n.nodeValue ?? '';
+      // If the value isn't the one we wrote, React (or the page) set new source text.
+      const src = textSet.get(n) === cur && textSrc.has(n) ? textSrc.get(n)! : cur;
+      textSrc.set(n, src);
+      const next = lookup(dict, src);
+      if (next !== cur) n.nodeValue = next;
+      textSet.set(n, next);
+    };
+    const doAttr = (el: Element) => {
+      const cur = el.getAttribute('aria-label'); if (cur === null || el.closest(SKIP)) return;
+      const src = attrSet.get(el) === cur && attrSrc.has(el) ? attrSrc.get(el)! : cur;
+      attrSrc.set(el, src);
+      const next = lookup(dict, src);
+      if (next !== cur) el.setAttribute('aria-label', next);
+      attrSet.set(el, next);
+    };
+    const walk = (root: Node) => {
+      if (root.nodeType === Node.TEXT_NODE) return doText(root as Text);
+      if (root.nodeType !== Node.ELEMENT_NODE) return;
+      const el = root as Element;
+      doAttr(el); el.querySelectorAll('[aria-label]').forEach(doAttr);
+      const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      let t: Node | null; while ((t = w.nextNode())) doText(t as Text);
+    };
+    walk(document.body);
+    const mo = new MutationObserver((records) => {
+      for (const r of records) {
+        if (r.type === 'characterData') doText(r.target as Text);
+        else if (r.type === 'attributes') doAttr(r.target as Element);
+        else r.addedNodes.forEach(walk);
+      }
+    });
+    mo.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['aria-label'] });
+    return () => mo.disconnect();
+  }, [lang]);
+  return null;
 }
 
 /* ---------------- Header ---------------- */
@@ -296,9 +362,11 @@ export function RouteExplainer({ compact = false }: { compact?: boolean }) {
           </button>
         ))}
       </div>
-      <div key={i} className="pop-in relative overflow-hidden rounded-[28px] bg-white p-6 shadow-soft ring-1 ring-line sm:p-8" aria-live="polite">
-        <div className="absolute right-0 top-0 h-full w-2" style={{ background: level.color }} aria-hidden />
-        <div className="text-[13px] font-semibold text-ink-3">Usually handled by</div>
+      <div key={i} className="tint-card pop-in relative overflow-hidden rounded-[28px] p-6 shadow-soft ring-1 ring-line sm:p-8" style={{ ['--tint' as string]: level.color }} aria-live="polite">
+        <div className="flex items-center justify-between gap-3">
+          <div className="text-[13px] font-semibold text-ink-3">Usually handled by</div>
+          <span className="rounded-full px-3 py-1 text-[12px] font-bold" style={{ background: `color-mix(in srgb, ${level.color} 14%, white)`, color: level.color }}>{level.name} level</span>
+        </div>
         <div className="mt-2 flex items-center gap-3">
           <span className="grid h-12 w-12 place-items-center rounded-2xl text-white" style={{ background: level.color }}><Icon name={level.icon} size={22} /></span>
           <div><div className="display text-2xl font-extrabold text-forest">{level.name}</div><div className="text-[14px] text-ink-2">e.g. {r.example}</div></div>

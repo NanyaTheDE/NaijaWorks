@@ -61,6 +61,13 @@ h1, h2, h3, h4, .display { font-family: var(--font-display); letter-spacing: -0.
 .pop-in { animation: pop-in .45s cubic-bezier(.2,.7,.2,1) both; }
 .confetti-bit { position: absolute; top: 0; width: 8px; height: 12px; border-radius: 2px; animation: confetti-fall 1.6s cubic-bezier(.2,.6,.4,1) forwards; }
 
+/* Accent card: a soft wash of the card's colour (--tint) from the top-right corner.
+   Used instead of edge stripes so coloured cards look the same everywhere. */
+.tint-card { background:
+  radial-gradient(130% 90% at 100% 0%, color-mix(in srgb, var(--tint, #0B7A4B) 13%, white) 0%, color-mix(in srgb, var(--tint, #0B7A4B) 4%, white) 45%, #fff 75%); }
+.tint-card-paper { background:
+  radial-gradient(140% 100% at 100% 0%, color-mix(in srgb, var(--tint, #0B7A4B) 16%, var(--color-paper)) 0%, var(--color-paper) 70%); }
+
 /* Realistic phone frame: brushed-titanium band and side buttons */
 .phone-band { background: linear-gradient(145deg, #D9D6CF 0%, #8F8B84 18%, #C9C5BD 34%, #77736C 52%, #BEBAB2 70%, #6E6A64 86%, #CFCBC3 100%);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / .35), inset 0 0 2px 1px rgb(0 0 0 / .35), 0 30px 70px -18px rgb(6 61 39 / .45), 0 8px 18px -6px rgb(0 0 0 / .25); }
