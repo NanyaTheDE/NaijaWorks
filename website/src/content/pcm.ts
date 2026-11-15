@@ -621,6 +621,9 @@ export const PCM: Record<string, string> = {
   'Drag to compare before and after': 'Drag am to compare before and after',
   'Preview of the government dashboard': 'Preview of government dashboard',
   'Example triage queue': 'Example triage line',
+  'Previous statuses': 'Statuses wey don pass',
+  'More statuses': 'More statuses',
+  'Report statuses': 'Report statuses',
 };
 
 /** Text that changes with data (dates, counts) is matched by pattern. */

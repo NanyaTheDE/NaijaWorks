@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { Icon } from '@/components/Icon';
 import { CtaBand } from '@/components/sections';
+import { StatusCards } from '@/components/status-cards';
 import { Btn, Container, IconTile, PageHero, SectionHead, cx } from '@/components/ui';
-import { appUrl, GROUP_COLOR, JOURNEY, PRINCIPLES, STATUSES } from '@/content/site';
+import { appUrl, JOURNEY, PRINCIPLES } from '@/content/site';
 
 export const metadata: Metadata = { title: 'How it works', description: 'From a photo of a pothole to a confirmed repair: every step of a NaijaWorks report.' };
 
@@ -81,18 +82,7 @@ export default function HowItWorks() {
       <section id="statuses" className="scroll-mt-24 py-20 sm:py-28">
         <Container>
           <SectionHead eyebrow={<><Icon name="info" size={14} />No vague &ldquo;Pending&rdquo;</>} title="Every status says what it means and what's next." body="Statuses are colour-coded, but always come with an icon and words, so they work for everyone." />
-          <div className="mt-12 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-            {STATUSES.map((s, i) => {
-              const c = GROUP_COLOR[s.group];
-              return (
-                <div key={s.name} className="tint-card relative overflow-hidden rounded-[24px] p-5 ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${(i % 3) * 70}ms`, ['--tint' as string]: c }}>
-                  <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[13px] font-bold" style={{ background: `color-mix(in srgb, ${c} 12%, white)`, color: c }}><span className="h-2 w-2 rounded-full" style={{ background: c }} />{s.name}</span>
-                  <p className="mt-3 text-[15px] font-medium text-ink">{s.meaning}</p>
-                  <div className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[13px]"><span className="text-ink-3">Who</span><span className="text-ink-2">{s.who}</span><span className="text-ink-3">Next</span><span className="text-ink-2">{s.next}</span></div>
-                </div>
-              );
-            })}
-          </div>
+          <div className="mt-10"><StatusCards /></div>
         </Container>
       </section>
 
