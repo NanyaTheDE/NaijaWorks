@@ -66,7 +66,7 @@ function Art({ i }: { i: number }) {
       return (
         <div className="relative flex h-[88px] w-[150px] items-center">
           <span className="absolute left-2 top-3 h-16 w-16 rounded-full bg-brand-soft" aria-hidden />
-          <span className="relative ml-6 rounded-lg bg-white p-1 shadow-sm"><span className="stamp !text-[15px]"><Icon name="check" size={16} />Fixed</span></span>
+          <span className="relative ml-6"><span className="stamp !text-[15px]"><Icon name="check" size={16} />Fixed</span></span>
         </div>
       );
   }

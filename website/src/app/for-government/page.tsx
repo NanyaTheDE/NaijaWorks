@@ -34,7 +34,7 @@ export default function ForGovernment() {
       </PageHero>
 
       <section className="relative -mt-10 pb-20 sm:pb-28">
-        <Container><div className="mx-auto max-w-5xl" data-reveal><GovPreview /></div></Container>
+        <Container><div className="panel-calm mx-auto rounded-[24px] p-4 ring-1 ring-[#D3DFD5] sm:p-10" data-reveal><div className="mx-auto max-w-5xl"><GovPreview /></div></div></Container>
       </section>
 
       <section className="pb-20 sm:pb-28">
@@ -60,8 +60,8 @@ export default function ForGovernment() {
               const color = ['#0B7A4B', '#8B5CF6', '#C77700', '#0284C7', '#4F46E5', '#D9481F'][i];
               const lead = i === 0;
               return (
-                <div key={f.title} className={cx('rounded-[20px] p-6 ring-1 sm:p-7', lead ? 'grid items-end gap-6 bg-forest text-white ring-forest md:col-span-2 md:grid-cols-[1fr_1.2fr] lg:row-span-2' : 'bg-white ring-line', i === GOV_FEATURES.length - 1 && 'md:col-span-2 lg:col-span-1')} data-reveal style={{ ['--d' as string]: `${(i % 3) * 80}ms` }}>
-                  <div>
+                <div key={f.title} className={cx('lift rounded-[20px] p-6 ring-1 sm:p-7', lead ? 'grid min-w-0 grid-cols-1 items-end gap-6 bg-forest text-white ring-forest md:col-span-2 md:grid-cols-[1fr_1.2fr] lg:row-span-2' : 'bg-white ring-line', i === GOV_FEATURES.length - 1 && 'md:col-span-2 lg:col-span-1')} data-reveal style={{ ['--d' as string]: `${(i % 3) * 80}ms` }}>
+                  <div className="min-w-0">
                     {lead ? <span className="grid h-[52px] w-[52px] place-items-center rounded-2xl bg-sun text-ink"><Icon name={f.icon} size={24} /></span> : <IconTile name={f.icon} color={color} size={52} />}
                     <h3 className={cx('mt-5 font-bold', lead ? 'text-2xl' : 'text-xl text-ink')}>{f.title}</h3>
                     <p className={cx('mt-2 text-[15px] leading-relaxed', lead ? 'text-white/70' : 'text-ink-2')}>{f.body}</p>
@@ -159,7 +159,7 @@ function TriageMock() {
     { icon: 'road', title: 'Faded zebra crossing, Adeniran Ogunsanya', meta: '200 confirmations · low risk', badge: 'Normal', tone: 'bg-white/15 text-white' },
   ];
   return (
-    <div className="rounded-[22px] bg-white/[.06] p-3 ring-1 ring-white/10" aria-label="Example triage queue" role="img">
+    <div className="min-w-0 rounded-[22px] bg-white/[.06] p-3 ring-1 ring-white/10" aria-label="Example triage queue" role="img">
       <div className="flex items-center justify-between px-2 pb-2 text-[12px] font-semibold text-white/60"><span>Triage queue · sorted by risk &amp; impact</span><span>4 of 42</span></div>
       <ul className="space-y-1.5">
         {rows.map((r) => (

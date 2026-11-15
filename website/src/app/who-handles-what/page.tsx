@@ -26,7 +26,7 @@ export default function WhoHandlesWhat() {
           <SectionHead eyebrow={<><Icon name="layers" size={14} />The four layers</>} title="Closest to furthest." body="Generally, the bigger and busier the infrastructure, the higher the level of government that owns it. There are local exceptions, which is why NaijaWorks checks each location." />
           <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {[...LEVELS].reverse().map((l, i) => (
-              <div key={l.key} className="group flex flex-col overflow-hidden rounded-[20px] bg-white ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
+              <div key={l.key} className="lift group flex flex-col overflow-hidden rounded-[20px] bg-white ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
                 <div className="tint-card relative border-b border-line p-6" style={{ ['--tint' as string]: l.color }}>
                   <span className="grid h-11 w-11 place-items-center rounded-xl text-white transition-transform duration-300 group-hover:rotate-[-8deg]" style={{ background: l.color }}><Icon name={l.icon} size={22} /></span>
                   <h3 className="mt-5 text-[26px] font-medium text-ink">{l.name}</h3>

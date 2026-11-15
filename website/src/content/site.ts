@@ -140,6 +140,15 @@ export const PIPELINE = [
   { label: 'Done', count: 214, sub: 'this month', color: '#15803D' },
 ] as const;
 
+/** Government dashboard preview: reports received per day over the last two weeks. */
+export const DASH_TREND = [9, 12, 10, 14, 11, 18, 15, 13, 19, 16, 22, 17, 21, 24];
+export const DASH_RECENT = [
+  { report: 'Open manhole', place: 'Bode Thomas St.', team: 'Surulere LGA Works', status: 'Urgent', tone: 'clay', when: '12 min ago' },
+  { report: 'Blocked drain', place: 'Ogunlana Dr.', team: 'State Drainage Services', status: 'Inspection', tone: 'violet', when: '1 h ago' },
+  { report: 'Streetlights out', place: 'Allen Ave.', team: 'Lagos State Electricity Board', status: 'Work', tone: 'sun', when: '3 h ago' },
+  { report: 'Pothole', place: 'Adeola St.', team: 'Lagos State Public Works', status: 'Done', tone: 'brand', when: 'Yesterday' },
+] as const;
+
 export const BY_CATEGORY = [
   { label: 'Roads', value: 128 }, { label: 'Drainage', value: 94 }, { label: 'Streetlights', value: 71 }, { label: 'Waste', value: 56 }, { label: 'Water', value: 38 }, { label: 'Other', value: 21 },
 ];

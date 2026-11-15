@@ -33,7 +33,7 @@ export default function Impact() {
         <Container>
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
             {IMPACT_TILES.map((t, i) => (
-              <div key={t.label} className="group relative overflow-hidden rounded-[20px] bg-white p-6 ring-1 ring-line sm:p-8" data-reveal style={{ ['--d' as string]: `${(i % 3) * 80}ms` }}>
+              <div key={t.label} className="lift group relative overflow-hidden rounded-[20px] bg-white p-6 ring-1 ring-line sm:p-8" data-reveal style={{ ['--d' as string]: `${(i % 3) * 80}ms` }}>
                 <span className="absolute -right-6 -top-6 h-28 w-28 rounded-full opacity-10 transition-transform duration-500 group-hover:scale-125" style={{ background: t.tone }} aria-hidden />
                 <span className="grid h-12 w-12 place-items-center rounded-2xl text-white" style={{ background: t.tone }}><Icon name={t.icon} size={22} /></span>
                 <div className="display mt-6 text-4xl font-medium text-ink sm:text-5xl"><CountUp value={t.value} /></div>

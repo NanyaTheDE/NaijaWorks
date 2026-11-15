@@ -41,7 +41,7 @@ export function HeroCopy() {
         <span className="relative grid h-6 w-6 place-items-center rounded-full bg-sun-soft"><span className="h-2 w-2 rounded-full bg-sun" /><span className="pulse absolute inset-0 rounded-full" /></span>
         {h.kicker}
       </div>
-      <h1 className="mt-7 text-[52px] leading-[1] text-ink sm:text-[68px] lg:text-[76px]">
+      <h1 className="rise mt-7 text-[52px] leading-[1] text-ink sm:text-[68px] lg:text-[76px]">
         <span className="block">{h.title[0]}</span>
         <span className="block"><span className="doodle relative z-0">{h.title[1]}</span></span>
         <em className="block">{h.title[2]}</em>
@@ -136,7 +136,7 @@ export function Header() {
         <nav aria-label="Main" className="ml-4 hidden items-center gap-1 xl:flex">
           {NAV.map((n) => (
             <Link key={n.href} href={n.href} aria-current={path === n.href ? 'page' : undefined}
-              className={cx('whitespace-nowrap rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors', path === n.href ? 'text-ink' : 'text-ink-2 hover:text-ink')}>
+              className={cx('nav-link whitespace-nowrap rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors', path === n.href ? 'text-ink' : 'text-ink-2 hover:text-ink')}>
               {n.label}
             </Link>
           ))}
@@ -169,7 +169,7 @@ export function RevealObserver() {
   const path = usePathname();
   useEffect(() => {
     document.documentElement.classList.add('js');
-    const pending = () => document.querySelectorAll<HTMLElement>('[data-reveal]:not(.in)');
+    const pending = () => document.querySelectorAll<HTMLElement>('[data-reveal]:not(.in), .stamp:not(.in)');
     if (!('IntersectionObserver' in window)) { pending().forEach((e) => e.classList.add('in')); return; }
     const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
     const watch = () => pending().forEach((e) => io.observe(e));
@@ -359,7 +359,7 @@ export function RouteExplainer({ compact = false }: { compact?: boolean }) {
         {ROUTES.map((x, k) => (
           <button key={x.label} role="radio" aria-checked={k === i} onClick={() => setI(k)}
             className={cx('group flex w-full items-center gap-3 border-b border-line py-3.5 text-left text-[16px] font-medium transition-colors', k === i ? 'text-ink' : 'text-ink-3 hover:text-ink')}>
-            <span className={cx('grid h-8 w-8 place-items-center rounded-lg transition-colors', k === i ? 'bg-forest text-white' : 'bg-paper-2 text-ink-2 group-hover:text-ink')}><Icon name={x.icon} size={16} /></span>
+            <span className={cx('grid h-8 w-8 place-items-center rounded-xl transition-colors', k === i ? 'bg-forest text-white' : 'bg-paper-2 text-ink-2 group-hover:text-ink')}><Icon name={x.icon} size={16} /></span>
             <span className="flex-1">{x.label}</span>
             <Icon name="arrowR" size={16} className={cx('transition-all', k === i ? 'translate-x-0 opacity-100' : '-translate-x-1 opacity-0 group-hover:opacity-60')} />
           </button>

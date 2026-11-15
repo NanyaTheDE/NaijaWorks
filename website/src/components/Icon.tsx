@@ -41,7 +41,7 @@ export const ICON_PATHS: Record<string, string> = {
   park: '<circle cx="12" cy="9" r="5"/><path d="M12 14v7M8 21h8"/>',
   crane: '<path d="M6 21V4l14 3M6 4 3 7M6 8h12M18 8v5M16 13h4v3h-4zM3 21h8"/>',
   dots: '<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>',
-  alert: '<path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17.2v.1"/>',
+  alert: '<path d="M10.3 4.3 2.7 17.4a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3L13.7 4.3a2 2 0 0 0-3.4 0Z"/><path d="M12 10v3.5M12 16.8v.1"/>',
   info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.8v.1"/>',
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   heart: '<path d="M12 20s-8-4.6-8-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5C20 15.4 12 20 12 20Z"/>',
@@ -73,7 +73,7 @@ export const ICON_PATHS: Record<string, string> = {
 
 export function Icon({ name, size = 20, className = '' }: { name: string; size?: number; className?: string }) {
   return (
-    <svg className={`ic ${className}`} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75}
+    <svg className={`ic ${className}`} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}
       strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" dangerouslySetInnerHTML={{ __html: ICON_PATHS[name] ?? ICON_PATHS.dots }} />
   );
 }

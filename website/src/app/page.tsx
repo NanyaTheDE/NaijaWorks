@@ -27,7 +27,7 @@ export default function Home() {
             </ul>
           </div>
           <div className="panel-calm relative overflow-hidden rounded-[24px] px-4 pb-6 pt-10 ring-1 ring-[#D3DFD5] sm:px-8 sm:pt-12">
-            <span className="absolute right-5 top-5 z-20 hidden rounded-lg bg-paper/95 p-1 sm:block" aria-hidden><span className="stamp stamp-green"><Icon name="shield" size={14} />Verified</span></span>
+            <span className="absolute right-6 top-6 z-20 hidden sm:block" aria-hidden><span className="stamp stamp-green"><Icon name="shield" size={14} />Verified</span></span>
             <div className="relative mx-auto max-w-[340px]">
               <TrackerDemo />
               <FloatSticker className="-left-3 top-24 sm:-left-16" r="-5deg" delay="0s" icon="users" title="+23 neighbours" sub="confirmed this issue" />
@@ -75,9 +75,9 @@ export default function Home() {
           </div>
           <div className="mt-12 grid border-t border-line md:grid-cols-2">
             {FOUR_QUESTIONS.map((f, i) => (
-              <div key={f.q} className={cx('border-b border-line py-7 md:px-8', i % 2 === 0 ? 'md:pl-0' : 'md:border-l', 'border-line')} data-reveal style={{ ['--d' as string]: `${i * 70}ms` }}>
+              <div key={f.q} className={cx('wiggle-host border-b border-line py-7 md:px-8', i % 2 === 0 ? 'md:pl-0' : 'md:border-l', 'border-line')} data-reveal style={{ ['--d' as string]: `${i * 70}ms` }}>
                 <div className="flex items-center gap-3">
-                  <span className="grid h-8 w-8 place-items-center rounded-lg" style={{ background: `color-mix(in srgb, ${Q_COLOR[f.tone]} 12%, white)`, color: Q_COLOR[f.tone] }}><Icon name={f.icon} size={16} /></span>
+                  <span className="grid h-8 w-8 place-items-center rounded-xl" style={{ background: `color-mix(in srgb, ${Q_COLOR[f.tone]} 12%, white)`, color: Q_COLOR[f.tone] }}><Icon name={f.icon} size={16} /></span>
                   <h3 className="text-[20px] font-medium text-ink">{f.q}</h3>
                 </div>
                 <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink-2">{f.a}</p>
@@ -105,7 +105,7 @@ export default function Home() {
       <FeatureRow n="02" icon="building" title="We find who fixes it" body="Our routing engine checks the category, location, road ownership and service areas, then sends it to the right LGA, state agency, federal body or utility." sky="panel-green" flip>
         <div className="w-full max-w-[360px] space-y-2 text-[13px]">
           <div className="glass flex items-center gap-3 rounded-2xl p-3.5 text-ink-3"><Icon name="building" size={18} /><div className="min-w-0"><div className="font-medium line-through">Surulere LGA</div><div className="text-[11px]">Checked</div></div></div>
-          <div className="glass flex items-center gap-3 rounded-2xl p-3.5 text-ink"><span className="grid h-8 w-8 place-items-center rounded-lg bg-forest text-white"><Icon name="building" size={16} /></span><div className="min-w-0"><div className="font-semibold">Lagos State Public Works</div><div className="text-[11px] text-ink-2">Assigned · road is state-managed</div></div><Icon name="check" size={18} className="ml-auto text-brand" /></div>
+          <div className="glass flex items-center gap-3 rounded-2xl p-3.5 text-ink"><span className="grid h-8 w-8 place-items-center rounded-xl bg-forest text-white"><Icon name="building" size={16} /></span><div className="min-w-0"><div className="font-semibold">Lagos State Public Works</div><div className="text-[11px] text-ink-2">Assigned · road is state-managed</div></div><Icon name="check" size={18} className="ml-auto text-brand" /></div>
         </div>
       </FeatureRow>
       <FeatureRow n="03" icon="eye" title="Track every step" body="Verified, inspected, scheduled, in progress, fixed. Each step has a date, who did it, and what happens next. Delays must come with a reason." sky="panel-indigo">
@@ -150,7 +150,7 @@ export default function Home() {
             <div className="glass mx-auto max-w-[420px] rounded-2xl p-5">
               <div className="flex items-center gap-2 text-[13px] font-medium text-[#8A5A00]"><Icon name="info" size={16} />This issue may already have been reported</div>
               <div className="mt-3 flex gap-3 rounded-xl bg-white p-3 ring-1 ring-line">
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-sky-soft text-sky"><Icon name="waves" size={22} /></span>
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-sky-soft text-sky"><Icon name="waves" size={22} /></span>
                 <div className="min-w-0"><div className="font-semibold text-ink">Blocked drain, Ogunlana Drive</div><div className="text-[13px] text-ink-2">80 m away · Inspection scheduled</div><div className="mt-1 text-[13px] font-medium text-brand">48 people have confirmed this</div></div>
               </div>
               <div className="mt-3 grid grid-cols-2 gap-2 text-[13px] font-medium">
@@ -161,7 +161,7 @@ export default function Home() {
               </div>
             </div>
             <div className="glass mx-auto mt-4 flex w-fit items-center gap-3 rounded-2xl p-3 pr-5" style={{ transform: 'rotate(-2deg)' }}>
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-clay text-white"><Icon name="alert" size={18} /></span><div><div className="text-[12px] text-ink-2">2 reports · Urgent safety risk</div><div className="text-[14px] font-semibold text-ink">Open manhole jumps the queue</div></div>
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-clay text-white"><Icon name="alert" size={18} /></span><div><div className="text-[12px] text-ink-2">2 reports · Urgent safety risk</div><div className="text-[14px] font-semibold text-ink">Open manhole jumps the queue</div></div>
             </div>
           </div>
           <div className="order-1 lg:order-2">
@@ -179,8 +179,8 @@ export default function Home() {
           </div>
           <div className="mt-12 grid grid-cols-2 border-t border-line sm:grid-cols-3 lg:grid-cols-5">
             {BADGES.map((b, i) => (
-              <div key={b.name} className={cx('border-b border-line py-7 pr-4', i > 0 && 'lg:border-l lg:pl-6')} data-reveal style={{ ['--d' as string]: `${i * 70}ms` }}>
-                <span className={cx('grid h-12 w-12 place-items-center rounded-full transition-transform duration-300 hover:-rotate-12 hover:scale-110', ['bg-sun text-ink', 'bg-brand text-white', 'bg-sky text-white', 'bg-violet text-white', 'bg-clay text-white'][i])}><Icon name={b.icon} size={22} /></span>
+              <div key={b.name} className={cx('wiggle-host border-b border-line py-7 pr-4', i > 0 && 'lg:border-l lg:pl-6')} data-reveal style={{ ['--d' as string]: `${i * 70}ms` }}>
+                <span className={cx('icon-tile grid h-12 w-12 place-items-center rounded-full', ['bg-sun text-ink', 'bg-brand text-white', 'bg-sky text-white', 'bg-violet text-white', 'bg-clay text-white'][i])}><Icon name={b.icon} size={22} /></span>
                 <div className="mt-4 text-[15px] font-medium text-ink">{b.name}</div>
                 <div className="mt-1 text-[13px] leading-snug text-ink-2">{b.how}</div>
               </div>
@@ -214,8 +214,8 @@ export default function Home() {
           <div className="border-t border-line pt-14"><SectionHead eyebrow={<><Icon name="globe" size={14} />Made for every Nigerian</>} title="For grandma’s old phone and your new one." body="Designed for older users, first-time reporters, patchy networks and expensive data." /></div>
           <div className="mt-12 grid border-t border-line sm:grid-cols-2 lg:grid-cols-4">
             {ACCESS.map((a, i) => (
-              <div key={a.title} className={cx('border-b border-line py-7 sm:pr-6', i > 0 && 'lg:border-l lg:pl-6', i % 2 === 1 && 'sm:border-l sm:pl-6')} data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
-                <Icon name={a.icon} size={22} className="text-ink" />
+              <div key={a.title} className={cx('wiggle-host border-b border-line py-7 sm:pr-6', i > 0 && 'lg:border-l lg:pl-6', i % 2 === 1 && 'sm:border-l sm:pl-6')} data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
+                <span className="icon-tile grid h-11 w-11 place-items-center rounded-full bg-paper-2 text-ink"><Icon name={a.icon} size={20} /></span>
                 <h3 className="mt-4 text-[18px] font-medium text-ink">{a.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{a.body}</p>
               </div>
@@ -281,12 +281,12 @@ function FeatureRow({ n, icon, title, body, sky, flip = false, children }: { n: 
     <section className="py-8 sm:py-10">
       <Container className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div className={cx(flip && 'lg:order-2')} data-reveal>
-          <div className="flex items-center gap-2 text-[14px] font-medium text-ink"><span className="grid h-6 w-6 place-items-center rounded-md bg-paper-2 text-ink"><Icon name={icon} size={13} /></span><span className="tabular-nums text-ink-3">{n}</span></div>
+          <div className="flex items-center gap-2 text-[14px] font-medium text-ink"><span className="grid h-6 w-6 place-items-center rounded-full bg-paper-2 text-ink"><Icon name={icon} size={13} /></span><span className="tabular-nums text-ink-3">{n}</span></div>
           <h3 className="mt-5 text-[34px] leading-[1.05] font-medium text-ink sm:text-[44px]">{title}</h3>
           <p className="mt-4 max-w-md text-[16px] leading-relaxed text-ink-2">{body}</p>
           <div className="mt-7"><Btn href="/how-it-works" variant="ghost" icon="arrowR">See how it works</Btn></div>
         </div>
-        <div className={cx(sky, 'flex min-h-[320px] items-center justify-center overflow-hidden rounded-[24px] p-6 sm:min-h-[380px] sm:p-10', flip && 'lg:order-1')} data-reveal>{children}</div>
+        <div className={cx(sky, 'flex min-h-[320px] items-center justify-center overflow-hidden rounded-[24px] p-6 sm:min-h-[380px] sm:p-10', flip && 'lg:order-1')} data-reveal><div className="bob flex w-full justify-center">{children}</div></div>
       </Container>
     </section>
   );
@@ -298,7 +298,7 @@ function PromiseObject() {
     <div className="relative h-[104px] w-[132px] shrink-0" aria-hidden>
       <span className="absolute left-2 top-4 h-[78px] w-[104px] -rotate-12 rounded-xl bg-sun shadow-pop" />
       <span className="absolute left-6 top-2 grid h-[78px] w-[104px] rotate-3 place-items-center rounded-xl bg-paper shadow-pop ring-1 ring-line"><Icon name="clipboard" size={28} className="text-ink" /></span>
-      <span className="absolute -right-4 bottom-0 rounded-md bg-paper/90 p-0.5"><span className="stamp !text-[10px]">Fixed</span></span>
+      <span className="absolute -right-4 bottom-0"><span className="stamp !text-[10px]">Fixed</span></span>
     </div>
   );
 }

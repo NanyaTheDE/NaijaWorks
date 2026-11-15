@@ -56,7 +56,7 @@ export default function HowItWorks() {
           <SectionHead center eyebrow={<><Icon name="users" size={14} />Who does what</>} title="Four people, one journey." body="NaijaWorks connects the people who spot problems with the people who fix them. Everyone sees the part they need." />
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {ROLES.map((r, i) => (
-              <div key={r.name} className="rounded-[20px] bg-white p-6 ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
+              <div key={r.name} className="lift rounded-[20px] bg-white p-6 ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
                 <IconTile name={r.icon} color={r.color} size={54} />
                 <h3 className="mt-5 text-xl font-medium text-ink">{r.name}</h3>
                 <ul className="mt-4 space-y-2.5">

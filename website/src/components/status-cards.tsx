@@ -8,7 +8,7 @@ import { GROUP_COLOR, STATUSES } from '@/content/site';
 /* Small overlay pieces, in the style of app UI laid over a photo. */
 const Chip = ({ icon, children, className, tone = 'ink' }: { icon: string; children?: ReactNode; className?: string; tone?: 'ink' | 'clay' | 'brand' }) => (
   <span className={cx('glass absolute inline-flex items-center gap-2 rounded-xl px-3 py-2 text-[13px] font-medium text-ink', className)}>
-    <span className={cx('grid h-7 w-7 place-items-center rounded-lg text-white', tone === 'clay' ? 'bg-clay' : tone === 'brand' ? 'bg-brand' : 'bg-forest')}><Icon name={icon} size={15} /></span>
+    <span className={cx('grid h-7 w-7 place-items-center rounded-xl text-white', tone === 'clay' ? 'bg-clay' : tone === 'brand' ? 'bg-brand' : 'bg-forest')}><Icon name={icon} size={15} /></span>
     {children}
   </span>
 );
@@ -28,7 +28,7 @@ const ART: Record<string, { scene: string; overlay: ReactNode }> = {
       <Chip icon="search" className="left-4 top-4" />
     </>,
   },
-  'Verified': { scene: 'road', overlay: <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-paper/95 p-1.5 shadow-lg"><span className="stamp !text-[16px]"><Icon name="shield" size={18} />Verified</span></span> },
+  'Verified': { scene: 'road', overlay: <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"><span className="stamp !text-[16px]"><Icon name="shield" size={18} />Verified</span></span> },
   'Assigned': { scene: 'streetlight', overlay: <Chip icon="building" className="inset-x-4 bottom-4">Lagos State Public Works</Chip> },
   'Inspection scheduled': { scene: 'drainage', overlay: <Chip icon="calendar" className="left-4 top-4">16 Nov · 9am–12pm</Chip> },
   'Inspected': {
@@ -54,7 +54,7 @@ const ART: Record<string, { scene: string; overlay: ReactNode }> = {
     scene: 'road', overlay: <>
       <span className="absolute inset-y-0 left-1/2 right-0 overflow-hidden" aria-hidden><span className="absolute inset-y-0 right-0 block w-[200%]"><Scene name="road-fixed" label="" /></span></span>
       <span className="absolute inset-y-0 left-1/2 w-[3px] -translate-x-1/2 bg-white shadow" aria-hidden />
-      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-paper/95 p-1 shadow-lg"><span className="stamp"><Icon name="check" size={14} />Fixed</span></span>
+      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"><span className="stamp"><Icon name="check" size={14} />Fixed</span></span>
     </>,
   },
   'Monitoring': { scene: 'streetlight-fixed', overlay: <Chip icon="eye" className="left-4 top-4" tone="brand" /> },
@@ -80,8 +80,8 @@ export function StatusCards() {
           const art = ART[s.name];
           const c = GROUP_COLOR[s.group];
           return (
-            <article key={s.name} role="listitem" className="w-[272px] shrink-0 snap-start sm:w-[300px]">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[18px] bg-paper-2">
+            <article key={s.name} role="listitem" className="group w-[272px] shrink-0 snap-start sm:w-[300px]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[20px] bg-paper-2 transition-transform duration-500 ease-out group-hover:-translate-y-1.5 [&_.scene]:transition-transform [&_.scene]:duration-700 group-hover:[&_.scene]:scale-105">
                 <span className="absolute inset-0 [&_.scene]:h-full [&_.scene]:w-full" aria-hidden><Scene name={art?.scene ?? 'road'} label="" /></span>
                 {art?.overlay}
               </div>

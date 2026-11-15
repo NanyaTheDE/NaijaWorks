@@ -34,7 +34,7 @@ export function Btn({ href, children, variant = 'primary', size = 'md', icon, cl
   }[variant];
   const s = size === 'lg' ? 'h-12 px-6 text-[15px]' : 'h-10 px-5 text-[14px]';
   const external = href.startsWith('http');
-  const cls = cx('group inline-flex items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap transition-all duration-200 active:scale-[.98]', v, s, className);
+  const cls = cx('group inline-flex items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 active:scale-[.97]', v, s, className);
   const inner = (
     <>
       {children}
@@ -49,7 +49,7 @@ export function Eyebrow({ children, tone = 'brand' }: { children: ReactNode; ton
   // The caller's icon (first child svg) is drawn as a small tinted chip.
   const chip = { brand: '[&>svg]:bg-brand-soft [&>svg]:text-brand', sun: '[&>svg]:bg-sun-soft [&>svg]:text-[#8A5A00]', light: '[&>svg]:bg-white/15 [&>svg]:text-white' }[tone];
   return (
-    <span className={cx('inline-flex items-center gap-2 text-[14px] font-medium [&>svg]:box-content [&>svg]:rounded-md [&>svg]:p-[5px]', chip, tone === 'light' ? 'text-white' : 'text-ink')}>
+    <span className={cx('inline-flex items-center gap-2 text-[14px] font-medium [&>svg]:box-content [&>svg]:rounded-full [&>svg]:p-[5px]', chip, tone === 'light' ? 'text-white' : 'text-ink')}>
       {children}
     </span>
   );
@@ -74,9 +74,9 @@ export function PageHero({ eyebrow, title, body, children, icon = 'sparkle' }: {
   return (
     <section className="pt-28 sm:pt-36">
       <Container className="grid items-center gap-10 pb-16 lg:grid-cols-[1.25fr_1fr] lg:pb-24">
-        <div className="pop-in">
+        <div className="rise">
           <span className="inline-flex items-center gap-2 text-[14px] font-medium text-ink">
-            <span className="grid h-6 w-6 place-items-center rounded-md bg-brand-soft text-brand"><Icon name={icon} size={13} /></span>{eyebrow}
+            <span className="grid h-6 w-6 place-items-center rounded-full bg-brand-soft text-brand"><Icon name={icon} size={13} /></span>{eyebrow}
           </span>
           <h1 className="mt-6 text-[46px] leading-[1.02] text-ink sm:text-6xl lg:text-[72px] [&_.text-sun]:italic [&_.text-sun]:text-brand">{title}</h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-2">{body}</p>
@@ -87,7 +87,7 @@ export function PageHero({ eyebrow, title, body, children, icon = 'sparkle' }: {
             <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-forest text-white"><Icon name={icon} size={22} /></span>
             <span className="min-w-0"><span className="block truncate text-[15px] font-semibold text-ink">{eyebrow}</span><span className="mt-1.5 block h-2 w-32 rounded-full bg-ink/10" /><span className="mt-1.5 block h-2 w-20 rounded-full bg-ink/10" /></span>
           </div>
-          <span className="absolute bottom-[12%] right-[10%] rounded-lg bg-paper/90 p-1"><span className="stamp"><Icon name="check" size={14} />Fixed</span></span>
+          <span className="absolute bottom-[12%] right-[10%]"><span className="stamp"><Icon name="check" size={14} />Fixed</span></span>
         </div>
       </Container>
     </section>
@@ -96,7 +96,7 @@ export function PageHero({ eyebrow, title, body, children, icon = 'sparkle' }: {
 
 export function IconTile({ name, color, size = 44 }: { name: string; color: string; size?: number }) {
   return (
-    <span className="grid shrink-0 place-items-center rounded-xl" style={{ width: size, height: size, background: `color-mix(in srgb, ${color} 12%, white)`, color }}>
+    <span className="icon-tile grid shrink-0 place-items-center rounded-2xl" style={{ width: size, height: size, background: `color-mix(in srgb, ${color} 12%, white)`, color }}>
       <Icon name={name} size={Math.round(size * 0.46)} />
     </span>
   );
