@@ -26,8 +26,8 @@ type BtnProps = { href: string; children: ReactNode; variant?: 'primary' | 'sun'
 /** Pill buttons: solid ink or outlined. `sun` is kept as an alias of primary for older call sites. */
 export function Btn({ href, children, variant = 'primary', size = 'md', icon, className }: BtnProps) {
   const v = {
-    primary: 'bg-ink text-white hover:bg-ink/85',
-    sun: 'bg-ink text-white hover:bg-ink/85',
+    primary: 'bg-forest text-white hover:bg-brand',
+    sun: 'bg-forest text-white hover:bg-brand',
     ghost: 'text-ink ring-1 ring-inset ring-ink/80 hover:bg-ink/[.04]',
     light: 'bg-white text-ink hover:bg-white/85',
     'outline-light': 'text-white ring-1 ring-inset ring-white/60 hover:bg-white/10',
@@ -78,16 +78,16 @@ export function PageHero({ eyebrow, title, body, children, icon = 'sparkle' }: {
           <span className="inline-flex items-center gap-2 text-[14px] font-medium text-ink">
             <span className="grid h-6 w-6 place-items-center rounded-md bg-brand-soft text-brand"><Icon name={icon} size={13} /></span>{eyebrow}
           </span>
-          <h1 className="mt-6 text-[44px] leading-[1] text-ink sm:text-6xl lg:text-[72px] [&_.text-sun]:text-brand">{title}</h1>
+          <h1 className="mt-6 text-[46px] leading-[1.02] text-ink sm:text-6xl lg:text-[72px] [&_.text-sun]:italic [&_.text-sun]:text-brand">{title}</h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-2">{body}</p>
           {children && <div className="mt-8 flex flex-wrap gap-3">{children}</div>}
         </div>
-        <div className="sky relative hidden aspect-[5/4] overflow-hidden rounded-[22px] lg:block" aria-hidden>
+        <div className="panel-indigo relative hidden aspect-[5/4] overflow-hidden rounded-[22px] lg:block" aria-hidden>
           <div className="glass absolute left-1/2 top-1/2 flex w-[64%] -translate-x-1/2 -translate-y-1/2 items-center gap-4 rounded-2xl p-5" style={{ animation: 'float 7s ease-in-out infinite' }}>
-            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-ink text-white"><Icon name={icon} size={22} /></span>
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-forest text-white"><Icon name={icon} size={22} /></span>
             <span className="min-w-0"><span className="block truncate text-[15px] font-semibold text-ink">{eyebrow}</span><span className="mt-1.5 block h-2 w-32 rounded-full bg-ink/10" /><span className="mt-1.5 block h-2 w-20 rounded-full bg-ink/10" /></span>
           </div>
-          <span className="glass absolute bottom-[14%] left-[10%] flex items-center gap-2 rounded-full px-3 py-1.5 text-[12px] font-semibold text-brand"><Icon name="check" size={13} />NaijaWorks</span>
+          <span className="absolute bottom-[12%] right-[10%] rounded-lg bg-paper/90 p-1"><span className="stamp"><Icon name="check" size={14} />Fixed</span></span>
         </div>
       </Container>
     </section>

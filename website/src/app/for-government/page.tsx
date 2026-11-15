@@ -85,7 +85,7 @@ export default function ForGovernment() {
               ))}
             </ul>
           </div>
-          <div className="sky-day flex w-full justify-center gap-4 overflow-hidden rounded-[24px] px-6 py-12" data-reveal><div className="flex w-full max-w-md gap-4">
+          <div className="panel-green flex w-full justify-center gap-4 overflow-hidden rounded-[24px] px-6 py-12" data-reveal><div className="flex w-full max-w-md gap-4">
             <div className="flex-1 rounded-[22px] bg-white p-4 text-ink shadow-pop" style={{ transform: 'rotate(-3deg)' }}>
               <div className="text-[11px] font-bold uppercase tracking-wider text-ink-3">Inspection</div>
               <div className="mt-1 font-medium text-ink">Blocked drain, Ogunlana Dr.</div>
@@ -122,7 +122,7 @@ export default function ForGovernment() {
             <div className="mt-5 flex flex-wrap gap-2">{REJECT.map((r) => <span key={r} className="rounded-full bg-paper-2 px-3 py-1.5 text-[13px] font-semibold text-ink-2">{r}</span>)}</div>
             <div className="mt-5 rounded-2xl bg-sky-soft p-4 text-[14px] text-ink">&ldquo;Thanks for reporting! This gate is on private property, so a public authority can&apos;t repair it. You could raise it with the estate management.&rdquo;</div>
           </div>
-          <div className="rounded-[22px] bg-ink p-7 text-white sm:p-9" data-reveal>
+          <div className="rounded-[22px] bg-forest p-7 text-white sm:p-9" data-reveal>
             <span className="grid h-[52px] w-[52px] place-items-center rounded-2xl bg-white/10 text-sun"><Icon name="shield" size={24} /></span>
             <h3 className="mt-5 text-2xl font-medium">Every action is on the record.</h3>
             <p className="mt-2 text-[15px] leading-relaxed text-white/70">An audit log tracks each verification, assignment, approval and closure. Internal notes and budgets stay private; the public sees what matters.</p>

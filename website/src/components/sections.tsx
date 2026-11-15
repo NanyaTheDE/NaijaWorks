@@ -22,7 +22,10 @@ export function CategoryMarquee({ dark = false }: { dark?: boolean }) {
 export function StoryCard({ s, big = false }: { s: (typeof STORIES)[number]; big?: boolean }) {
   return (
     <article className="group overflow-hidden rounded-[20px] bg-white ring-1 ring-line transition-shadow hover:shadow-soft" data-reveal>
-      <BeforeAfter before={s.before} after={s.after} className={big ? 'aspect-[16/10]' : undefined} />
+      <div className="relative">
+        <BeforeAfter before={s.before} after={s.after} className={big ? 'aspect-[16/10]' : undefined} />
+        <span className="pointer-events-none absolute bottom-4 right-4 rounded-lg bg-paper/90 p-1"><span className="stamp"><Icon name="check" size={13} />Fixed</span></span>
+      </div>
       <div className="p-5 sm:p-6">
         <div className="flex items-center gap-1.5 text-[13px] font-semibold text-ink-3"><Icon name="pin" size={14} />{s.place}</div>
         <h3 className="mt-1.5 text-[22px] font-medium text-ink">{s.title}</h3>
@@ -85,13 +88,13 @@ export function CtaBand() {
   return (
     <section className="py-20 sm:py-28">
       <Container>
-        <div className="sky relative overflow-hidden rounded-[24px] px-6 py-16 text-center sm:px-12 sm:py-24" data-reveal>
+        <div className="panel-sun relative overflow-hidden rounded-[24px] px-6 py-16 text-center sm:px-12 sm:py-24" data-reveal>
           <div className="relative mx-auto max-w-2xl">
             <h2 className="text-[40px] leading-[1.02] text-ink sm:text-[60px]">Your street is waiting. Report it in two minutes.</h2>
             <p className="mx-auto mt-5 max-w-lg text-lg text-ink-2">Free, works on low data, in English and Pidgin. No forms, no knowing which office to call.</p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Btn href={appUrl('/report')} size="lg" icon="arrowR">Report an issue</Btn>
-              <Btn href={appUrl('/explore')} size="lg" variant="ghost" className="bg-white/60 backdrop-blur">Explore your area</Btn>
+              <Btn href={appUrl('/explore')} size="lg" variant="ghost" className="bg-paper/70">Explore your area</Btn>
             </div>
           </div>
         </div>
@@ -102,7 +105,7 @@ export function CtaBand() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-line bg-white text-ink-2">
+    <footer className="border-t border-line bg-paper-2 text-ink-2">
       <Container className="py-16">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>

@@ -25,7 +25,7 @@ export default function Launching() {
             <Btn href="/who-handles-what" size="lg" variant="ghost">Who handles what</Btn>
           </div>
         </div>
-        <div className="sky mx-auto mt-14 grid max-w-4xl gap-3 rounded-[24px] p-5 sm:grid-cols-3 sm:p-8">
+        <div className="panel-indigo mx-auto mt-14 grid max-w-4xl gap-3 rounded-[24px] p-5 sm:grid-cols-3 sm:p-8">
           {NEXT.map((n) => (
             <div key={n.title} className="glass rounded-2xl p-5">
               <span className="grid h-11 w-11 place-items-center rounded-2xl bg-brand-soft text-brand"><Icon name={n.icon} size={20} /></span>

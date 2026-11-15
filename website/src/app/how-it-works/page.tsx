@@ -100,10 +100,10 @@ export default function HowItWorks() {
       <section className="py-20 sm:py-28">
         <Container className="grid items-center gap-12 border-t border-line pt-14 lg:grid-cols-2">
           <SectionHead eyebrow={<><Icon name="check" size={14} />The final word is yours</>} title="“Has this actually been fixed?”" body="When officials mark work complete with photos, people nearby are asked to confirm. If several credible residents say the problem remains, the report moves to Resolution under review and goes back to the department." />
-          <div className="sky rounded-[24px] p-6 sm:p-10" data-reveal><div className="glass mx-auto w-full max-w-md rounded-2xl p-6 text-ink">
+          <div className="panel-indigo rounded-[24px] p-6 sm:p-10" data-reveal><div className="glass mx-auto w-full max-w-md rounded-2xl p-6 text-ink">
             <div className="flex items-center gap-3"><span className="grid h-11 w-11 place-items-center rounded-2xl bg-brand-soft text-brand"><Icon name="lamp" size={22} /></span><div><div className="font-medium text-ink">Streetlights, Allen Avenue</div><div className="text-[13px] text-ink-2">Marked complete 14 Nov · 3 photos</div></div></div>
             <div className="mt-5 space-y-2">
-              {[['Yes, it is fixed', 'bg-ink text-white', 'check'], ['Partially fixed', 'bg-white text-ink ring-1 ring-line', 'dots'], ['No, the problem remains', 'bg-white text-clay ring-1 ring-line', 'x'], ['I cannot confirm', 'bg-white text-ink-2 ring-1 ring-line', 'eye']].map(([t, c, ic]) => (
+              {[['Yes, it is fixed', 'bg-forest text-white', 'check'], ['Partially fixed', 'bg-white text-ink ring-1 ring-line', 'dots'], ['No, the problem remains', 'bg-white text-clay ring-1 ring-line', 'x'], ['I cannot confirm', 'bg-white text-ink-2 ring-1 ring-line', 'eye']].map(([t, c, ic]) => (
                 <div key={t} className={cx('flex items-center gap-3 rounded-full px-4 py-3 font-medium', c)}><Icon name={ic} size={18} />{t}</div>
               ))}
             </div>

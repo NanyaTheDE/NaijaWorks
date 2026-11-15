@@ -11,7 +11,7 @@ const Q_COLOR: Record<string, string> = { sun: '#C77700', brand: '#0B7A4B', sky:
 export default function Home() {
   return (
     <>
-      {/* ---------- Hero: copy left, demo phone on a painted sky ---------- */}
+      {/* ---------- Hero: copy left, demo phone on a painted panel-indigo ---------- */}
       <section className="pt-32 sm:pt-36">
         <Container className="grid items-center gap-12 pb-14 lg:grid-cols-[1fr_1.02fr] lg:gap-14">
           <div>
@@ -26,7 +26,8 @@ export default function Home() {
               ))}
             </ul>
           </div>
-          <div className="sky relative overflow-hidden rounded-[24px] px-4 pb-6 pt-10 sm:px-8 sm:pt-12">
+          <div className="panel-indigo relative overflow-hidden rounded-[24px] px-4 pb-6 pt-10 sm:px-8 sm:pt-12">
+            <span className="absolute right-5 top-5 z-20 hidden rounded-lg bg-paper/95 p-1 sm:block" aria-hidden><span className="stamp stamp-green"><Icon name="shield" size={14} />Verified</span></span>
             <div className="relative mx-auto max-w-[340px]">
               <TrackerDemo />
               <FloatSticker className="-left-3 top-24 sm:-left-16" r="-5deg" delay="0s" icon="users" title="+23 neighbours" sub="confirmed this issue" />
@@ -89,25 +90,25 @@ export default function Home() {
       {/* ---------- How it works: alternating feature rows ---------- */}
       <section className="pb-8">
         <Container>
-          <div className="border-t border-line pt-14"><SectionHead eyebrow={<><Icon name="layers" size={14} />How it works</>} title={<>Snap. We route. <span className="text-ink-3">You track.</span></>} body="The whole report takes about two minutes. The tracking lasts until the problem is actually fixed." /></div>
+          <div className="border-t border-line pt-14"><SectionHead eyebrow={<><Icon name="layers" size={14} />How it works</>} title={<>Snap. We route. <em>You track.</em></>} body="The whole report takes about two minutes. The tracking lasts until the problem is actually fixed." /></div>
         </Container>
       </section>
-      <FeatureRow n="01" icon="camera" title="Snap it" body="Pick what's wrong from big friendly icons, add a photo, and confirm the pin on the map. AI helps you describe it, no formal letter needed." sky="sky-dawn">
+      <FeatureRow n="01" icon="camera" title="Snap it" body="Pick what's wrong from big friendly icons, add a photo, and confirm the pin on the map. AI helps you describe it, no formal letter needed." sky="panel-sun">
         <div className="glass w-full max-w-[360px] rounded-2xl p-4">
           <div className="grid grid-cols-3 gap-2">
             {[['road', 'Road'], ['lamp', 'Streetlight'], ['waves', 'Drainage'], ['droplet', 'Water'], ['trash', 'Waste'], ['bolt', 'Power']].map(([ic, l], k) => (
-              <div key={l} className={cx('flex flex-col items-center gap-1.5 rounded-xl p-3 text-[12px] font-medium', k === 0 ? 'bg-ink text-white' : 'bg-white text-ink-2 ring-1 ring-line')}><Icon name={ic} size={20} />{l}</div>
+              <div key={l} className={cx('flex flex-col items-center gap-1.5 rounded-xl p-3 text-[12px] font-medium', k === 0 ? 'bg-forest text-white' : 'bg-white text-ink-2 ring-1 ring-line')}><Icon name={ic} size={20} />{l}</div>
             ))}
           </div>
         </div>
       </FeatureRow>
-      <FeatureRow n="02" icon="building" title="We find who fixes it" body="Our routing engine checks the category, location, road ownership and service areas, then sends it to the right LGA, state agency, federal body or utility." sky="sky-day" flip>
+      <FeatureRow n="02" icon="building" title="We find who fixes it" body="Our routing engine checks the category, location, road ownership and service areas, then sends it to the right LGA, state agency, federal body or utility." sky="panel-green" flip>
         <div className="w-full max-w-[360px] space-y-2 text-[13px]">
           <div className="glass flex items-center gap-3 rounded-2xl p-3.5 text-ink-3"><Icon name="building" size={18} /><div className="min-w-0"><div className="font-medium line-through">Surulere LGA</div><div className="text-[11px]">Checked</div></div></div>
-          <div className="glass flex items-center gap-3 rounded-2xl p-3.5 text-ink"><span className="grid h-8 w-8 place-items-center rounded-lg bg-ink text-white"><Icon name="building" size={16} /></span><div className="min-w-0"><div className="font-semibold">Lagos State Public Works</div><div className="text-[11px] text-ink-2">Assigned · road is state-managed</div></div><Icon name="check" size={18} className="ml-auto text-brand" /></div>
+          <div className="glass flex items-center gap-3 rounded-2xl p-3.5 text-ink"><span className="grid h-8 w-8 place-items-center rounded-lg bg-forest text-white"><Icon name="building" size={16} /></span><div className="min-w-0"><div className="font-semibold">Lagos State Public Works</div><div className="text-[11px] text-ink-2">Assigned · road is state-managed</div></div><Icon name="check" size={18} className="ml-auto text-brand" /></div>
         </div>
       </FeatureRow>
-      <FeatureRow n="03" icon="eye" title="Track every step" body="Verified, inspected, scheduled, in progress, fixed. Each step has a date, who did it, and what happens next. Delays must come with a reason." sky="sky">
+      <FeatureRow n="03" icon="eye" title="Track every step" body="Verified, inspected, scheduled, in progress, fixed. Each step has a date, who did it, and what happens next. Delays must come with a reason." sky="panel-indigo">
         <ol className="glass w-full max-w-[360px] space-y-3 rounded-2xl p-5 text-[13px]">
           {[['Inspection complete', '18 Nov', true], ['Repair scheduled', '27 Nov', true], ['Work in progress', 'Now', 'now'], ['Fixed', 'Target 2 Dec', false]].map(([t, d, s]) => (
             <li key={t as string} className="flex items-center gap-3">
@@ -145,7 +146,7 @@ export default function Home() {
       {/* ---------- Community, not popularity ---------- */}
       <section className="pb-20 sm:pb-28">
         <Container className="grid items-center gap-12 border-t border-line pt-14 lg:grid-cols-2 lg:gap-16">
-          <div className="sky-dawn relative order-2 overflow-hidden rounded-[24px] px-5 py-10 sm:px-10 lg:order-1" data-reveal>
+          <div className="panel-sun relative order-2 overflow-hidden rounded-[24px] px-5 py-10 sm:px-10 lg:order-1" data-reveal>
             <div className="glass mx-auto max-w-[420px] rounded-2xl p-5">
               <div className="flex items-center gap-2 text-[13px] font-medium text-[#8A5A00]"><Icon name="info" size={16} />This issue may already have been reported</div>
               <div className="mt-3 flex gap-3 rounded-xl bg-white p-3 ring-1 ring-line">
@@ -153,7 +154,7 @@ export default function Home() {
                 <div className="min-w-0"><div className="font-semibold text-ink">Blocked drain, Ogunlana Drive</div><div className="text-[13px] text-ink-2">80 m away · Inspection scheduled</div><div className="mt-1 text-[13px] font-medium text-brand">48 people have confirmed this</div></div>
               </div>
               <div className="mt-3 grid grid-cols-2 gap-2 text-[13px] font-medium">
-                <span className="rounded-full bg-ink px-3 py-2.5 text-center text-white">Yes, I&apos;m affected too</span>
+                <span className="rounded-full bg-forest px-3 py-2.5 text-center text-white">Yes, I&apos;m affected too</span>
                 <span className="rounded-full bg-white px-3 py-2.5 text-center text-ink ring-1 ring-line">Add a photo</span>
                 <span className="rounded-full bg-white px-3 py-2.5 text-center text-ink ring-1 ring-line">Follow this issue</span>
                 <span className="rounded-full bg-white px-3 py-2.5 text-center text-ink-2 ring-1 ring-line">It&apos;s a different problem</span>
@@ -203,7 +204,7 @@ export default function Home() {
             <SectionHead eyebrow={<><Icon name="building" size={14} />For government teams</>} title="Operational tools, not a complaint inbox." body="Triage, inspections, work orders, contractors and analytics in one place. Every action updates the public timeline automatically, so transparency is built into the work, not extra work." />
             <div className="mt-8 flex flex-wrap gap-3" data-reveal><Btn href="/for-government" icon="arrowR">Explore the portal</Btn><Btn href={appUrl('/gov')} variant="ghost">Try the demo</Btn></div>
           </div>
-          <div className="sky-day overflow-hidden rounded-[24px] p-5 sm:p-10" data-reveal><GovPreview /></div>
+          <div className="panel-green overflow-hidden rounded-[24px] p-5 sm:p-10" data-reveal><GovPreview /></div>
         </Container>
       </section>
 
@@ -220,7 +221,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div className="sky mt-8 grid items-center gap-6 overflow-hidden rounded-[24px] p-6 sm:p-10 md:grid-cols-[1fr_auto]" data-reveal>
+          <div className="panel-indigo mt-8 grid items-center gap-6 overflow-hidden rounded-[24px] p-6 sm:p-10 md:grid-cols-[1fr_auto]" data-reveal>
             {/* An iOS-style notification, in Pidgin */}
             <div className="glass max-w-xl rounded-[20px] p-4">
               <div className="flex items-center gap-2 text-[12px] text-ink-2"><span className="grid h-5 w-5 place-items-center rounded-[6px] bg-sun"><span className="text-[10px] font-bold text-[#063D27]">N</span></span><span className="font-medium uppercase tracking-wide">NaijaWorks</span><span className="ml-auto">now</span></div>
@@ -297,8 +298,8 @@ function PromiseObject() {
   return (
     <div className="relative h-[104px] w-[132px] shrink-0" aria-hidden>
       <span className="absolute left-2 top-4 h-[78px] w-[104px] -rotate-12 rounded-xl bg-sun shadow-pop" />
-      <span className="absolute left-6 top-2 grid h-[78px] w-[104px] rotate-3 place-items-center rounded-xl bg-white shadow-pop ring-1 ring-line"><Icon name="clipboard" size={28} className="text-ink" /></span>
-      <span className="absolute -right-1 bottom-1 grid h-10 w-10 rotate-6 place-items-center rounded-full bg-brand text-white shadow-pop"><Icon name="check" size={20} /></span>
+      <span className="absolute left-6 top-2 grid h-[78px] w-[104px] rotate-3 place-items-center rounded-xl bg-paper shadow-pop ring-1 ring-line"><Icon name="clipboard" size={28} className="text-ink" /></span>
+      <span className="absolute -right-4 bottom-0 rounded-md bg-paper/90 p-0.5"><span className="stamp !text-[10px]">Fixed</span></span>
     </div>
   );
 }
@@ -306,7 +307,7 @@ function PromiseObject() {
 function FloatSticker({ className, r, delay, icon, title, sub, accent = false }: { className: string; r: string; delay: string; icon: string; title: string; sub: string; accent?: boolean }) {
   return (
     <div className={cx('glass absolute z-10 hidden animate-float items-center gap-3 rounded-2xl py-2.5 pl-2.5 pr-4 sm:flex', className)} style={{ ['--r' as string]: r, animationDelay: delay }} aria-hidden>
-      <span className={cx('grid h-9 w-9 place-items-center rounded-xl', accent ? 'bg-sun text-ink' : 'bg-ink text-white')}><Icon name={icon} size={17} /></span>
+      <span className={cx('grid h-9 w-9 place-items-center rounded-xl', accent ? 'bg-sun text-ink' : 'bg-forest text-white')}><Icon name={icon} size={17} /></span>
       <span><b className="block text-[14px] font-semibold leading-tight text-ink">{title}</b><span className="text-[12px] text-ink-2">{sub}</span></span>
     </div>
   );

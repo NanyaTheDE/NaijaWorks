@@ -73,8 +73,8 @@ export default function WhoHandlesWhat() {
       <section className="pb-4">
         <Container>
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="sky-dawn rounded-[22px] p-7 sm:p-9" data-reveal>
-              <span className="grid h-12 w-12 place-items-center rounded-xl bg-ink text-sun"><Icon name="crane" size={24} /></span>
+            <div className="panel-sun rounded-[22px] p-7 sm:p-9" data-reveal>
+              <span className="grid h-12 w-12 place-items-center rounded-xl bg-forest text-sun"><Icon name="crane" size={24} /></span>
               <h3 className="mt-5 text-2xl font-medium text-ink">Abandoned or stalled project?</h3>
               <p className="mt-2 text-[16px] leading-relaxed text-ink-2">There is a special report type for public projects that have stopped: how long work appears paused, its condition now, and how it affects your community.</p>
               <div className="mt-6"><Btn href={appUrl('/report')} variant="sun" icon="arrowR">Report a stalled project</Btn></div>

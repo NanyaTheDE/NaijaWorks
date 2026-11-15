@@ -24,7 +24,7 @@ export function LangToggle({ dark = false }: { dark?: boolean }) {
     <div role="group" aria-label="Language" className={cx('flex rounded-full p-0.5 text-[13px] font-medium ring-1', dark ? 'ring-white/30' : 'ring-line')}>
       {(['en', 'pcm'] as const).map((l) => (
         <button key={l} onClick={() => setLang(l)} aria-pressed={lang === l}
-          className={cx('rounded-full px-3 py-1.5 transition-colors', lang === l ? 'bg-ink text-white' : dark ? 'text-white/70 hover:text-white' : 'text-ink-2 hover:text-ink')}>
+          className={cx('rounded-full px-3 py-1.5 transition-colors', lang === l ? 'bg-forest text-white' : dark ? 'text-white/70 hover:text-white' : 'text-ink-2 hover:text-ink')}>
           {l === 'en' ? 'English' : 'Pidgin'}
         </button>
       ))}
@@ -38,17 +38,13 @@ export function HeroCopy() {
   return (
     <div key={lang} className="pop-in">
       <div className="inline-flex items-center gap-2 text-[14px] font-medium text-ink">
-        <span className="relative grid h-6 w-6 place-items-center rounded-md bg-sun-soft"><span className="h-2 w-2 rounded-full bg-sun" /><span className="pulse absolute inset-0 rounded-md" /></span>
+        <span className="relative grid h-6 w-6 place-items-center rounded-full bg-sun-soft"><span className="h-2 w-2 rounded-full bg-sun" /><span className="pulse absolute inset-0 rounded-full" /></span>
         {h.kicker}
       </div>
       <h1 className="mt-7 text-[52px] leading-[1] text-ink sm:text-[68px] lg:text-[76px]">
-        <span className="flex items-center gap-[.18em]">
-          {h.title[0]}
-          {/* Playful inline photo chip, like a sticker in the sentence */}
-          <span className="relative inline-block h-[.78em] w-[1.25em] -rotate-3 overflow-hidden rounded-[.18em] align-middle shadow-[0_6px_18px_-6px_rgb(0_0_0/.35)] ring-2 ring-white" aria-hidden><Scene name="road" label="" /></span>
-        </span>
-        <span className="block">{h.title[1]}</span>
-        <span className="block text-ink-3">{h.title[2]}</span>
+        <span className="block">{h.title[0]}</span>
+        <span className="block"><span className="doodle relative z-0">{h.title[1]}</span></span>
+        <em className="block">{h.title[2]}</em>
       </h1>
       <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink-2 sm:text-[19px]">{h.body}</p>
     </div>
@@ -128,9 +124,9 @@ export function Header() {
   useEffect(() => { const f = () => setScrolled(window.scrollY > 24); f(); window.addEventListener('scroll', f, { passive: true }); return () => window.removeEventListener('scroll', f); }, []);
   useEffect(() => setOpen(false), [path]);
   return (
-    <header className={cx('fixed inset-x-0 top-0 z-50 transition-all duration-300', scrolled || open ? 'bg-white/90 shadow-[0_1px_0_var(--color-line)] backdrop-blur-xl' : 'bg-white/0')}>
+    <header className={cx('fixed inset-x-0 top-0 z-50 transition-all duration-300', scrolled || open ? 'bg-paper/90 shadow-[0_1px_0_var(--color-line)] backdrop-blur-xl' : 'bg-paper/0')}>
       {/* Announcement bar: collapses once you scroll */}
-      <div className={cx('overflow-hidden bg-ink text-white transition-all duration-300', scrolled ? 'max-h-0' : 'max-h-10')}>
+      <div className={cx('overflow-hidden bg-forest text-white transition-all duration-300', scrolled ? 'max-h-0' : 'max-h-10')}>
         <Link href="/impact" className="mx-auto flex h-9 max-w-[1200px] items-center justify-center gap-2 px-4 text-[13px] font-medium hover:text-white/80">
           <span className="h-1.5 w-1.5 rounded-full bg-sun" aria-hidden />Now piloting in 6 states. See what has been fixed<Icon name="arrowR" size={14} />
         </Link>
@@ -155,7 +151,7 @@ export function Header() {
         </button>
       </div>
       {open && (
-        <div id="mobile-menu" className="pop-in border-t border-line bg-white px-4 pb-6 pt-2 xl:hidden">
+        <div id="mobile-menu" className="pop-in border-t border-line bg-paper px-4 pb-6 pt-2 xl:hidden">
           <nav aria-label="Mobile" className="flex flex-col">
             {[{ href: '/', label: 'Home' }, ...NAV].map((n) => (
               <Link key={n.href} href={n.href} className="flex items-center justify-between border-b border-line py-4 text-[20px] font-medium text-ink">{n.label}<Icon name="arrowR" size={18} /></Link>
@@ -308,7 +304,7 @@ export function TrackerDemo() {
         <div className="marquee-mask flex min-w-0 flex-1 gap-1.5 overflow-x-auto px-3 py-1 [scrollbar-width:none]" role="tablist" aria-label="Report journey steps" ref={tabsRef}>
           {JOURNEY.map((j, i) => (
             <button key={j.key} role="tab" aria-selected={i === step} data-step={i} onClick={() => { setAuto(false); setStep(i); }}
-              className={cx('flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-semibold whitespace-nowrap transition-colors', i === step ? 'bg-ink text-white' : i < step ? 'bg-white/80 text-brand ring-1 ring-brand/25' : 'bg-white/70 text-ink-2 ring-1 ring-line hover:text-ink')}>
+              className={cx('flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-semibold whitespace-nowrap transition-colors', i === step ? 'bg-forest text-white' : i < step ? 'bg-white/80 text-brand ring-1 ring-brand/25' : 'bg-white/70 text-ink-2 ring-1 ring-line hover:text-ink')}>
               <Icon name={j.icon} size={13} />{j.label}
             </button>
           ))}
@@ -363,13 +359,13 @@ export function RouteExplainer({ compact = false }: { compact?: boolean }) {
         {ROUTES.map((x, k) => (
           <button key={x.label} role="radio" aria-checked={k === i} onClick={() => setI(k)}
             className={cx('group flex w-full items-center gap-3 border-b border-line py-3.5 text-left text-[16px] font-medium transition-colors', k === i ? 'text-ink' : 'text-ink-3 hover:text-ink')}>
-            <span className={cx('grid h-8 w-8 place-items-center rounded-lg transition-colors', k === i ? 'bg-ink text-white' : 'bg-paper-2 text-ink-2 group-hover:text-ink')}><Icon name={x.icon} size={16} /></span>
+            <span className={cx('grid h-8 w-8 place-items-center rounded-lg transition-colors', k === i ? 'bg-forest text-white' : 'bg-paper-2 text-ink-2 group-hover:text-ink')}><Icon name={x.icon} size={16} /></span>
             <span className="flex-1">{x.label}</span>
             <Icon name="arrowR" size={16} className={cx('transition-all', k === i ? 'translate-x-0 opacity-100' : '-translate-x-1 opacity-0 group-hover:opacity-60')} />
           </button>
         ))}
       </div>
-      <div className="sky-day relative flex items-center overflow-hidden rounded-[22px] p-5 sm:p-10">
+      <div className="panel-green relative flex items-center overflow-hidden rounded-[22px] p-5 sm:p-10">
         <div key={i} className="glass pop-in w-full rounded-2xl p-6 sm:p-7" aria-live="polite">
           <div className="flex items-center justify-between gap-3">
             <div className="text-[13px] font-medium text-ink-3">Usually handled by</div>
