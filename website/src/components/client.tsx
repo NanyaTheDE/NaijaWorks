@@ -173,12 +173,26 @@ export function TrackerDemo() {
   const scene = fixed ? 'road-fixed' : step >= 5 ? 'road-work' : 'road';
 
   return (
-    <div className="relative mx-auto w-full max-w-[360px]">
-      <div className="relative overflow-hidden rounded-[44px] bg-[#0E1512] p-2.5 shadow-pop ring-1 ring-black/10">
-        <div className="relative overflow-hidden rounded-[36px] bg-paper">
-          <Confetti burst={burst} />
-          <div className="flex items-center justify-between px-6 pb-1 pt-3 text-[11px] font-semibold text-ink"><span>9:41</span><span className="h-5 w-20 rounded-full bg-[#0E1512]" /><span className="flex items-center gap-1"><Icon name="wifi" size={12} />4G</span></div>
-          <div className="relative mx-3 mt-1 h-[150px] overflow-hidden rounded-3xl">
+    <div className="relative mx-auto w-full max-w-[340px]">
+      {/* Device: titanium band, side buttons, black bezel, Dynamic Island, home indicator */}
+      <div className="relative">
+        <span className="phone-btn left-[-3px] top-[104px] h-[26px] rounded-l-[3px]" aria-hidden />
+        <span className="phone-btn left-[-3px] top-[150px] h-[48px] rounded-l-[3px]" aria-hidden />
+        <span className="phone-btn left-[-3px] top-[208px] h-[48px] rounded-l-[3px]" aria-hidden />
+        <span className="phone-btn right-[-3px] top-[168px] h-[78px] rounded-r-[3px]" aria-hidden />
+        <div className="phone-band relative rounded-[58px] p-[3px] shadow-pop">
+          <div className="rounded-[55px] bg-black p-[11px]">
+            <div className="relative overflow-hidden rounded-[45px] bg-paper">
+              <Confetti burst={burst} />
+              <div className="pointer-events-none absolute inset-0 z-30 rounded-[45px] bg-[linear-gradient(115deg,rgb(255_255_255/.14)_0%,rgb(255_255_255/0)_38%)]" aria-hidden />
+              <span className="absolute left-1/2 top-[11px] z-20 h-[30px] w-[96px] -translate-x-1/2 rounded-full bg-black" aria-hidden />
+              <StatusBar />
+              <div className="flex items-center justify-between px-4 pb-2 text-forest" aria-hidden>
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-white ring-1 ring-line"><Icon name="chevronL" size={16} /></span>
+                <span className="text-[14px] font-bold">Issue details</span>
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-white ring-1 ring-line"><Icon name="bell" size={15} /></span>
+              </div>
+              <div className="relative mx-3 mt-1 h-[150px] overflow-hidden rounded-3xl">
             <Scene name={scene} label="Report photo" />
             <span className="absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur">NW-LA-24817</span>
           </div>
@@ -213,6 +227,9 @@ export function TrackerDemo() {
               <div className="rounded-2xl bg-white p-3 ring-1 ring-line"><div className="text-ink-3">Affected</div><div className="font-bold text-forest">240 residents</div></div>
             </div>
           </div>
+              <div className="flex justify-center pb-2 pt-9" aria-hidden><span className="h-[5px] w-[118px] rounded-full bg-ink/85" /></div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="mt-5 text-center text-[12px] font-bold uppercase tracking-[.14em] text-ink-3">Live demo · tap a stage</div>
@@ -227,6 +244,20 @@ export function TrackerDemo() {
         </div>
         <button onClick={() => setAuto((a) => !a)} className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-ink-2 hover:bg-forest/5" aria-label={auto ? 'Pause demo' : 'Play demo'}><Icon name={auto ? 'pause' : 'play'} size={16} /></button>
       </div>
+    </div>
+  );
+}
+
+/** iOS-style status bar: time on the left, signal, Wi-Fi and battery on the right. */
+function StatusBar() {
+  return (
+    <div className="relative z-10 flex h-[52px] items-center justify-between pl-9 pr-7 pt-1 text-ink" aria-hidden>
+      <span className="text-[15px] font-semibold tracking-tight">9:41</span>
+      <span className="flex items-center gap-[5px]">
+        <svg width="18" height="11" viewBox="0 0 18 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1" /><rect x="5" y="5" width="3" height="6" rx="1" /><rect x="10" y="2.5" width="3" height="8.5" rx="1" /><rect x="15" y="0" width="3" height="11" rx="1" /></svg>
+        <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.3c2.3 0 4.4.9 6 2.4l1.2-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .8 3.5L2 4.7a8.5 8.5 0 0 1 6-2.4Z" /><path d="M8 5.6c1.4 0 2.6.5 3.6 1.4l1.2-1.2A6.8 6.8 0 0 0 8 3.9a6.8 6.8 0 0 0-4.8 1.9l1.2 1.2c1-.9 2.2-1.4 3.6-1.4Z" /><path d="M8 8.9c.5 0 1 .2 1.3.5L8 10.7 6.7 9.4c.3-.3.8-.5 1.3-.5Z" /></svg>
+        <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.8" fill="none" stroke="currentColor" opacity=".4" /><rect x="2" y="2" width="17" height="9" rx="2.5" fill="currentColor" /><path d="M25 4.5v4c.8-.3 1.4-1.1 1.4-2s-.6-1.7-1.4-2Z" fill="currentColor" opacity=".45" /></svg>
+      </span>
     </div>
   );
 }
