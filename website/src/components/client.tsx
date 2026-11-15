@@ -21,10 +21,10 @@ export const useLang = () => useContext(LangCtx);
 export function LangToggle({ dark = false }: { dark?: boolean }) {
   const { lang, setLang } = useLang();
   return (
-    <div role="group" aria-label="Language" className={cx('flex rounded-full p-1 text-[13px] font-semibold', dark ? 'bg-white/10' : 'bg-forest/[.06]')}>
+    <div role="group" aria-label="Language" className={cx('flex rounded-full p-0.5 text-[13px] font-medium ring-1', dark ? 'ring-white/30' : 'ring-line')}>
       {(['en', 'pcm'] as const).map((l) => (
         <button key={l} onClick={() => setLang(l)} aria-pressed={lang === l}
-          className={cx('rounded-full px-3 py-1.5 transition-colors', lang === l ? (dark ? 'bg-white text-forest' : 'bg-white text-forest shadow-sm') : dark ? 'text-white/70 hover:text-white' : 'text-ink-2 hover:text-forest')}>
+          className={cx('rounded-full px-3 py-1.5 transition-colors', lang === l ? 'bg-ink text-white' : dark ? 'text-white/70 hover:text-white' : 'text-ink-2 hover:text-ink')}>
           {l === 'en' ? 'English' : 'Pidgin'}
         </button>
       ))}
@@ -37,19 +37,20 @@ export function HeroCopy() {
   const h = HERO[lang];
   return (
     <div key={lang} className="pop-in">
-      <div className="inline-flex items-center gap-2 rounded-full bg-white/80 py-1.5 pl-2 pr-4 text-[13px] font-semibold text-forest ring-1 ring-forest/10 backdrop-blur">
-        <span className="relative grid h-5 w-5 place-items-center rounded-full bg-sun"><span className="h-2 w-2 rounded-full bg-forest" /><span className="pulse absolute inset-0 rounded-full" /></span>
+      <div className="inline-flex items-center gap-2 text-[14px] font-medium text-ink">
+        <span className="relative grid h-6 w-6 place-items-center rounded-md bg-sun-soft"><span className="h-2 w-2 rounded-full bg-sun" /><span className="pulse absolute inset-0 rounded-md" /></span>
         {h.kicker}
       </div>
-      <h1 className="mt-6 text-[52px] leading-[.95] font-extrabold text-forest sm:text-7xl lg:text-[86px]">
-        <span className="block">{h.title[0]}</span>
-        <span className="block text-brand">{h.title[1]}</span>
-        <span className="relative inline-block">
-          {h.title[2]}
-          <svg className="absolute -bottom-3 left-0 h-4 w-full text-sun" viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden><path d="M3 11c60-8 140-10 294-3" stroke="currentColor" strokeWidth="7" strokeLinecap="round" fill="none" /></svg>
+      <h1 className="mt-7 text-[52px] leading-[1] text-ink sm:text-[68px] lg:text-[76px]">
+        <span className="flex items-center gap-[.18em]">
+          {h.title[0]}
+          {/* Playful inline photo chip, like a sticker in the sentence */}
+          <span className="relative inline-block h-[.78em] w-[1.25em] -rotate-3 overflow-hidden rounded-[.18em] align-middle shadow-[0_6px_18px_-6px_rgb(0_0_0/.35)] ring-2 ring-white" aria-hidden><Scene name="road" label="" /></span>
         </span>
+        <span className="block">{h.title[1]}</span>
+        <span className="block text-ink-3">{h.title[2]}</span>
       </h1>
-      <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink-2 sm:text-xl">{h.body}</p>
+      <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink-2 sm:text-[19px]">{h.body}</p>
     </div>
   );
 }
@@ -124,39 +125,43 @@ export function Header() {
   const path = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const darkTop = path !== '/';
   useEffect(() => { const f = () => setScrolled(window.scrollY > 24); f(); window.addEventListener('scroll', f, { passive: true }); return () => window.removeEventListener('scroll', f); }, []);
   useEffect(() => setOpen(false), [path]);
-  const onDark = darkTop && !scrolled && !open;
   return (
-    <header className={cx('fixed inset-x-0 top-0 z-50 transition-all duration-300', scrolled || open ? 'bg-paper/85 shadow-[0_1px_0_rgb(16_32_26/.08)] backdrop-blur-xl' : 'bg-transparent')}>
-      <div className="mx-auto flex h-[72px] max-w-[1200px] items-center gap-6 px-4 sm:px-6 lg:px-8">
-        <Link href="/" aria-label="NaijaWorks home"><Wordmark light={onDark} /></Link>
-        <nav aria-label="Main" className="ml-2 hidden items-center gap-0.5 xl:flex">
+    <header className={cx('fixed inset-x-0 top-0 z-50 transition-all duration-300', scrolled || open ? 'bg-white/90 shadow-[0_1px_0_var(--color-line)] backdrop-blur-xl' : 'bg-white/0')}>
+      {/* Announcement bar: collapses once you scroll */}
+      <div className={cx('overflow-hidden bg-ink text-white transition-all duration-300', scrolled ? 'max-h-0' : 'max-h-10')}>
+        <Link href="/impact" className="mx-auto flex h-9 max-w-[1200px] items-center justify-center gap-2 px-4 text-[13px] font-medium hover:text-white/80">
+          <span className="h-1.5 w-1.5 rounded-full bg-sun" aria-hidden />Now piloting in 6 states. See what has been fixed<Icon name="arrowR" size={14} />
+        </Link>
+      </div>
+      <div className="mx-auto flex h-16 max-w-[1200px] items-center gap-6 px-4 sm:px-6 lg:px-8">
+        <Link href="/" aria-label="NaijaWorks home"><Wordmark /></Link>
+        <nav aria-label="Main" className="ml-4 hidden items-center gap-1 xl:flex">
           {NAV.map((n) => (
             <Link key={n.href} href={n.href} aria-current={path === n.href ? 'page' : undefined}
-              className={cx('whitespace-nowrap rounded-full px-4 py-2 text-[15px] font-medium transition-colors', onDark ? 'text-white/80 hover:bg-white/10 hover:text-white' : 'text-ink-2 hover:bg-forest/5 hover:text-forest', path === n.href && (onDark ? 'bg-white/10 text-white' : 'bg-forest/[.06] text-forest'))}>
+              className={cx('whitespace-nowrap rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors', path === n.href ? 'text-ink' : 'text-ink-2 hover:text-ink')}>
               {n.label}
             </Link>
           ))}
         </nav>
         <div className="ml-auto hidden items-center gap-3 sm:flex">
-          <LangToggle dark={onDark} />
-          <Btn href={appUrl('/report')} variant="sun" icon="plus">Report an issue</Btn>
+          <LangToggle />
+          <Btn href={appUrl('/report')} icon="plus">Report an issue</Btn>
         </div>
-        <button className={cx('ml-auto grid h-11 w-11 place-items-center rounded-xl xl:hidden sm:ml-0', onDark ? 'text-white hover:bg-white/10' : 'text-forest hover:bg-forest/5')}
+        <button className="ml-auto grid h-11 w-11 place-items-center rounded-full text-ink hover:bg-ink/5 xl:hidden sm:ml-0"
           onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Close menu' : 'Open menu'}>
-          <Icon name={open ? 'x' : 'list'} size={24} />
+          <Icon name={open ? 'x' : 'list'} size={22} />
         </button>
       </div>
       {open && (
-        <div id="mobile-menu" className="pop-in border-t border-line px-4 pb-6 pt-2 xl:hidden">
+        <div id="mobile-menu" className="pop-in border-t border-line bg-white px-4 pb-6 pt-2 xl:hidden">
           <nav aria-label="Mobile" className="flex flex-col">
             {[{ href: '/', label: 'Home' }, ...NAV].map((n) => (
-              <Link key={n.href} href={n.href} className="flex items-center justify-between border-b border-line py-4 text-lg font-semibold text-forest">{n.label}<Icon name="chevronR" size={18} /></Link>
+              <Link key={n.href} href={n.href} className="flex items-center justify-between border-b border-line py-4 text-[20px] font-medium text-ink">{n.label}<Icon name="arrowR" size={18} /></Link>
             ))}
           </nav>
-          <div className="mt-5 flex items-center justify-between gap-3"><LangToggle /><Btn href={appUrl('/report')} variant="sun" icon="plus">Report an issue</Btn></div>
+          <div className="mt-5 flex items-center justify-between gap-3"><LangToggle /><Btn href={appUrl('/report')} icon="plus">Report an issue</Btn></div>
         </div>
       )}
     </header>
@@ -192,7 +197,7 @@ export function CountUp({ value, decimals = 0, suffix = '' }: { value: number; d
     const io = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return; io.disconnect();
       const start = performance.now(); const dur = 1400;
-      const tick = (t: number) => { const p = Math.min(1, (t - start) / dur); setN(value * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); };
+      const tick = (t: number) => { const p = Math.min(1, Math.max(0, (t - start) / dur)); setN(value * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); };
       requestAnimationFrame(tick);
     }, { threshold: 0.4 });
     io.observe(el); return () => io.disconnect();
@@ -248,12 +253,12 @@ export function TrackerDemo() {
         <span className="phone-btn right-[-3px] top-[168px] h-[78px] rounded-r-[3px]" aria-hidden />
         <div className="phone-band relative rounded-[58px] p-[3px] shadow-pop">
           <div className="rounded-[55px] bg-black p-[11px]">
-            <div className="relative overflow-hidden rounded-[45px] bg-paper">
+            <div className="relative overflow-hidden rounded-[45px] bg-paper-2">
               <Confetti burst={burst} />
               <div className="pointer-events-none absolute inset-0 z-30 rounded-[45px] bg-[linear-gradient(115deg,rgb(255_255_255/.14)_0%,rgb(255_255_255/0)_38%)]" aria-hidden />
               <span className="absolute left-1/2 top-[11px] z-20 h-[30px] w-[96px] -translate-x-1/2 rounded-full bg-black" aria-hidden />
               <StatusBar />
-              <div className="flex items-center justify-between px-4 pb-2 text-forest" aria-hidden>
+              <div className="flex items-center justify-between px-4 pb-2 text-ink" aria-hidden>
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-white ring-1 ring-line"><Icon name="chevronL" size={16} /></span>
                 <span className="text-[14px] font-bold">Issue details</span>
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-white ring-1 ring-line"><Icon name="bell" size={15} /></span>
@@ -268,7 +273,7 @@ export function TrackerDemo() {
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <div className="text-[11px] font-bold uppercase tracking-wider text-ink-3">{fixed ? 'Fixed on' : 'Latest · ' + cur.date}</div>
-                  <div className="display mt-0.5 text-[22px] leading-tight font-extrabold text-forest">{fixed ? '2 December' : cur.label}</div>
+                  <div className="display mt-0.5 text-[22px] leading-tight font-semibold text-ink">{fixed ? '2 December' : cur.label}</div>
                 </div>
                 <span className={cx('shrink-0 rounded-full px-2.5 py-1 text-[11px] font-bold', fixed ? 'bg-brand text-white' : 'bg-brand-soft text-brand')}>{fixed ? 'Fixed ✓' : 'On track'}</span>
               </div>
@@ -289,8 +294,8 @@ export function TrackerDemo() {
               <div className="mt-2 text-[11px] font-semibold text-ink-3">By {cur.who}</div>
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2 text-[12px]">
-              <div className="rounded-2xl bg-white p-3 ring-1 ring-line"><div className="text-ink-3">Handled by</div><div className="font-bold text-forest">Lagos State Works</div></div>
-              <div className="rounded-2xl bg-white p-3 ring-1 ring-line"><div className="text-ink-3">Affected</div><div className="font-bold text-forest">240 residents</div></div>
+              <div className="rounded-2xl bg-white p-3 ring-1 ring-line"><div className="text-ink-3">Handled by</div><div className="font-medium text-ink">Lagos State Works</div></div>
+              <div className="rounded-2xl bg-white p-3 ring-1 ring-line"><div className="text-ink-3">Affected</div><div className="font-medium text-ink">240 residents</div></div>
             </div>
           </div>
               <div className="flex justify-center pb-2 pt-9" aria-hidden><span className="h-[5px] w-[118px] rounded-full bg-ink/85" /></div>
@@ -303,7 +308,7 @@ export function TrackerDemo() {
         <div className="marquee-mask flex min-w-0 flex-1 gap-1.5 overflow-x-auto px-3 py-1 [scrollbar-width:none]" role="tablist" aria-label="Report journey steps" ref={tabsRef}>
           {JOURNEY.map((j, i) => (
             <button key={j.key} role="tab" aria-selected={i === step} data-step={i} onClick={() => { setAuto(false); setStep(i); }}
-              className={cx('flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-semibold whitespace-nowrap transition-colors', i === step ? 'bg-forest text-white' : i < step ? 'bg-brand-soft text-brand' : 'bg-white text-ink-2 ring-1 ring-line hover:text-forest')}>
+              className={cx('flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-semibold whitespace-nowrap transition-colors', i === step ? 'bg-ink text-white' : i < step ? 'bg-white/80 text-brand ring-1 ring-brand/25' : 'bg-white/70 text-ink-2 ring-1 ring-line hover:text-ink')}>
               <Icon name={j.icon} size={13} />{j.label}
             </button>
           ))}
@@ -338,7 +343,7 @@ export function BeforeAfter({ before, after, className }: { before: string; afte
       <span className="absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur">Before</span>
       <span className="absolute right-3 top-3 rounded-full bg-brand px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">After</span>
       <div className="pointer-events-none absolute inset-y-0 w-[3px] -translate-x-1/2 bg-white shadow-[0_0_12px_rgb(0_0_0/.35)]" style={{ left: `${pos}%` }}>
-        <span className="knob absolute left-1/2 top-1/2 grid h-11 w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-forest shadow-soft">
+        <span className="knob absolute left-1/2 top-1/2 grid h-11 w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-ink shadow-soft">
           <span className="flex"><Icon name="chevronL" size={16} /><Icon name="chevronR" size={16} /></span>
         </span>
       </div>
@@ -353,28 +358,32 @@ export function RouteExplainer({ compact = false }: { compact?: boolean }) {
   const r = ROUTES[i];
   const level = LEVELS.find((l) => l.key === r.level)!;
   return (
-    <div className={cx('grid gap-6', !compact && 'lg:grid-cols-[1.1fr_1fr]')}>
-      <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Pick a problem">
+    <div className={cx('grid gap-8', !compact && 'lg:grid-cols-[1fr_1.1fr] lg:gap-12')}>
+      <div className="border-t border-line" role="radiogroup" aria-label="Pick a problem">
         {ROUTES.map((x, k) => (
           <button key={x.label} role="radio" aria-checked={k === i} onClick={() => setI(k)}
-            className={cx('flex items-center gap-2 rounded-2xl px-4 py-3 text-left text-[14px] font-semibold transition-all', k === i ? 'bg-forest text-white shadow-pop' : 'bg-white text-forest ring-1 ring-line hover:-translate-y-0.5 hover:ring-forest/30')}>
-            <Icon name={x.icon} size={18} />{x.label}
+            className={cx('group flex w-full items-center gap-3 border-b border-line py-3.5 text-left text-[16px] font-medium transition-colors', k === i ? 'text-ink' : 'text-ink-3 hover:text-ink')}>
+            <span className={cx('grid h-8 w-8 place-items-center rounded-lg transition-colors', k === i ? 'bg-ink text-white' : 'bg-paper-2 text-ink-2 group-hover:text-ink')}><Icon name={x.icon} size={16} /></span>
+            <span className="flex-1">{x.label}</span>
+            <Icon name="arrowR" size={16} className={cx('transition-all', k === i ? 'translate-x-0 opacity-100' : '-translate-x-1 opacity-0 group-hover:opacity-60')} />
           </button>
         ))}
       </div>
-      <div key={i} className="tint-card pop-in relative overflow-hidden rounded-[28px] p-6 shadow-soft ring-1 ring-line sm:p-8" style={{ ['--tint' as string]: level.color }} aria-live="polite">
-        <div className="flex items-center justify-between gap-3">
-          <div className="text-[13px] font-semibold text-ink-3">Usually handled by</div>
-          <span className="rounded-full px-3 py-1 text-[12px] font-bold" style={{ background: `color-mix(in srgb, ${level.color} 14%, white)`, color: level.color }}>{level.name} level</span>
-        </div>
-        <div className="mt-2 flex items-center gap-3">
-          <span className="grid h-12 w-12 place-items-center rounded-2xl text-white" style={{ background: level.color }}><Icon name={level.icon} size={22} /></span>
-          <div><div className="display text-2xl font-extrabold text-forest">{level.name}</div><div className="text-[14px] text-ink-2">e.g. {r.example}</div></div>
-        </div>
-        <p className="mt-5 text-[16px] leading-relaxed text-ink">{r.why}</p>
-        <div className="mt-6 flex items-start gap-3 rounded-2xl bg-sun-soft p-4 text-[14px] text-[#5C4100]">
-          <Icon name="sparkle" size={18} className="mt-0.5" />
-          <span>You don&apos;t need to know this. NaijaWorks routes it for you, and shows any transfer, like <b>&ldquo;Transferred to State Works because the road is state-managed.&rdquo;</b></span>
+      <div className="sky-day relative flex items-center overflow-hidden rounded-[22px] p-5 sm:p-10">
+        <div key={i} className="glass pop-in w-full rounded-2xl p-6 sm:p-7" aria-live="polite">
+          <div className="flex items-center justify-between gap-3">
+            <div className="text-[13px] font-medium text-ink-3">Usually handled by</div>
+            <span className="rounded-full px-3 py-1 text-[12px] font-semibold" style={{ background: `color-mix(in srgb, ${level.color} 12%, white)`, color: level.color }}>{level.name} level</span>
+          </div>
+          <div className="mt-3 flex items-center gap-3">
+            <span className="grid h-12 w-12 place-items-center rounded-xl text-white" style={{ background: level.color }}><Icon name={level.icon} size={22} /></span>
+            <div><div className="display text-[26px] font-medium text-ink">{level.name}</div><div className="text-[14px] text-ink-2">e.g. {r.example}</div></div>
+          </div>
+          <p className="mt-5 text-[16px] leading-relaxed text-ink">{r.why}</p>
+          <div className="mt-6 flex items-start gap-3 border-t border-line pt-5 text-[14px] text-ink-2">
+            <Icon name="sparkle" size={18} className="mt-0.5 text-sun" />
+            <span>You don&apos;t need to know this. NaijaWorks routes it for you, and shows any transfer, like <b className="font-medium text-ink">&ldquo;Transferred to State Works because the road is state-managed.&rdquo;</b></span>
+          </div>
         </div>
       </div>
     </div>

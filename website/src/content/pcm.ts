@@ -37,6 +37,8 @@ export const PCM: Record<string, string> = {
   'Handled by': 'Who dey handle am',
   'Affected': 'E affect',
 
+  'Now piloting in 6 states. See what has been fixed': 'We don start for 6 states. See wetin don fix',
+
   // ---------- Home: hero + tracker demo ----------
   'Free for citizens': 'E free for everybody',
   'Works on low data': 'E no dey chop data',

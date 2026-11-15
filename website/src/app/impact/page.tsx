@@ -33,10 +33,10 @@ export default function Impact() {
         <Container>
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
             {IMPACT_TILES.map((t, i) => (
-              <div key={t.label} className="group relative overflow-hidden rounded-[28px] bg-white p-6 ring-1 ring-line sm:p-8" data-reveal style={{ ['--d' as string]: `${(i % 3) * 80}ms` }}>
+              <div key={t.label} className="group relative overflow-hidden rounded-[20px] bg-white p-6 ring-1 ring-line sm:p-8" data-reveal style={{ ['--d' as string]: `${(i % 3) * 80}ms` }}>
                 <span className="absolute -right-6 -top-6 h-28 w-28 rounded-full opacity-10 transition-transform duration-500 group-hover:scale-125" style={{ background: t.tone }} aria-hidden />
                 <span className="grid h-12 w-12 place-items-center rounded-2xl text-white" style={{ background: t.tone }}><Icon name={t.icon} size={22} /></span>
-                <div className="display mt-6 text-4xl font-extrabold text-forest sm:text-5xl"><CountUp value={t.value} /></div>
+                <div className="display mt-6 text-4xl font-medium text-ink sm:text-5xl"><CountUp value={t.value} /></div>
                 <div className="mt-1 text-[15px] text-ink-2">{t.label}</div>
               </div>
             ))}
@@ -61,23 +61,23 @@ export default function Impact() {
             <div className="mt-8 space-y-3" data-reveal>
               {FUNNEL.map((f) => (
                 <div key={f.label}>
-                  <div className="mb-1.5 flex justify-between text-[14px]"><span className="font-semibold text-forest">{f.label}</span><span className="tabular-nums text-ink-2">{f.value.toLocaleString('en-NG')} · {Math.round((f.value / top) * 100)}%</span></div>
+                  <div className="mb-1.5 flex justify-between text-[14px]"><span className="font-semibold text-ink">{f.label}</span><span className="tabular-nums text-ink-2">{f.value.toLocaleString('en-NG')} · {Math.round((f.value / top) * 100)}%</span></div>
                   <div className="h-4 overflow-hidden rounded-full bg-paper-2"><div className="h-full rounded-full" style={{ width: `${(f.value / top) * 100}%`, background: f.color }} /></div>
                 </div>
               ))}
             </div>
             <div className="mt-6 grid grid-cols-3 gap-3 text-center" data-reveal>
               {[['1.4 days', 'to acknowledge'], ['6 days', 'to inspect'], ['19 days', 'to resolve']].map(([v, l]) => (
-                <div key={l} className="rounded-2xl bg-white p-4 ring-1 ring-line"><div className="display text-2xl font-extrabold text-forest">{v}</div><div className="text-[12px] text-ink-2">median {l}</div></div>
+                <div key={l} className="rounded-2xl bg-white p-4 ring-1 ring-line"><div className="display text-2xl font-medium text-ink">{v}</div><div className="text-[12px] text-ink-2">median {l}</div></div>
               ))}
             </div>
           </div>
-          <div className="rounded-[32px] bg-forest p-6 text-white sm:p-8" data-reveal>
+          <div className="rounded-[22px] bg-forest p-6 text-white sm:p-8" data-reveal>
             <div className="flex items-start justify-between gap-4">
-              <div><div className="text-[13px] font-semibold text-white/60">Community page</div><h3 className="mt-1 text-3xl font-extrabold">Surulere</h3><div className="text-[14px] text-white/60">Lagos · 41 open · 12 being worked on</div></div>
+              <div><div className="text-[13px] font-semibold text-white/60">Community page</div><h3 className="mt-1 text-3xl font-medium">Surulere</h3><div className="text-[14px] text-white/60">Lagos · 41 open · 12 being worked on</div></div>
               <div className="relative grid h-24 w-24 shrink-0 place-items-center">
                 <svg viewBox="0 0 36 36" className="absolute inset-0 -rotate-90" aria-hidden><circle cx="18" cy="18" r="15.5" fill="none" stroke="rgb(255 255 255 / .12)" strokeWidth="4" /><circle cx="18" cy="18" r="15.5" fill="none" stroke="#F5B301" strokeWidth="4" strokeLinecap="round" strokeDasharray={`${0.67 * 97.4} 97.4`} /></svg>
-                <div className="text-center"><div className="display text-2xl font-extrabold">67</div><div className="text-[10px] text-white/60">score</div></div>
+                <div className="text-center"><div className="display text-2xl font-medium">67</div><div className="text-[10px] text-white/60">score</div></div>
               </div>
             </div>
             <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3">
@@ -92,10 +92,10 @@ export default function Impact() {
 
       <section id="limits" className="scroll-mt-24 pb-4">
         <Container>
-          <div className="grid gap-6 rounded-[32px] bg-sun-soft p-7 sm:p-10 lg:grid-cols-[auto_1fr]" data-reveal>
-            <span className="grid h-14 w-14 place-items-center rounded-2xl bg-sun text-forest"><Icon name="alert" size={26} /></span>
+          <div className="grid gap-6 rounded-[22px] bg-sun-soft p-7 sm:p-10 lg:grid-cols-[auto_1fr]" data-reveal>
+            <span className="grid h-14 w-14 place-items-center rounded-2xl bg-sun text-ink"><Icon name="alert" size={26} /></span>
             <div>
-              <h2 className="text-2xl font-extrabold text-forest sm:text-3xl">About our data, honestly.</h2>
+              <h2 className="text-2xl font-medium text-ink sm:text-3xl">About our data, honestly.</h2>
               <ul className="mt-4 grid gap-3 text-[15px] leading-relaxed text-[#5C4100] md:grid-cols-3">
                 <li>Areas where more people use NaijaWorks will show more reports. That doesn&apos;t mean they have more problems.</li>
                 <li>We don&apos;t rank states, LGAs or officials against each other. Different reporting levels make that unfair.</li>

@@ -1,130 +1,127 @@
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 import { Icon } from '@/components/Icon';
 import { CountUp, HeroCopy, RouteExplainer, TrackerDemo } from '@/components/client';
 import { CategoryMarquee, CtaBand, GovPreview, StoryCard } from '@/components/sections';
-import { Btn, Container, IconTile, SectionHead, cx } from '@/components/ui';
+import { Btn, Checklist, Container, SectionHead, cx } from '@/components/ui';
 import { ACCESS, appUrl, BADGES, FAQ, FOUR_QUESTIONS, QUOTES, STATS, STORIES } from '@/content/site';
 
-const TONE: Record<string, { bg: string; fg: string; ring: string }> = {
-  sun: { bg: 'bg-sun', fg: 'text-forest', ring: 'bg-white/40' },
-  brand: { bg: 'bg-brand', fg: 'text-white', ring: 'bg-white/15' },
-  sky: { bg: 'bg-sky-soft', fg: 'text-forest', ring: 'bg-white' },
-  clay: { bg: 'bg-clay-soft', fg: 'text-forest', ring: 'bg-white' },
-};
+const Q_COLOR: Record<string, string> = { sun: '#C77700', brand: '#0B7A4B', sky: '#0284C7', clay: '#D9481F' };
 
 export default function Home() {
   return (
     <>
-      {/* ---------- Hero ---------- */}
-      <section className="relative overflow-hidden pt-28 sm:pt-32">
-        <div className="adire-ink absolute inset-0 opacity-60" aria-hidden />
-        <div className="absolute -right-40 top-10 h-[520px] w-[520px] rounded-full bg-sun/30 blur-3xl" aria-hidden />
-        <div className="absolute -left-40 top-80 h-[420px] w-[420px] rounded-full bg-brand/15 blur-3xl" aria-hidden />
-        <Container className="relative grid items-center gap-14 pb-16 lg:grid-cols-[1.15fr_1fr] lg:pb-24">
+      {/* ---------- Hero: copy left, demo phone on a painted sky ---------- */}
+      <section className="pt-32 sm:pt-36">
+        <Container className="grid items-center gap-12 pb-14 lg:grid-cols-[1fr_1.02fr] lg:gap-14">
           <div>
             <HeroCopy />
             <div className="mt-9 flex flex-wrap gap-3">
               <Btn href={appUrl('/report')} size="lg" icon="arrowR">Report an issue</Btn>
               <Btn href="/how-it-works" size="lg" variant="ghost">See how it works</Btn>
             </div>
-            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-medium text-ink-2">
+            <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-6 text-[14px] text-ink-2">
               {[['check', 'Free for citizens'], ['wifi', 'Works on low data'], ['lock', 'Stay anonymous if you like']].map(([ic, t]) => (
-                <li key={t} className="flex items-center gap-2"><span className="grid h-6 w-6 place-items-center rounded-full bg-brand-soft text-brand"><Icon name={ic} size={13} /></span>{t}</li>
+                <li key={t} className="flex items-center gap-2"><Icon name={ic} size={15} className="text-brand" />{t}</li>
               ))}
             </ul>
           </div>
-          <div className="relative">
-            <TrackerDemo />
-            <FloatSticker className="-left-2 top-16 sm:-left-10" r="-6deg" delay="0s" icon="users" tone="bg-white text-forest" title="+23 neighbours" sub="confirmed this issue" />
-            <FloatSticker className="-right-1 top-[46%] sm:-right-8" r="5deg" delay="1.2s" icon="calendar" tone="bg-forest text-white" title="Inspection Sat" sub="16 Nov · 9am–12pm" dark />
-            <FloatSticker className="bottom-24 -left-1 sm:-left-14" r="4deg" delay="2.1s" icon="sparkle" tone="bg-sun text-forest" title="Your report helped" sub="240 residents" />
+          <div className="sky relative overflow-hidden rounded-[24px] px-4 pb-6 pt-10 sm:px-8 sm:pt-12">
+            <div className="relative mx-auto max-w-[340px]">
+              <TrackerDemo />
+              <FloatSticker className="-left-3 top-24 sm:-left-16" r="-5deg" delay="0s" icon="users" title="+23 neighbours" sub="confirmed this issue" />
+              <FloatSticker className="-right-2 top-[44%] sm:-right-20" r="4deg" delay="1.2s" icon="calendar" title="Inspection Sat" sub="16 Nov · 9am–12pm" />
+              <FloatSticker className="bottom-36 -left-2 sm:-left-20" r="3deg" delay="2.1s" icon="sparkle" title="Your report helped" sub="240 residents" accent />
+            </div>
           </div>
         </Container>
-        <div className="relative pb-12">
-          <p className="mb-4 text-center text-[12px] font-bold uppercase tracking-[.14em] text-ink-3">Report anything public that&apos;s broken</p>
-          <CategoryMarquee />
-        </div>
+        <Container>
+          <div className="flex flex-col gap-4 border-t border-line py-7 md:flex-row md:items-center">
+            <p className="shrink-0 text-[14px] font-medium text-ink-3 md:w-52">Report anything public that&apos;s broken</p>
+            <div className="min-w-0 flex-1"><CategoryMarquee /></div>
+          </div>
+        </Container>
       </section>
 
-      {/* ---------- Stats: label on top, big number below (stat-card pattern) ---------- */}
-      <section className="border-y border-line bg-white py-14 sm:py-16">
+      {/* ---------- Stats row: big light numbers between hairlines ---------- */}
+      <section className="pb-20 pt-6 sm:pb-28">
         <Container>
-          <div className="mb-8 flex flex-wrap items-end justify-between gap-4" data-reveal>
-            <h2 className="text-3xl font-extrabold text-forest sm:text-4xl">Progress you can count.</h2>
-            <Link href="/impact#limits" className="text-[14px] font-semibold text-brand hover:underline">How we count, and what the numbers can&apos;t tell you →</Link>
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-4" data-reveal>
+            <h2 className="text-[30px] text-ink sm:text-[40px]">Progress you can count.</h2>
+            <Link href="/impact#limits" className="text-[14px] font-medium text-ink-2 underline decoration-line underline-offset-4 hover:text-ink">How we count, and what the numbers can&apos;t tell you →</Link>
           </div>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 border-t border-line lg:grid-cols-4">
             {STATS.map((s, i) => (
-              <div key={s.label} className={cx('flex min-h-[210px] flex-col rounded-[24px] p-5 sm:p-6', i === 1 ? 'bg-forest text-white' : 'bg-paper')} data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
-                <div className={cx('text-[13px] font-bold uppercase tracking-wider', i === 1 ? 'text-sun' : 'text-ink-3')}>{s.label}</div>
-                <p className={cx('mt-2 text-[14px] leading-snug', i === 1 ? 'text-white/70' : 'text-ink-2')}>{s.context}</p>
-                <div className={cx('display mt-auto pt-6 text-5xl font-extrabold sm:text-6xl', i === 1 ? 'text-white' : 'text-forest')}><CountUp value={s.value} decimals={s.decimals} suffix={s.suffix} /></div>
+              <div key={s.label} className="border-b border-line py-7 pr-4 even:border-l even:pl-4 sm:pr-6 sm:even:pl-6 lg:pl-6 lg:even:border-l-0 lg:[&:not(:first-child)]:border-l lg:first:pl-0" data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
+                <div className="display text-[40px] leading-none font-normal tracking-tight text-ink sm:text-[60px]"><CountUp value={s.value} decimals={s.decimals} suffix={s.suffix} /></div>
+                <div className="mt-4 text-[15px] font-medium text-ink">{s.label}</div>
+                <p className="mt-1 text-[14px] leading-snug text-ink-2">{s.context}</p>
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      {/* ---------- Four questions ---------- */}
-      <section className="py-20 sm:py-28">
+      {/* ---------- Four promises: object illustration + hairline grid ---------- */}
+      <section className="pb-20 sm:pb-28">
         <Container>
-          <SectionHead eyebrow={<><Icon name="sparkle" size={14} />The NaijaWorks promise</>} title={<>Four questions. Always answered.</>} body="A report should never disappear into a void. Every report on NaijaWorks answers these four things, in plain language." />
-          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {FOUR_QUESTIONS.map((f, i) => {
-              const t = TONE[f.tone];
-              return (
-                <div key={f.q} className={cx('group relative flex min-h-[260px] flex-col overflow-hidden rounded-[28px] p-6 transition-transform duration-300 hover:-translate-y-1', t.bg, t.fg)} data-reveal style={{ ['--d' as string]: `${i * 90}ms` }}>
-                  <span className="display text-[64px] leading-none font-extrabold opacity-20">0{i + 1}</span>
-                  <span className={cx('absolute right-5 top-5 grid h-12 w-12 place-items-center rounded-2xl transition-transform duration-300 group-hover:rotate-[-8deg] group-hover:scale-110', t.ring)}><Icon name={f.icon} size={22} /></span>
-                  <h3 className="mt-auto text-2xl font-extrabold">{f.q}</h3>
-                  <p className="mt-2 text-[15px] leading-relaxed opacity-80">{f.a}</p>
+          <div className="flex flex-col gap-8 sm:flex-row sm:items-center" data-reveal>
+            <PromiseObject />
+            <div>
+              <h2 className="text-[36px] leading-[1.04] text-ink sm:text-[52px]">Four questions. Always answered.</h2>
+              <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-ink-2">A report should never disappear into a void. Every report on NaijaWorks answers these four things, in plain language.</p>
+            </div>
+          </div>
+          <div className="mt-12 grid border-t border-line md:grid-cols-2">
+            {FOUR_QUESTIONS.map((f, i) => (
+              <div key={f.q} className={cx('border-b border-line py-7 md:px-8', i % 2 === 0 ? 'md:pl-0' : 'md:border-l', 'border-line')} data-reveal style={{ ['--d' as string]: `${i * 70}ms` }}>
+                <div className="flex items-center gap-3">
+                  <span className="grid h-8 w-8 place-items-center rounded-lg" style={{ background: `color-mix(in srgb, ${Q_COLOR[f.tone]} 12%, white)`, color: Q_COLOR[f.tone] }}><Icon name={f.icon} size={16} /></span>
+                  <h3 className="text-[20px] font-medium text-ink">{f.q}</h3>
                 </div>
-              );
-            })}
+                <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink-2">{f.a}</p>
+              </div>
+            ))}
           </div>
         </Container>
       </section>
 
-      {/* ---------- 3 steps ---------- */}
-      <section className="relative overflow-hidden bg-forest py-20 text-white sm:py-28 grain">
-        <div className="adire absolute inset-0" aria-hidden />
-        <Container className="relative">
-          <SectionHead light eyebrow="How it works" title={<>Snap. We route. <span className="text-sun">You track.</span></>} body="The whole report takes about two minutes. The tracking lasts until the problem is actually fixed." />
-          <div className="mt-14 grid gap-5 lg:grid-cols-3">
-            <StepCard n={1} title="Snap it" body="Pick what's wrong from big friendly icons, add a photo, and confirm the pin on the map. AI helps you describe it, no formal letter needed.">
-              <div className="grid grid-cols-3 gap-2">
-                {[['road', 'Road'], ['lamp', 'Streetlight'], ['waves', 'Drainage'], ['droplet', 'Water'], ['trash', 'Waste'], ['bolt', 'Power']].map(([ic, l], k) => (
-                  <div key={l} className={cx('flex flex-col items-center gap-1.5 rounded-2xl p-3 text-[12px] font-semibold', k === 0 ? 'bg-sun text-forest' : 'bg-white/10 text-white/80')}><Icon name={ic} size={20} />{l}</div>
-                ))}
-              </div>
-            </StepCard>
-            <StepCard n={2} title="We find who fixes it" body="Our routing engine checks the category, location, road ownership and service areas, then sends it to the right LGA, state agency, federal body or utility.">
-              <div className="space-y-2 text-[13px]">
-                {[['Surulere LGA', 'Checked', false], ['Lagos State Public Works', 'Assigned · road is state-managed', true]].map(([a, s, on]) => (
-                  <div key={a as string} className={cx('flex items-center gap-3 rounded-2xl p-3', on ? 'bg-white text-forest' : 'bg-white/10 text-white/60 line-through decoration-white/30')}>
-                    <Icon name="building" size={18} /><div className="min-w-0"><div className="font-bold">{a}</div><div className="text-[11px] no-underline opacity-75">{s}</div></div>{on && <Icon name="check" size={18} className="ml-auto text-brand" />}
-                  </div>
-                ))}
-              </div>
-            </StepCard>
-            <StepCard n={3} title="Track every step" body="Verified, inspected, scheduled, in progress, fixed. Each step has a date, who did it, and what happens next. Delays must come with a reason.">
-              <ol className="space-y-2.5 text-[13px]">
-                {[['Inspection complete', '18 Nov', true], ['Repair scheduled', '27 Nov', true], ['Work in progress', 'Now', 'now'], ['Fixed', 'Target 2 Dec', false]].map(([t, d, s]) => (
-                  <li key={t as string} className="flex items-center gap-3">
-                    <span className={cx('grid h-6 w-6 shrink-0 place-items-center rounded-full', s === true ? 'bg-brand-2 text-white' : s === 'now' ? 'pulse bg-sun text-forest' : 'bg-white/15')}>{s === true && <Icon name="check" size={13} />}{s === 'now' && <Icon name="hammer" size={12} />}</span>
-                    <span className={cx('flex-1 font-semibold', s === false && 'text-white/50')}>{t}</span><span className="text-white/50">{d}</span>
-                  </li>
-                ))}
-              </ol>
-            </StepCard>
-          </div>
+      {/* ---------- How it works: alternating feature rows ---------- */}
+      <section className="pb-8">
+        <Container>
+          <div className="border-t border-line pt-14"><SectionHead eyebrow={<><Icon name="layers" size={14} />How it works</>} title={<>Snap. We route. <span className="text-ink-3">You track.</span></>} body="The whole report takes about two minutes. The tracking lasts until the problem is actually fixed." /></div>
         </Container>
       </section>
+      <FeatureRow n="01" icon="camera" title="Snap it" body="Pick what's wrong from big friendly icons, add a photo, and confirm the pin on the map. AI helps you describe it, no formal letter needed." sky="sky-dawn">
+        <div className="glass w-full max-w-[360px] rounded-2xl p-4">
+          <div className="grid grid-cols-3 gap-2">
+            {[['road', 'Road'], ['lamp', 'Streetlight'], ['waves', 'Drainage'], ['droplet', 'Water'], ['trash', 'Waste'], ['bolt', 'Power']].map(([ic, l], k) => (
+              <div key={l} className={cx('flex flex-col items-center gap-1.5 rounded-xl p-3 text-[12px] font-medium', k === 0 ? 'bg-ink text-white' : 'bg-white text-ink-2 ring-1 ring-line')}><Icon name={ic} size={20} />{l}</div>
+            ))}
+          </div>
+        </div>
+      </FeatureRow>
+      <FeatureRow n="02" icon="building" title="We find who fixes it" body="Our routing engine checks the category, location, road ownership and service areas, then sends it to the right LGA, state agency, federal body or utility." sky="sky-day" flip>
+        <div className="w-full max-w-[360px] space-y-2 text-[13px]">
+          <div className="glass flex items-center gap-3 rounded-2xl p-3.5 text-ink-3"><Icon name="building" size={18} /><div className="min-w-0"><div className="font-medium line-through">Surulere LGA</div><div className="text-[11px]">Checked</div></div></div>
+          <div className="glass flex items-center gap-3 rounded-2xl p-3.5 text-ink"><span className="grid h-8 w-8 place-items-center rounded-lg bg-ink text-white"><Icon name="building" size={16} /></span><div className="min-w-0"><div className="font-semibold">Lagos State Public Works</div><div className="text-[11px] text-ink-2">Assigned · road is state-managed</div></div><Icon name="check" size={18} className="ml-auto text-brand" /></div>
+        </div>
+      </FeatureRow>
+      <FeatureRow n="03" icon="eye" title="Track every step" body="Verified, inspected, scheduled, in progress, fixed. Each step has a date, who did it, and what happens next. Delays must come with a reason." sky="sky">
+        <ol className="glass w-full max-w-[360px] space-y-3 rounded-2xl p-5 text-[13px]">
+          {[['Inspection complete', '18 Nov', true], ['Repair scheduled', '27 Nov', true], ['Work in progress', 'Now', 'now'], ['Fixed', 'Target 2 Dec', false]].map(([t, d, s]) => (
+            <li key={t as string} className="flex items-center gap-3">
+              <span className={cx('grid h-6 w-6 shrink-0 place-items-center rounded-full', s === true ? 'bg-brand text-white' : s === 'now' ? 'pulse bg-sun text-ink' : 'bg-ink/10')}>{s === true && <Icon name="check" size={13} />}{s === 'now' && <Icon name="hammer" size={12} />}</span>
+              <span className={cx('flex-1 font-medium', s === false ? 'text-ink-3' : 'text-ink')}>{t}</span><span className="text-ink-3">{d}</span>
+            </li>
+          ))}
+        </ol>
+      </FeatureRow>
 
       {/* ---------- Who fixes this ---------- */}
       <section className="py-20 sm:py-28">
         <Container>
-          <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
+          <div className="mb-12 flex flex-wrap items-end justify-between gap-6 border-t border-line pt-14">
             <SectionHead eyebrow={<><Icon name="book" size={14} />Civic 101, made simple</>} title="Who actually fixes this?" body="Tap a problem. We'll tell you who usually handles it, in plain words." />
             <Btn href="/who-handles-what" variant="ghost" icon="arrowR">Federal, state, LGA explained</Btn>
           </div>
@@ -133,9 +130,9 @@ export default function Home() {
       </section>
 
       {/* ---------- Before / after ---------- */}
-      <section className="bg-paper-2 py-20 sm:py-28">
+      <section className="pb-20 sm:pb-28">
         <Container>
-          <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
+          <div className="mb-12 flex flex-wrap items-end justify-between gap-6 border-t border-line pt-14">
             <SectionHead tone="sun" eyebrow={<><Icon name="star" size={14} />Fixed, with proof</>} title="Drag the slider. See the difference." body="Work can't be marked complete without photos. Then the neighbours who reported it confirm it's really fixed." />
             <Btn href="/impact" variant="ghost" icon="arrowR">More transformations</Btn>
           </div>
@@ -146,36 +143,29 @@ export default function Home() {
       </section>
 
       {/* ---------- Community, not popularity ---------- */}
-      <section className="py-20 sm:py-28">
-        <Container className="grid items-center gap-14 lg:grid-cols-2">
-          <div className="relative order-2 lg:order-1" data-reveal>
-            <div className="absolute -inset-6 rounded-[40px] bg-brand-soft" aria-hidden />
-            <div className="relative space-y-3">
-              <div className="rounded-[24px] bg-white p-5 shadow-soft ring-1 ring-line">
-                <div className="flex items-center gap-2 text-[13px] font-bold text-[#8A5A00]"><Icon name="info" size={16} />This issue may already have been reported</div>
-                <div className="mt-3 flex gap-3 rounded-2xl bg-paper p-3">
-                  <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-sky-soft text-sky"><Icon name="waves" size={24} /></span>
-                  <div className="min-w-0"><div className="font-bold text-forest">Blocked drain, Ogunlana Drive</div><div className="text-[13px] text-ink-2">80 m away · Inspection scheduled</div><div className="mt-1 text-[13px] font-semibold text-brand">48 people have confirmed this</div></div>
-                </div>
-                <div className="mt-3 grid grid-cols-2 gap-2 text-[14px] font-semibold">
-                  <span className="rounded-xl bg-forest px-3 py-3 text-center text-white">Yes, I&apos;m affected too</span>
-                  <span className="rounded-xl px-3 py-3 text-center text-forest ring-1 ring-line">Add a photo</span>
-                  <span className="rounded-xl px-3 py-3 text-center text-forest ring-1 ring-line">Follow this issue</span>
-                  <span className="rounded-xl px-3 py-3 text-center text-ink-2 ring-1 ring-line">It&apos;s a different problem</span>
-                </div>
+      <section className="pb-20 sm:pb-28">
+        <Container className="grid items-center gap-12 border-t border-line pt-14 lg:grid-cols-2 lg:gap-16">
+          <div className="sky-dawn relative order-2 overflow-hidden rounded-[24px] px-5 py-10 sm:px-10 lg:order-1" data-reveal>
+            <div className="glass mx-auto max-w-[420px] rounded-2xl p-5">
+              <div className="flex items-center gap-2 text-[13px] font-medium text-[#8A5A00]"><Icon name="info" size={16} />This issue may already have been reported</div>
+              <div className="mt-3 flex gap-3 rounded-xl bg-white p-3 ring-1 ring-line">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-sky-soft text-sky"><Icon name="waves" size={22} /></span>
+                <div className="min-w-0"><div className="font-semibold text-ink">Blocked drain, Ogunlana Drive</div><div className="text-[13px] text-ink-2">80 m away · Inspection scheduled</div><div className="mt-1 text-[13px] font-medium text-brand">48 people have confirmed this</div></div>
               </div>
-              <div className="ml-auto flex w-fit items-center gap-3 rounded-2xl bg-clay p-4 pr-5 text-white shadow-pop" style={{ transform: 'rotate(-2deg)' }}>
-                <Icon name="alert" size={22} /><div><div className="text-[13px] opacity-80">2 reports · Urgent safety risk</div><div className="font-bold">Open manhole jumps the queue</div></div>
+              <div className="mt-3 grid grid-cols-2 gap-2 text-[13px] font-medium">
+                <span className="rounded-full bg-ink px-3 py-2.5 text-center text-white">Yes, I&apos;m affected too</span>
+                <span className="rounded-full bg-white px-3 py-2.5 text-center text-ink ring-1 ring-line">Add a photo</span>
+                <span className="rounded-full bg-white px-3 py-2.5 text-center text-ink ring-1 ring-line">Follow this issue</span>
+                <span className="rounded-full bg-white px-3 py-2.5 text-center text-ink-2 ring-1 ring-line">It&apos;s a different problem</span>
               </div>
+            </div>
+            <div className="glass mx-auto mt-4 flex w-fit items-center gap-3 rounded-2xl p-3 pr-5" style={{ transform: 'rotate(-2deg)' }}>
+              <span className="grid h-9 w-9 place-items-center rounded-lg bg-clay text-white"><Icon name="alert" size={18} /></span><div><div className="text-[12px] text-ink-2">2 reports · Urgent safety risk</div><div className="text-[14px] font-semibold text-ink">Open manhole jumps the queue</div></div>
             </div>
           </div>
           <div className="order-1 lg:order-2">
             <SectionHead eyebrow={<><Icon name="users" size={14} />Stronger together</>} title="One problem. One report. Many voices." body="When you spot something already reported, add your weight instead of a duplicate. Confirmations show how many people are affected, but they're not votes: a dangerous open manhole with two reports still outranks a faded zebra crossing with two hundred." />
-            <ul className="mt-8 space-y-3" data-reveal>
-              {['Duplicates strengthen the original report', 'Severity and safety come before popularity', 'Structured contributions, no comment wars'].map((t) => (
-                <li key={t} className="flex items-center gap-3 text-[16px] font-medium text-forest"><span className="grid h-7 w-7 place-items-center rounded-full bg-brand text-white"><Icon name="check" size={15} /></span>{t}</li>
-              ))}
-            </ul>
+            <Checklist className="mt-8" items={['Duplicates strengthen the original report', 'Severity and safety come before popularity', 'Structured contributions, no comment wars']} />
           </div>
         </Container>
       </section>
@@ -183,98 +173,98 @@ export default function Home() {
       {/* ---------- Badges ---------- */}
       <section className="pb-20 sm:pb-28">
         <Container>
-          <div className="overflow-hidden rounded-[36px] bg-white p-6 shadow-soft ring-1 ring-line sm:p-12">
-            <div>
-              <SectionHead tone="sun" eyebrow={<><Icon name="heart" size={14} />Your civic footprint</>} title="Earn respect, not points for noise." body="Badges reward useful help, like verified reports, good evidence and confirming real repairs. Never for volume. No leaderboards of complaints." />
-              <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 lg:gap-4">
-                {BADGES.map((b, i) => (
-                  <div key={b.name} className="rounded-3xl bg-paper p-4 text-center transition-transform duration-300 hover:-translate-y-1 hover:rotate-[-2deg]" data-reveal style={{ ['--d' as string]: `${i * 70}ms` }}>
-                    <span className={cx('mx-auto grid h-16 w-16 place-items-center rounded-full ring-4 ring-white', ['bg-sun text-forest', 'bg-brand text-white', 'bg-sky text-white', 'bg-violet text-white', 'bg-clay text-white'][i])}><Icon name={b.icon} size={26} /></span>
-                    <div className="mt-3 text-[14px] font-bold text-forest">{b.name}</div>
-                    <div className="mt-1 text-[12px] leading-snug text-ink-2">{b.how}</div>
-                  </div>
-                ))}
+          <div className="border-t border-line pt-14">
+            <SectionHead tone="sun" eyebrow={<><Icon name="heart" size={14} />Your civic footprint</>} title="Earn respect, not points for noise." body="Badges reward useful help, like verified reports, good evidence and confirming real repairs. Never for volume. No leaderboards of complaints." />
+          </div>
+          <div className="mt-12 grid grid-cols-2 border-t border-line sm:grid-cols-3 lg:grid-cols-5">
+            {BADGES.map((b, i) => (
+              <div key={b.name} className={cx('border-b border-line py-7 pr-4', i > 0 && 'lg:border-l lg:pl-6')} data-reveal style={{ ['--d' as string]: `${i * 70}ms` }}>
+                <span className={cx('grid h-12 w-12 place-items-center rounded-full transition-transform duration-300 hover:-rotate-12 hover:scale-110', ['bg-sun text-ink', 'bg-brand text-white', 'bg-sky text-white', 'bg-violet text-white', 'bg-clay text-white'][i])}><Icon name={b.icon} size={22} /></span>
+                <div className="mt-4 text-[15px] font-medium text-ink">{b.name}</div>
+                <div className="mt-1 text-[13px] leading-snug text-ink-2">{b.how}</div>
               </div>
-            </div>
-            <div className="mt-6 grid grid-cols-2 gap-4 rounded-3xl bg-forest p-5 text-white sm:grid-cols-4 sm:p-6">
-              <div className="col-span-2 -mb-1 text-[13px] font-semibold text-white/60 sm:col-span-4">Example impact dashboard · &ldquo;Your reports helped improve your community.&rdquo;</div>
+            ))}
+          </div>
+          <div className="mt-8 rounded-[20px] bg-paper-2 p-6 sm:p-8">
+            <div className="text-[13px] text-ink-2">Example impact dashboard · &ldquo;Your reports helped improve your community.&rdquo;</div>
+            <div className="mt-5 grid grid-cols-2 gap-6 sm:grid-cols-4">
               {[['8', 'verified reports'], ['5', 'resolved'], ['3', 'communities helped'], ['1,840', 'people potentially impacted']].map(([n, l]) => (
-                <div key={l}><div className="display text-3xl font-extrabold text-sun">{n}</div><div className="text-[14px] text-white/70">{l}</div></div>
+                <div key={l}><div className="display text-[40px] leading-none text-ink">{n}</div><div className="mt-2 text-[14px] text-ink-2">{l}</div></div>
               ))}
             </div>
           </div>
         </Container>
       </section>
 
-      {/* ---------- For government teaser ---------- */}
-      <section className="relative overflow-hidden bg-forest-2 py-20 text-white sm:py-28">
-        <div className="absolute right-0 top-0 h-[480px] w-[480px] rounded-full bg-brand/30 blur-3xl" aria-hidden />
-        <Container className="relative grid items-center gap-14 lg:grid-cols-[1fr_1.2fr]">
+      {/* ---------- For government ---------- */}
+      <section className="pb-20 sm:pb-28">
+        <Container className="grid items-center gap-12 border-t border-line pt-14 lg:grid-cols-[1fr_1.25fr] lg:gap-14">
           <div>
-            <SectionHead light eyebrow={<><Icon name="building" size={14} />For government teams</>} title="Operational tools, not a complaint inbox." body="Triage, inspections, work orders, contractors and analytics in one place. Every action updates the public timeline automatically, so transparency is built into the work, not extra work." />
-            <div className="mt-8 flex flex-wrap gap-3" data-reveal><Btn href="/for-government" variant="sun" icon="arrowR">Explore the portal</Btn><Btn href={appUrl('/gov')} variant="outline-light">Try the demo</Btn></div>
+            <SectionHead eyebrow={<><Icon name="building" size={14} />For government teams</>} title="Operational tools, not a complaint inbox." body="Triage, inspections, work orders, contractors and analytics in one place. Every action updates the public timeline automatically, so transparency is built into the work, not extra work." />
+            <div className="mt-8 flex flex-wrap gap-3" data-reveal><Btn href="/for-government" icon="arrowR">Explore the portal</Btn><Btn href={appUrl('/gov')} variant="ghost">Try the demo</Btn></div>
           </div>
-          <div data-reveal><GovPreview /></div>
+          <div className="sky-day overflow-hidden rounded-[24px] p-5 sm:p-10" data-reveal><GovPreview /></div>
         </Container>
       </section>
 
       {/* ---------- Inclusion ---------- */}
-      <section className="py-20 sm:py-28">
+      <section className="pb-20 sm:pb-28">
         <Container>
-          <SectionHead center eyebrow={<><Icon name="globe" size={14} />Made for every Nigerian</>} title="For grandma’s old phone and your new one." body="Designed for older users, first-time reporters, patchy networks and expensive data." />
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="border-t border-line pt-14"><SectionHead eyebrow={<><Icon name="globe" size={14} />Made for every Nigerian</>} title="For grandma’s old phone and your new one." body="Designed for older users, first-time reporters, patchy networks and expensive data." /></div>
+          <div className="mt-12 grid border-t border-line sm:grid-cols-2 lg:grid-cols-4">
             {ACCESS.map((a, i) => (
-              <div key={a.title} className="rounded-[28px] bg-white p-6 ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
-                <IconTile name={a.icon} color={['#0B7A4B', '#C77700', '#0284C7', '#8B5CF6'][i]} />
-                <h3 className="mt-5 text-lg font-bold text-forest">{a.title}</h3>
+              <div key={a.title} className={cx('border-b border-line py-7 sm:pr-6', i > 0 && 'lg:border-l lg:pl-6', i % 2 === 1 && 'sm:border-l sm:pl-6')} data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
+                <Icon name={a.icon} size={22} className="text-ink" />
+                <h3 className="mt-4 text-[18px] font-medium text-ink">{a.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{a.body}</p>
               </div>
             ))}
           </div>
-          <div className="mt-4 rounded-[28px] bg-sun-soft p-6 sm:flex sm:items-center sm:justify-between sm:gap-6 sm:p-8" data-reveal>
-            <div>
-              <div className="display text-2xl font-extrabold text-forest">&ldquo;Good news! Work don start for the streetlight wey you report.&rdquo;</div>
-              <div className="mt-1 text-[14px] text-[#8A5A00]">Friendly notifications, in the language you choose. Try the toggle at the top.</div>
+          <div className="sky mt-8 grid items-center gap-6 overflow-hidden rounded-[24px] p-6 sm:p-10 md:grid-cols-[1fr_auto]" data-reveal>
+            {/* An iOS-style notification, in Pidgin */}
+            <div className="glass max-w-xl rounded-[20px] p-4">
+              <div className="flex items-center gap-2 text-[12px] text-ink-2"><span className="grid h-5 w-5 place-items-center rounded-[6px] bg-sun"><span className="text-[10px] font-bold text-[#063D27]">N</span></span><span className="font-medium uppercase tracking-wide">NaijaWorks</span><span className="ml-auto">now</span></div>
+              <div className="mt-1.5 text-[16px] font-semibold text-ink">&ldquo;Good news! Work don start for the streetlight wey you report.&rdquo;</div>
+              <div className="mt-1 text-[14px] text-ink-2">Friendly notifications, in the language you choose. Try the toggle at the top.</div>
             </div>
-            <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-forest sm:mt-0"><Icon name="bell" size={16} />Coming soon: WhatsApp, SMS & USSD</span>
+            <span className="glass inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 text-[13px] font-medium text-ink"><Icon name="bell" size={16} />Coming soon: WhatsApp, SMS &amp; USSD</span>
           </div>
         </Container>
       </section>
 
       {/* ---------- Quotes ---------- */}
-      <section className="bg-paper-2 py-20 sm:py-28">
+      <section className="pb-20 sm:pb-28">
         <Container>
-          <SectionHead center eyebrow="Voices" title="It feels like someone is listening." />
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          <div className="border-t border-line pt-14"><SectionHead eyebrow="Voices" title="It feels like someone is listening." /></div>
+          <div className="mt-12 grid border-t border-line lg:grid-cols-3">
             {QUOTES.map((q, i) => (
-              <figure key={q.name} className={cx('flex flex-col rounded-[28px] p-7', i === 1 ? 'bg-forest text-white' : 'bg-white ring-1 ring-line')} data-reveal style={{ ['--d' as string]: `${i * 90}ms` }}>
-                <span className={cx('display text-6xl leading-none', i === 1 ? 'text-sun' : 'text-brand')}>&ldquo;</span>
-                <blockquote className={cx('mt-1 flex-1 text-[17px] leading-relaxed', i === 1 ? 'text-white/90' : 'text-ink')}>{q.text}</blockquote>
+              <figure key={q.name} className={cx('flex flex-col border-b border-line py-8 lg:pr-8', i > 0 && 'lg:border-l lg:pl-8')} data-reveal style={{ ['--d' as string]: `${i * 90}ms` }}>
+                <blockquote className="flex-1 text-[19px] leading-relaxed text-ink">&ldquo;{q.text}&rdquo;</blockquote>
                 <figcaption className="mt-6 flex items-center gap-3">
-                  <span className={cx('grid h-11 w-11 place-items-center rounded-full font-bold', i === 1 ? 'bg-sun text-forest' : 'bg-brand-soft text-brand')}>{q.name[0]}</span>
-                  <span><b className="block">{q.name}</b><span className={cx('text-[13px]', i === 1 ? 'text-white/60' : 'text-ink-2')}>{q.area}</span></span>
+                  <span className={cx('grid h-10 w-10 place-items-center rounded-full text-[15px] font-semibold', ['bg-sun-soft text-[#8A5A00]', 'bg-brand-soft text-brand', 'bg-sky-soft text-sky'][i])}>{q.name[0]}</span>
+                  <span><b className="block font-medium text-ink">{q.name}</b><span className="text-[13px] text-ink-2">{q.area}</span></span>
                 </figcaption>
               </figure>
             ))}
           </div>
-          <p className="mt-6 text-center text-[13px] text-ink-3">Illustrative quotes for this demo.</p>
+          <p className="mt-6 text-[13px] text-ink-3">Illustrative quotes for this demo.</p>
         </Container>
       </section>
 
       {/* ---------- FAQ ---------- */}
-      <section id="faq" className="scroll-mt-24 py-20 sm:py-28">
-        <Container className="grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+      <section id="faq" className="scroll-mt-24 pb-4">
+        <Container className="grid gap-12 border-t border-line pt-14 lg:grid-cols-[1fr_1.6fr]">
           <div>
             <SectionHead eyebrow="FAQ" title="Questions people ask us." body="Still unsure? The app explains every status in plain words as you go." />
-            <div className="mt-6 flex items-start gap-3 rounded-2xl bg-clay-soft p-4 text-[14px] text-[#7A2A10]" data-reveal><Icon name="alert" size={18} className="mt-0.5 shrink-0" /><span><b>Emergency?</b> If someone&apos;s life is in immediate danger, contact emergency services (112) first.</span></div>
+            <p className="mt-6 flex items-start gap-2 text-[14px] text-ink-2" data-reveal><Icon name="alert" size={17} className="mt-0.5 shrink-0 text-clay" /><span><b className="font-medium text-ink">Emergency?</b> If someone&apos;s life is in immediate danger, contact emergency services (112) first.</span></p>
           </div>
-          <div className="space-y-3" data-reveal>
+          <div className="border-t border-line" data-reveal>
             {FAQ.map((f, i) => (
-              <details key={f.q} className="group rounded-3xl bg-white ring-1 ring-line open:shadow-soft" open={i === 0}>
-                <summary className="flex items-center justify-between gap-4 p-5 text-[17px] font-semibold text-forest sm:p-6">
-                  {f.q}<span className="faq-plus grid h-9 w-9 shrink-0 place-items-center rounded-full bg-paper text-forest transition-all duration-300"><Icon name="plus" size={18} /></span>
+              <details key={f.q} className="group border-b border-line" open={i === 0}>
+                <summary className="flex items-center justify-between gap-4 py-5 text-[18px] font-medium text-ink">
+                  {f.q}<span className="faq-plus grid h-8 w-8 shrink-0 place-items-center rounded-full ring-1 ring-line transition-all duration-300"><Icon name="plus" size={16} /></span>
                 </summary>
-                <p className="-mt-1 px-5 pb-6 text-[16px] leading-relaxed text-ink-2 sm:px-6">{f.a}</p>
+                <p className="-mt-1 pb-6 pr-12 text-[16px] leading-relaxed text-ink-2">{f.a}</p>
               </details>
             ))}
           </div>
@@ -286,21 +276,38 @@ export default function Home() {
   );
 }
 
-function FloatSticker({ className, r, delay, icon, tone, title, sub, dark = false }: { className: string; r: string; delay: string; icon: string; tone: string; title: string; sub: string; dark?: boolean }) {
+function FeatureRow({ n, icon, title, body, sky, flip = false, children }: { n: string; icon: string; title: string; body: string; sky: string; flip?: boolean; children: ReactNode }) {
   return (
-    <div className={cx('absolute z-10 hidden animate-float items-center gap-3 rounded-2xl py-3 pl-3 pr-4 shadow-pop sm:flex', tone, className)} style={{ ['--r' as string]: r, animationDelay: delay }} aria-hidden>
-      <span className={cx('grid h-9 w-9 place-items-center rounded-xl', dark ? 'bg-white/15' : 'bg-forest/10')}><Icon name={icon} size={18} /></span>
-      <span><b className="block text-[14px] leading-tight">{title}</b><span className="text-[12px] opacity-75">{sub}</span></span>
+    <section className="py-8 sm:py-10">
+      <Container className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className={cx(flip && 'lg:order-2')} data-reveal>
+          <div className="flex items-center gap-2 text-[14px] font-medium text-ink"><span className="grid h-6 w-6 place-items-center rounded-md bg-paper-2 text-ink"><Icon name={icon} size={13} /></span><span className="tabular-nums text-ink-3">{n}</span></div>
+          <h3 className="mt-5 text-[34px] leading-[1.05] font-medium text-ink sm:text-[44px]">{title}</h3>
+          <p className="mt-4 max-w-md text-[16px] leading-relaxed text-ink-2">{body}</p>
+          <div className="mt-7"><Btn href="/how-it-works" variant="ghost" icon="arrowR">See how it works</Btn></div>
+        </div>
+        <div className={cx(sky, 'flex min-h-[320px] items-center justify-center overflow-hidden rounded-[24px] p-6 sm:min-h-[380px] sm:p-10', flip && 'lg:order-1')} data-reveal>{children}</div>
+      </Container>
+    </section>
+  );
+}
+
+/** A small "object" illustration: a stack of report cards, like a playful product still life. */
+function PromiseObject() {
+  return (
+    <div className="relative h-[104px] w-[132px] shrink-0" aria-hidden>
+      <span className="absolute left-2 top-4 h-[78px] w-[104px] -rotate-12 rounded-xl bg-sun shadow-pop" />
+      <span className="absolute left-6 top-2 grid h-[78px] w-[104px] rotate-3 place-items-center rounded-xl bg-white shadow-pop ring-1 ring-line"><Icon name="clipboard" size={28} className="text-ink" /></span>
+      <span className="absolute -right-1 bottom-1 grid h-10 w-10 rotate-6 place-items-center rounded-full bg-brand text-white shadow-pop"><Icon name="check" size={20} /></span>
     </div>
   );
 }
 
-function StepCard({ n, title, body, children }: { n: number; title: string; body: string; children: React.ReactNode }) {
+function FloatSticker({ className, r, delay, icon, title, sub, accent = false }: { className: string; r: string; delay: string; icon: string; title: string; sub: string; accent?: boolean }) {
   return (
-    <div className="flex flex-col rounded-[28px] bg-white/[.06] p-6 ring-1 ring-white/10 backdrop-blur sm:p-7" data-reveal style={{ ['--d' as string]: `${n * 100}ms` }}>
-      <div className="flex items-center gap-3"><span className="display grid h-11 w-11 place-items-center rounded-full bg-sun text-xl font-extrabold text-forest">{n}</span><h3 className="text-2xl font-extrabold">{title}</h3></div>
-      <p className="mt-4 text-[15px] leading-relaxed text-white/70">{body}</p>
-      <div className="mt-6 flex-1 rounded-3xl bg-black/20 p-4">{children}</div>
+    <div className={cx('glass absolute z-10 hidden animate-float items-center gap-3 rounded-2xl py-2.5 pl-2.5 pr-4 sm:flex', className)} style={{ ['--r' as string]: r, animationDelay: delay }} aria-hidden>
+      <span className={cx('grid h-9 w-9 place-items-center rounded-xl', accent ? 'bg-sun text-ink' : 'bg-ink text-white')}><Icon name={icon} size={17} /></span>
+      <span><b className="block text-[14px] font-semibold leading-tight text-ink">{title}</b><span className="text-[12px] text-ink-2">{sub}</span></span>
     </div>
   );
 }

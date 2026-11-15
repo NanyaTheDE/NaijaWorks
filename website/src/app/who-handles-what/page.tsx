@@ -8,7 +8,7 @@ import { appUrl, LEVELS } from '@/content/site';
 export const metadata: Metadata = { title: 'Who handles what', description: 'Federal, state, Local Government and utilities: who usually fixes what in Nigeria, explained simply.' };
 
 const TRANSFER = [
-  { date: '14 Nov', text: 'Initially sent to Ikeja LGA.', icon: 'building', tone: 'bg-paper text-ink-2' },
+  { date: '14 Nov', text: 'Initially sent to Ikeja LGA.', icon: 'building', tone: 'bg-paper-2 text-ink-2' },
   { date: '15 Nov', text: 'Transferred to Lagos State Public Works because Obafemi Awolowo Way is state-managed.', icon: 'refresh', tone: 'bg-sun-soft text-[#5C4100]' },
   { date: '15 Nov', text: 'Accepted by Lagos State Public Works. Inspection to be scheduled.', icon: 'check', tone: 'bg-brand-soft text-brand' },
 ];
@@ -26,12 +26,11 @@ export default function WhoHandlesWhat() {
           <SectionHead eyebrow={<><Icon name="layers" size={14} />The four layers</>} title="Closest to furthest." body="Generally, the bigger and busier the infrastructure, the higher the level of government that owns it. There are local exceptions, which is why NaijaWorks checks each location." />
           <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {[...LEVELS].reverse().map((l, i) => (
-              <div key={l.key} className="group flex flex-col overflow-hidden rounded-[28px] bg-white ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
-                <div className="relative p-6 text-white" style={{ background: l.color }}>
-                  <div className="adire absolute inset-0" aria-hidden />
-                  <span className="relative grid h-12 w-12 place-items-center rounded-2xl bg-white/20 transition-transform duration-300 group-hover:rotate-[-8deg]"><Icon name={l.icon} size={24} /></span>
-                  <h3 className="relative mt-5 text-2xl font-extrabold">{l.name}</h3>
-                  <p className="relative mt-1 text-[15px] text-white/85">{l.blurb}</p>
+              <div key={l.key} className="group flex flex-col overflow-hidden rounded-[20px] bg-white ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
+                <div className="tint-card relative border-b border-line p-6" style={{ ['--tint' as string]: l.color }}>
+                  <span className="grid h-11 w-11 place-items-center rounded-xl text-white transition-transform duration-300 group-hover:rotate-[-8deg]" style={{ background: l.color }}><Icon name={l.icon} size={22} /></span>
+                  <h3 className="mt-5 text-[26px] font-medium text-ink">{l.name}</h3>
+                  <p className="mt-1 text-[15px] text-ink-2">{l.blurb}</p>
                 </div>
                 <ul className="flex-1 space-y-3 p-6">
                   {l.items.map((it) => <li key={it} className="flex gap-2.5 text-[15px] text-ink"><span className="mt-2 h-2 w-2 shrink-0 rounded-full" style={{ background: l.color }} />{it}</li>)}
@@ -59,7 +58,7 @@ export default function WhoHandlesWhat() {
               ))}
             </div>
           </div>
-          <ol className="space-y-3 rounded-[32px] bg-white p-5 shadow-soft ring-1 ring-line sm:p-7" data-reveal>
+          <ol className="space-y-3 rounded-[22px] bg-white p-5 shadow-soft ring-1 ring-line sm:p-7" data-reveal>
             <li className="mb-2 text-[13px] font-semibold text-ink-3">Report NW-LA-31002 · Collapsed kerb, Obafemi Awolowo Way</li>
             {TRANSFER.map((t) => (
               <li key={t.text} className={cx('flex gap-4 rounded-2xl p-4', t.tone)}>
@@ -74,15 +73,15 @@ export default function WhoHandlesWhat() {
       <section className="pb-4">
         <Container>
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-[32px] bg-forest p-7 text-white sm:p-9" data-reveal>
-              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-sun text-forest"><Icon name="crane" size={24} /></span>
-              <h3 className="mt-5 text-2xl font-extrabold">Abandoned or stalled project?</h3>
-              <p className="mt-2 text-[16px] leading-relaxed text-white/75">There is a special report type for public projects that have stopped: how long work appears paused, its condition now, and how it affects your community.</p>
+            <div className="sky-dawn rounded-[22px] p-7 sm:p-9" data-reveal>
+              <span className="grid h-12 w-12 place-items-center rounded-xl bg-ink text-sun"><Icon name="crane" size={24} /></span>
+              <h3 className="mt-5 text-2xl font-medium text-ink">Abandoned or stalled project?</h3>
+              <p className="mt-2 text-[16px] leading-relaxed text-ink-2">There is a special report type for public projects that have stopped: how long work appears paused, its condition now, and how it affects your community.</p>
               <div className="mt-6"><Btn href={appUrl('/report')} variant="sun" icon="arrowR">Report a stalled project</Btn></div>
             </div>
-            <div className="rounded-[32px] bg-clay-soft p-7 sm:p-9" data-reveal>
+            <div className="rounded-[22px] bg-clay-soft p-7 sm:p-9" data-reveal>
               <span className="grid h-12 w-12 place-items-center rounded-2xl bg-clay text-white"><Icon name="bolt" size={24} /></span>
-              <h3 className="mt-5 text-2xl font-extrabold text-forest">Electricity is tricky. We handle it.</h3>
+              <h3 className="mt-5 text-2xl font-medium text-ink">Electricity is tricky. We handle it.</h3>
               <p className="mt-2 text-[16px] leading-relaxed text-ink-2">A fallen pole goes to your distribution company, a dark streetlight to whoever owns the road, a billing complaint to the regulator. NaijaWorks works out which. For exposed live wires, keep away and call 112.</p>
             </div>
           </div>
