@@ -6,7 +6,7 @@ import { Icon } from './Icon';
 import { Scene } from './Scene';
 import { Btn, Wordmark, cx } from './ui';
 import { PCM, PCM_PATTERNS } from '@/content/pcm';
-import { appUrl, HERO, JOURNEY, LEVELS, NAV, ROUTES, type Lang } from '@/content/site';
+import { appUrl, HERO, LEVELS, NAV, ROUTES, type Lang } from '@/content/site';
 
 /* ---------------- Language (English / Naija Pidgin) ---------------- */
 const LangCtx = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({ lang: 'en', setLang: () => {} });
@@ -37,11 +37,7 @@ export function HeroCopy() {
   const h = HERO[lang];
   return (
     <div key={lang} className="pop-in">
-      <div className="inline-flex items-center gap-2 text-[14px] font-medium text-ink">
-        <span className="relative grid h-6 w-6 place-items-center rounded-full bg-sun-soft"><span className="h-2 w-2 rounded-full bg-sun" /><span className="pulse absolute inset-0 rounded-full" /></span>
-        {h.kicker}
-      </div>
-      <h1 className="rise mt-7 text-[52px] leading-[1] text-ink sm:text-[68px] lg:text-[76px]">
+      <h1 className="rise text-[52px] leading-[1] text-ink sm:text-[68px] lg:text-[76px]">
         <span className="block">{h.title[0]}</span>
         <span className="block"><span className="doodle relative z-0">{h.title[1]}</span></span>
         <em className="block">{h.title[2]}</em>
@@ -203,7 +199,7 @@ export function CountUp({ value, decimals = 0, suffix = '' }: { value: number; d
 }
 
 /* ---------------- Confetti (only for positive, non-emergency moments) ---------------- */
-function Confetti({ burst }: { burst: number }) {
+export function Confetti({ burst }: { burst: number }) {
   if (!burst) return null;
   const colors = ['#F5B301', '#0B7A4B', '#D9481F', '#0284C7', '#8B5CF6', '#ffffff'];
   return (
@@ -216,107 +212,8 @@ function Confetti({ burst }: { burst: number }) {
   );
 }
 
-/* ---------------- Hero tracker demo: a report's parcel-style journey ---------------- */
-export function TrackerDemo() {
-  const [step, setStep] = useState(3);
-  const [auto, setAuto] = useState(true);
-  const [burst, setBurst] = useState(0);
-  const tabsRef = useRef<HTMLDivElement>(null);
-  const last = JOURNEY.length - 1;
-  // Keep the active stage chip in view without scrolling the page.
-  useEffect(() => {
-    const box = tabsRef.current; const el = box?.querySelector<HTMLElement>(`[data-step="${step}"]`);
-    if (box && el) box.scrollTo({ left: el.offsetLeft - box.clientWidth / 2 + el.clientWidth / 2, behavior: 'smooth' });
-  }, [step]);
-  useEffect(() => {
-    if (!auto || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const id = setTimeout(() => setStep((s) => (s >= last ? 0 : s + 1)), step === last ? 3600 : 2200);
-    return () => clearTimeout(id);
-  }, [step, auto, last]);
-  useEffect(() => { if (step === last) setBurst((b) => b + 1); }, [step, last]);
-  const cur = JOURNEY[step];
-  const fixed = step === last;
-  const stops = [0, 1, 3, 5, 6];
-  const scene = fixed ? 'road-fixed' : step >= 5 ? 'road-work' : 'road';
-
-  return (
-    <div className="relative mx-auto w-full max-w-[340px]">
-      {/* Device: titanium band, side buttons, black bezel, Dynamic Island, home indicator */}
-      <div className="relative">
-        <span className="phone-btn left-[-3px] top-[104px] h-[26px] rounded-l-[3px]" aria-hidden />
-        <span className="phone-btn left-[-3px] top-[150px] h-[48px] rounded-l-[3px]" aria-hidden />
-        <span className="phone-btn left-[-3px] top-[208px] h-[48px] rounded-l-[3px]" aria-hidden />
-        <span className="phone-btn right-[-3px] top-[168px] h-[78px] rounded-r-[3px]" aria-hidden />
-        <div className="phone-band relative rounded-[58px] p-[3px] shadow-pop">
-          <div className="rounded-[55px] bg-black p-[11px]">
-            <div className="relative overflow-hidden rounded-[45px] bg-paper-2">
-              <Confetti burst={burst} />
-              <div className="pointer-events-none absolute inset-0 z-30 rounded-[45px] bg-[linear-gradient(115deg,rgb(255_255_255/.14)_0%,rgb(255_255_255/0)_38%)]" aria-hidden />
-              <span className="absolute left-1/2 top-[11px] z-20 h-[30px] w-[96px] -translate-x-1/2 rounded-full bg-black" aria-hidden />
-              <StatusBar />
-              <div className="flex items-center justify-between px-4 pb-2 text-ink" aria-hidden>
-                <span className="grid h-8 w-8 place-items-center rounded-full bg-white ring-1 ring-line"><Icon name="chevronL" size={16} /></span>
-                <span className="text-[14px] font-bold">Issue details</span>
-                <span className="grid h-8 w-8 place-items-center rounded-full bg-white ring-1 ring-line"><Icon name="bell" size={15} /></span>
-              </div>
-              <div className="relative mx-3 mt-1 h-[150px] overflow-hidden rounded-3xl">
-            <Scene name={scene} label="Report photo" />
-            <span className="absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur">NW-LA-24817</span>
-          </div>
-          <div className="px-4 pb-4 pt-3">
-            <div className="text-[12px] font-semibold text-ink-3">Pothole · Adeola Street, Surulere</div>
-            <div key={step} className="pop-in mt-2 rounded-3xl bg-white p-4 shadow-soft ring-1 ring-line">
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-ink-3">{fixed ? 'Fixed on' : 'Latest · ' + cur.date}</div>
-                  <div className="display mt-0.5 text-[22px] leading-tight font-semibold text-ink">{fixed ? '2 December' : cur.label}</div>
-                </div>
-                <span className={cx('shrink-0 rounded-full px-2.5 py-1 text-[11px] font-bold', fixed ? 'bg-brand text-white' : 'bg-brand-soft text-brand')}>{fixed ? 'Fixed ✓' : 'On track'}</span>
-              </div>
-              <div className="mt-4 flex items-center">
-                {stops.map((s, i) => {
-                  const done = step >= s; const now = step >= s && (i === stops.length - 1 || step < stops[i + 1]);
-                  return (
-                    <div key={s} className="flex flex-1 items-center last:flex-none">
-                      <span className={cx('grid h-8 w-8 shrink-0 place-items-center rounded-full transition-all duration-500', done ? 'bg-brand text-white' : 'bg-paper-2 text-ink-3', now && !fixed && 'ring-4 ring-sun/50')}>
-                        <Icon name={JOURNEY[s].icon} size={15} />
-                      </span>
-                      {i < stops.length - 1 && <span className="mx-1 h-1 flex-1 overflow-hidden rounded-full bg-paper-2"><span className="block h-full rounded-full bg-brand transition-all duration-700" style={{ width: step >= stops[i + 1] ? '100%' : step > s ? '50%' : '0%' }} /></span>}
-                    </div>
-                  );
-                })}
-              </div>
-              <p className="mt-3 text-[13px] leading-snug text-ink-2">{cur.text}</p>
-              <div className="mt-2 text-[11px] font-semibold text-ink-3">By {cur.who}</div>
-            </div>
-            <div className="mt-3 grid grid-cols-2 gap-2 text-[12px]">
-              <div className="rounded-2xl bg-white p-3 ring-1 ring-line"><div className="text-ink-3">Handled by</div><div className="font-medium text-ink">Lagos State Works</div></div>
-              <div className="rounded-2xl bg-white p-3 ring-1 ring-line"><div className="text-ink-3">Affected</div><div className="font-medium text-ink">240 residents</div></div>
-            </div>
-          </div>
-              <div className="flex justify-center pb-2 pt-9" aria-hidden><span className="h-[5px] w-[118px] rounded-full bg-ink/85" /></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="mt-5 text-center text-[12px] font-bold uppercase tracking-[.14em] text-ink-3">Live demo · tap a stage</div>
-      <div className="mt-2 flex items-center gap-2">
-        <div className="marquee-mask flex min-w-0 flex-1 gap-1.5 overflow-x-auto px-3 py-1 [scrollbar-width:none]" role="tablist" aria-label="Report journey steps" ref={tabsRef}>
-          {JOURNEY.map((j, i) => (
-            <button key={j.key} role="tab" aria-selected={i === step} data-step={i} onClick={() => { setAuto(false); setStep(i); }}
-              className={cx('flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-semibold whitespace-nowrap transition-colors', i === step ? 'bg-forest text-white' : i < step ? 'bg-white/80 text-brand ring-1 ring-brand/25' : 'bg-white/70 text-ink-2 ring-1 ring-line hover:text-ink')}>
-              <Icon name={j.icon} size={13} />{j.label}
-            </button>
-          ))}
-        </div>
-        <button onClick={() => setAuto((a) => !a)} className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-ink-2 hover:bg-forest/5" aria-label={auto ? 'Pause demo' : 'Play demo'}><Icon name={auto ? 'pause' : 'play'} size={16} /></button>
-      </div>
-    </div>
-  );
-}
-
 /** iOS-style status bar: time on the left, signal, Wi-Fi and battery on the right. */
-function StatusBar() {
+export function StatusBar() {
   return (
     <div className="relative z-10 flex h-[52px] items-center justify-between pl-9 pr-7 pt-1 text-ink" aria-hidden>
       <span className="text-[15px] font-semibold tracking-tight">9:41</span>
@@ -359,20 +256,20 @@ export function RouteExplainer({ compact = false }: { compact?: boolean }) {
         {ROUTES.map((x, k) => (
           <button key={x.label} role="radio" aria-checked={k === i} onClick={() => setI(k)}
             className={cx('group flex w-full items-center gap-3 border-b border-line py-3.5 text-left text-[16px] font-medium transition-colors', k === i ? 'text-ink' : 'text-ink-3 hover:text-ink')}>
-            <span className={cx('grid h-8 w-8 place-items-center rounded-xl transition-colors', k === i ? 'bg-forest text-white' : 'bg-paper-2 text-ink-2 group-hover:text-ink')}><Icon name={x.icon} size={16} /></span>
+            <span className={cx('grid h-8 w-8 place-items-center rounded-full transition-colors', k === i ? 'bg-forest text-white' : 'bg-paper-2 text-ink-2 group-hover:text-ink')}><Icon name={x.icon} size={16} /></span>
             <span className="flex-1">{x.label}</span>
             <Icon name="arrowR" size={16} className={cx('transition-all', k === i ? 'translate-x-0 opacity-100' : '-translate-x-1 opacity-0 group-hover:opacity-60')} />
           </button>
         ))}
       </div>
-      <div className="panel-green relative flex items-center overflow-hidden rounded-[22px] p-5 sm:p-10">
+      <div className="panel-green relative flex items-center overflow-hidden rounded-[24px] p-5 sm:p-10">
         <div key={i} className="glass pop-in w-full rounded-2xl p-6 sm:p-7" aria-live="polite">
           <div className="flex items-center justify-between gap-3">
             <div className="text-[13px] font-medium text-ink-3">Usually handled by</div>
             <span className="rounded-full px-3 py-1 text-[12px] font-semibold" style={{ background: `color-mix(in srgb, ${level.color} 12%, white)`, color: level.color }}>{level.name} level</span>
           </div>
           <div className="mt-3 flex items-center gap-3">
-            <span className="grid h-12 w-12 place-items-center rounded-xl text-white" style={{ background: level.color }}><Icon name={level.icon} size={22} /></span>
+            <span className="grid h-12 w-12 place-items-center rounded-full text-white" style={{ background: level.color }}><Icon name={level.icon} size={22} /></span>
             <div><div className="display text-[26px] font-medium text-ink">{level.name}</div><div className="text-[14px] text-ink-2">e.g. {r.example}</div></div>
           </div>
           <p className="mt-5 text-[16px] leading-relaxed text-ink">{r.why}</p>

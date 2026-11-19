@@ -57,7 +57,7 @@ export default function HowItWorks() {
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {ROLES.map((r, i) => (
               <div key={r.name} className="lift rounded-[20px] bg-white p-6 ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
-                <IconTile name={r.icon} color={r.color} size={54} />
+                <IconTile name={r.icon} size={52} />
                 <h3 className="mt-5 text-xl font-medium text-ink">{r.name}</h3>
                 <ul className="mt-4 space-y-2.5">
                   {r.does.map((d) => <li key={d} className="flex gap-2.5 text-[15px] text-ink-2"><Icon name="check" size={18} className="mt-0.5 text-brand" />{d}</li>)}
@@ -81,7 +81,7 @@ export default function HowItWorks() {
         <Container className="grid items-center gap-12 border-t border-line pt-14 lg:grid-cols-2">
           <SectionHead eyebrow={<><Icon name="check" size={14} />The final word is yours</>} title="“Has this actually been fixed?”" body="When officials mark work complete with photos, people nearby are asked to confirm. If several credible residents say the problem remains, the report moves to Resolution under review and goes back to the department." />
           <div className="panel-indigo rounded-[24px] p-6 sm:p-10" data-reveal><div className="glass mx-auto w-full max-w-md rounded-2xl p-6 text-ink">
-            <div className="flex items-center gap-3"><span className="grid h-11 w-11 place-items-center rounded-2xl bg-brand-soft text-brand"><Icon name="lamp" size={22} /></span><div><div className="font-medium text-ink">Streetlights, Allen Avenue</div><div className="text-[13px] text-ink-2">Marked complete 14 Nov · 3 photos</div></div></div>
+            <div className="flex items-center gap-3"><span className="grid h-11 w-11 place-items-center rounded-full bg-brand-soft text-brand"><Icon name="lamp" size={22} /></span><div><div className="font-medium text-ink">Streetlights, Allen Avenue</div><div className="text-[13px] text-ink-2">Marked complete 14 Nov · 3 photos</div></div></div>
             <div className="mt-5 space-y-2">
               {[['Yes, it is fixed', 'bg-forest text-white', 'check'], ['Partially fixed', 'bg-white text-ink ring-1 ring-line', 'dots'], ['No, the problem remains', 'bg-white text-clay ring-1 ring-line', 'x'], ['I cannot confirm', 'bg-white text-ink-2 ring-1 ring-line', 'eye']].map(([t, c, ic]) => (
                 <div key={t} className={cx('flex items-center gap-3 rounded-full px-4 py-3 font-medium', c)}><Icon name={ic} size={18} />{t}</div>
@@ -98,7 +98,7 @@ export default function HowItWorks() {
           <div className="mt-12 grid gap-4 md:grid-cols-2">
             {PRINCIPLES.map((p, i) => (
               <div key={p.title} className="flex gap-5 rounded-[20px] bg-white p-6 ring-1 ring-line sm:p-7" data-reveal style={{ ['--d' as string]: `${(i % 2) * 80}ms` }}>
-                <IconTile name={p.icon} color={['#0B7A4B', '#D9481F', '#0284C7', '#8B5CF6'][i]} size={52} />
+                <IconTile name={p.icon} size={52} />
                 <div><h3 className="text-xl font-medium text-ink">{p.title}</h3><p className="mt-2 text-[15px] leading-relaxed text-ink-2">{p.body}</p></div>
               </div>
             ))}

@@ -43,7 +43,7 @@ export default function ForGovernment() {
           <ol className="mt-12 grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
             {FLOW.map((f, i) => (
               <li key={f.label} className="relative rounded-[24px] bg-white p-5 ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${i * 70}ms` }}>
-                <div className="flex items-center justify-between"><span className="grid h-11 w-11 place-items-center rounded-2xl bg-forest text-sun"><Icon name={f.icon} size={20} /></span><span className="display text-3xl font-medium text-ink/10">0{i + 1}</span></div>
+                <div className="flex items-center justify-between"><span className="grid h-11 w-11 place-items-center rounded-full bg-brand-soft text-brand"><Icon name={f.icon} size={20} /></span><span className="display text-3xl font-medium text-ink/10">0{i + 1}</span></div>
                 <div className="mt-4 text-lg font-medium text-ink">{f.label}</div>
                 <div className="mt-1 text-[13px] leading-snug text-ink-2">{f.sub}</div>
               </li>
@@ -57,12 +57,11 @@ export default function ForGovernment() {
           <SectionHead eyebrow={<><Icon name="tools" size={14} />What's inside</>} title="Built for operations." />
           <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {GOV_FEATURES.map((f, i) => {
-              const color = ['#0B7A4B', '#8B5CF6', '#C77700', '#0284C7', '#4F46E5', '#D9481F'][i];
-              const lead = i === 0;
+                            const lead = i === 0;
               return (
                 <div key={f.title} className={cx('lift rounded-[20px] p-6 ring-1 sm:p-7', lead ? 'grid min-w-0 grid-cols-1 items-end gap-6 bg-forest text-white ring-forest md:col-span-2 md:grid-cols-[1fr_1.2fr] lg:row-span-2' : 'bg-white ring-line', i === GOV_FEATURES.length - 1 && 'md:col-span-2 lg:col-span-1')} data-reveal style={{ ['--d' as string]: `${(i % 3) * 80}ms` }}>
                   <div className="min-w-0">
-                    {lead ? <span className="grid h-[52px] w-[52px] place-items-center rounded-2xl bg-sun text-ink"><Icon name={f.icon} size={24} /></span> : <IconTile name={f.icon} color={color} size={52} />}
+                    {lead ? <IconTile name={f.icon} size={52} className="bg-sun text-forest" /> : <IconTile name={f.icon} size={52} />}
                     <h3 className={cx('mt-5 font-bold', lead ? 'text-2xl' : 'text-xl text-ink')}>{f.title}</h3>
                     <p className={cx('mt-2 text-[15px] leading-relaxed', lead ? 'text-white/70' : 'text-ink-2')}>{f.body}</p>
                   </div>
@@ -86,7 +85,7 @@ export default function ForGovernment() {
             </ul>
           </div>
           <div className="panel-green flex w-full justify-center gap-4 overflow-hidden rounded-[24px] px-6 py-12" data-reveal><div className="flex w-full max-w-md gap-4">
-            <div className="flex-1 rounded-[22px] bg-white p-4 text-ink shadow-pop" style={{ transform: 'rotate(-3deg)' }}>
+            <div className="flex-1 rounded-[20px] bg-white p-4 text-ink shadow-pop" style={{ transform: 'rotate(-3deg)' }}>
               <div className="text-[11px] font-bold uppercase tracking-wider text-ink-3">Inspection</div>
               <div className="mt-1 font-medium text-ink">Blocked drain, Ogunlana Dr.</div>
               <div className="mt-3 grid grid-cols-2 gap-2 text-[11px]">
@@ -99,7 +98,7 @@ export default function ForGovernment() {
               </div>
               <div className="mt-3 rounded-xl bg-sun py-2.5 text-center text-[13px] font-medium text-ink">Submit inspection</div>
             </div>
-            <div className="mt-10 flex-1 rounded-[22px] bg-white p-4 text-ink shadow-pop" style={{ transform: 'rotate(3deg)' }}>
+            <div className="mt-10 flex-1 rounded-[20px] bg-white p-4 text-ink shadow-pop" style={{ transform: 'rotate(3deg)' }}>
               <div className="text-[11px] font-bold uppercase tracking-wider text-ink-3">Work order WO-1182</div>
               <div className="mt-1 font-medium text-ink">Resurface Adeola St.</div>
               <div className="mt-3 text-[12px] font-semibold text-ink-2">Progress</div>
@@ -115,14 +114,14 @@ export default function ForGovernment() {
 
       <section className="py-20 sm:py-28">
         <Container className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-[22px] bg-white p-7 ring-1 ring-line sm:p-9" data-reveal>
+          <div className="rounded-[20px] bg-white p-7 ring-1 ring-line sm:p-9" data-reveal>
             <IconTile name="x" color="#D9481F" size={52} />
             <h3 className="mt-5 text-2xl font-medium text-ink">Rejecting needs a reason.</h3>
             <p className="mt-2 text-[15px] leading-relaxed text-ink-2">Officers pick a reason, and the citizen gets a friendly explanation, never a silent &ldquo;closed&rdquo;.</p>
             <div className="mt-5 flex flex-wrap gap-2">{REJECT.map((r) => <span key={r} className="rounded-full bg-paper-2 px-3 py-1.5 text-[13px] font-semibold text-ink-2">{r}</span>)}</div>
             <div className="mt-5 rounded-2xl bg-sky-soft p-4 text-[14px] text-ink">&ldquo;Thanks for reporting! This gate is on private property, so a public authority can&apos;t repair it. You could raise it with the estate management.&rdquo;</div>
           </div>
-          <div className="rounded-[22px] bg-forest p-7 text-white sm:p-9" data-reveal>
+          <div className="rounded-[24px] bg-forest p-7 text-white sm:p-9" data-reveal>
             <span className="grid h-[52px] w-[52px] place-items-center rounded-2xl bg-white/10 text-sun"><Icon name="shield" size={24} /></span>
             <h3 className="mt-5 text-2xl font-medium">Every action is on the record.</h3>
             <p className="mt-2 text-[15px] leading-relaxed text-white/70">An audit log tracks each verification, assignment, approval and closure. Internal notes and budgets stay private; the public sees what matters.</p>
@@ -135,7 +134,7 @@ export default function ForGovernment() {
 
       <section className="pb-4">
         <Container>
-          <div className="flex flex-col items-start justify-between gap-6 rounded-[22px] bg-white p-7 ring-1 ring-line sm:p-10 lg:flex-row lg:items-center" data-reveal>
+          <div className="flex flex-col items-start justify-between gap-6 rounded-[20px] bg-white p-7 ring-1 ring-line sm:p-10 lg:flex-row lg:items-center" data-reveal>
             <div>
               <h2 className="text-2xl font-medium text-ink sm:text-3xl">Ready to onboard your agency?</h2>
               <p className="mt-2 max-w-2xl text-[16px] text-ink-2">We set up jurisdictions, departments, routing rules and accounts for LGAs, state ministries, federal agencies, utilities and contractors. Integrations with your existing systems come through open APIs.</p>
@@ -159,12 +158,12 @@ function TriageMock() {
     { icon: 'road', title: 'Faded zebra crossing, Adeniran Ogunsanya', meta: '200 confirmations · low risk', badge: 'Normal', tone: 'bg-white/15 text-white' },
   ];
   return (
-    <div className="min-w-0 rounded-[22px] bg-white/[.06] p-3 ring-1 ring-white/10" aria-label="Example triage queue" role="img">
+    <div className="min-w-0 rounded-[20px] bg-white/[.06] p-3 ring-1 ring-white/10" aria-label="Example triage queue" role="img">
       <div className="flex items-center justify-between px-2 pb-2 text-[12px] font-semibold text-white/60"><span>Triage queue · sorted by risk &amp; impact</span><span>4 of 42</span></div>
       <ul className="space-y-1.5">
         {rows.map((r) => (
           <li key={r.title} className="flex items-center gap-3 rounded-2xl bg-white/[.06] p-2.5">
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white/10 text-sun"><Icon name={r.icon} size={17} /></span>
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/10 text-sun"><Icon name={r.icon} size={17} /></span>
             <span className="min-w-0 flex-1"><b className="block truncate text-[13px]">{r.title}</b><span className="block truncate text-[11px] text-white/55">{r.meta}</span></span>
             <span className={cx('shrink-0 rounded-full px-2.5 py-1 text-[11px] font-bold', r.tone)}>{r.badge}</span>
           </li>

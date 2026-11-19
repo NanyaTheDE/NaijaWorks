@@ -11,7 +11,7 @@ export function CategoryMarquee({ dark = false }: { dark?: boolean }) {
       <ul className="flex w-max animate-marquee gap-4 hover:[animation-play-state:paused]">
         {row.map((c, i) => (
           <li key={i} aria-hidden={i >= CATEGORIES.length} className={cx('flex items-center gap-2 py-2 pr-6 text-[16px] font-medium whitespace-nowrap', dark ? 'text-white' : 'text-ink-2')}>
-            <span className={cx('grid h-7 w-7 place-items-center rounded-xl', dark ? 'bg-white/10' : 'bg-paper-2 text-ink')}><Icon name={c.icon} size={15} /></span>{c.label}
+            <span className={cx('grid h-7 w-7 place-items-center rounded-full', dark ? 'bg-white/10' : 'bg-paper-2 text-ink')}><Icon name={c.icon} size={15} /></span>{c.label}
           </li>
         ))}
       </ul>
@@ -57,7 +57,7 @@ export function GovPreview() {
     <div className="@container overflow-hidden rounded-[16px] bg-white text-ink shadow-pop ring-1 ring-black/5" aria-label="Preview of the government dashboard" role="img">
       {/* App top bar */}
       <div className="flex items-center gap-3 border-b border-line px-4 py-2.5">
-        <span className="flex items-center gap-2 text-[13px] font-semibold"><span className="grid h-6 w-6 place-items-center rounded-full bg-sun text-[11px] font-bold text-[#063D27]">N</span>Operations</span>
+        <span className="flex items-center gap-2 text-[13px] font-semibold"><span className="grid h-6 w-6 place-items-center rounded-[7px] bg-sun text-[11px] font-bold text-[#063D27]">N</span>Operations</span>
         <span className="ml-auto flex items-center gap-1.5 rounded-full bg-brand-soft px-2.5 py-1 text-[11px] font-medium text-brand"><span className="h-1.5 w-1.5 rounded-full bg-brand" />Online</span>
         <span className="hidden items-center gap-2 text-[12px] text-ink-2 @md:flex"><span className="grid h-6 w-6 place-items-center rounded-full bg-paper-2 text-[10px] font-semibold text-ink">FA</span>Folake</span>
       </div>
@@ -79,7 +79,7 @@ export function GovPreview() {
           <div className="mt-4 grid grid-cols-2 gap-2.5 @2xl:grid-cols-4">
             {kpis.map((k) => (
               <div key={k.label} className="flex items-center gap-2.5 rounded-xl bg-white p-3 ring-1 ring-line">
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl" style={{ background: `color-mix(in srgb, ${k.color} 12%, white)`, color: k.color }}><Icon name={kpiIcon[k.label] ?? 'dots'} size={15} /></span>
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full" style={{ background: `color-mix(in srgb, ${k.color} 12%, white)`, color: k.color }}><Icon name={kpiIcon[k.label] ?? 'dots'} size={15} /></span>
                 <span className="min-w-0"><span className="block truncate text-[10px] text-ink-3">{k.label}</span><span className="display block text-[19px] leading-tight text-ink">{k.count}</span></span>
               </div>
             ))}

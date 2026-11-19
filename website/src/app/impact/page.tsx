@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Icon } from '@/components/Icon';
 import { CountUp } from '@/components/client';
 import { CtaBand, StoryCard } from '@/components/sections';
-import { Btn, Container, PageHero, SectionHead } from '@/components/ui';
+import { Btn, Container, IconTile, PageHero, SectionHead } from '@/components/ui';
 import { appUrl, IMPACT_TILES, STORIES } from '@/content/site';
 
 export const metadata: Metadata = { title: 'Impact', description: 'Roads repaired, streetlights restored, drains cleared: see what Nigerian communities have fixed with NaijaWorks.' };
@@ -34,8 +34,8 @@ export default function Impact() {
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
             {IMPACT_TILES.map((t, i) => (
               <div key={t.label} className="lift group relative overflow-hidden rounded-[20px] bg-white p-6 ring-1 ring-line sm:p-8" data-reveal style={{ ['--d' as string]: `${(i % 3) * 80}ms` }}>
-                <span className="absolute -right-6 -top-6 h-28 w-28 rounded-full opacity-10 transition-transform duration-500 group-hover:scale-125" style={{ background: t.tone }} aria-hidden />
-                <span className="grid h-12 w-12 place-items-center rounded-2xl text-white" style={{ background: t.tone }}><Icon name={t.icon} size={22} /></span>
+                <span className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-brand opacity-[.06] transition-transform duration-500 group-hover:scale-125" aria-hidden />
+                <IconTile name={t.icon} size={52} />
                 <div className="display mt-6 text-4xl font-medium text-ink sm:text-5xl"><CountUp value={t.value} /></div>
                 <div className="mt-1 text-[15px] text-ink-2">{t.label}</div>
               </div>
@@ -71,7 +71,7 @@ export default function Impact() {
               ))}
             </div>
           </div>
-          <div className="rounded-[22px] bg-forest p-6 text-white sm:p-8" data-reveal>
+          <div className="rounded-[24px] bg-forest p-6 text-white sm:p-8" data-reveal>
             <div className="flex items-start justify-between gap-4">
               <div><div className="text-[13px] font-semibold text-white/60">Community page</div><h3 className="mt-1 text-3xl font-medium">Surulere</h3><div className="text-[14px] text-white/60">Lagos · 41 open · 12 being worked on</div></div>
               <div className="relative grid h-24 w-24 shrink-0 place-items-center">
@@ -91,8 +91,8 @@ export default function Impact() {
 
       <section id="limits" className="scroll-mt-24 pb-4">
         <Container>
-          <div className="grid gap-6 rounded-[22px] bg-sun-soft p-7 sm:p-10 lg:grid-cols-[auto_1fr]" data-reveal>
-            <span className="grid h-14 w-14 place-items-center rounded-2xl bg-sun text-ink"><Icon name="alert" size={26} /></span>
+          <div className="grid gap-6 rounded-[24px] bg-sun-soft p-7 sm:p-10 lg:grid-cols-[auto_1fr]" data-reveal>
+            <span className="grid h-14 w-14 place-items-center rounded-full bg-sun text-ink"><Icon name="alert" size={26} /></span>
             <div>
               <h2 className="text-2xl font-medium text-ink sm:text-3xl">About our data, honestly.</h2>
               <ul className="mt-4 grid gap-3 text-[15px] leading-relaxed text-[#5C4100] md:grid-cols-3">

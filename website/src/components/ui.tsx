@@ -44,21 +44,10 @@ export function Btn({ href, children, variant = 'primary', size = 'md', icon, cl
   return external ? <a className={cls} href={href}>{inner}</a> : <Link className={cls} href={href}>{inner}</Link>;
 }
 
-/** Small "icon chip + label" line above headings. */
-export function Eyebrow({ children, tone = 'brand' }: { children: ReactNode; tone?: 'brand' | 'sun' | 'light' }) {
-  // The caller's icon (first child svg) is drawn as a small tinted chip.
-  const chip = { brand: '[&>svg]:bg-brand-soft [&>svg]:text-brand', sun: '[&>svg]:bg-sun-soft [&>svg]:text-[#8A5A00]', light: '[&>svg]:bg-white/15 [&>svg]:text-white' }[tone];
-  return (
-    <span className={cx('inline-flex items-center gap-2 text-[14px] font-medium [&>svg]:box-content [&>svg]:rounded-full [&>svg]:p-[5px]', chip, tone === 'light' ? 'text-white' : 'text-ink')}>
-      {children}
-    </span>
-  );
-}
-
 export function SectionHead({ eyebrow, title, body, center = false, light = false, tone }: { eyebrow?: ReactNode; title: ReactNode; body?: ReactNode; center?: boolean; light?: boolean; tone?: 'brand' | 'sun' | 'light' }) {
   return (
     <div className={cx('max-w-2xl', center && 'mx-auto text-center')} data-reveal>
-      {eyebrow && <div className="mb-5"><Eyebrow tone={tone ?? (light ? 'light' : 'brand')}>{eyebrow}</Eyebrow></div>}
+      {/* Eyebrow labels were removed by design; `eyebrow` is kept as an optional prop so callers stay valid. */}
       <h2 className={cx('text-[36px] leading-[1.04] sm:text-[52px]', light ? 'text-white' : 'text-ink')}>{title}</h2>
       {body && <p className={cx('mt-5 text-[17px] leading-relaxed', light ? 'text-white/75' : 'text-ink-2')}>{body}</p>}
     </div>
@@ -75,16 +64,13 @@ export function PageHero({ eyebrow, title, body, children, icon = 'sparkle' }: {
     <section className="pt-28 sm:pt-36">
       <Container className="grid items-center gap-10 pb-16 lg:grid-cols-[1.25fr_1fr] lg:pb-24">
         <div className="rise">
-          <span className="inline-flex items-center gap-2 text-[14px] font-medium text-ink">
-            <span className="grid h-6 w-6 place-items-center rounded-full bg-brand-soft text-brand"><Icon name={icon} size={13} /></span>{eyebrow}
-          </span>
-          <h1 className="mt-6 text-[46px] leading-[1.02] text-ink sm:text-6xl lg:text-[72px] [&_.text-sun]:italic [&_.text-sun]:text-brand">{title}</h1>
+          <h1 className="text-[46px] leading-[1.02] text-ink sm:text-6xl lg:text-[72px] [&_.text-sun]:italic [&_.text-sun]:text-brand">{title}</h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-2">{body}</p>
           {children && <div className="mt-8 flex flex-wrap gap-3">{children}</div>}
         </div>
-        <div className="panel-indigo relative hidden aspect-[5/4] overflow-hidden rounded-[22px] lg:block" aria-hidden>
+        <div className="panel-indigo relative hidden aspect-[5/4] overflow-hidden rounded-[24px] lg:block" aria-hidden>
           <div className="glass absolute left-1/2 top-1/2 flex w-[64%] -translate-x-1/2 -translate-y-1/2 items-center gap-4 rounded-2xl p-5" style={{ animation: 'float 7s ease-in-out infinite' }}>
-            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-forest text-white"><Icon name={icon} size={22} /></span>
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-forest text-white"><Icon name={icon} size={22} /></span>
             <span className="min-w-0"><span className="block truncate text-[15px] font-semibold text-ink">{eyebrow}</span><span className="mt-1.5 block h-2 w-32 rounded-full bg-ink/10" /><span className="mt-1.5 block h-2 w-20 rounded-full bg-ink/10" /></span>
           </div>
           <span className="absolute bottom-[12%] right-[10%]"><span className="stamp"><Icon name="check" size={14} />Fixed</span></span>
@@ -94,10 +80,17 @@ export function PageHero({ eyebrow, title, body, children, icon = 'sparkle' }: {
   );
 }
 
-export function IconTile({ name, color, size = 44 }: { name: string; color: string; size?: number }) {
+/**
+ * The site's one icon chip: always a circle. Sizes: 28 inline, 36 list, 44 feature, 52 featured.
+ * Colour rule: `soft` (green tint) for feature icons; `solid` (deep green) for the active or primary item;
+ * `medal` for badges; a custom `color` only where colour carries meaning (status, urgency, government level).
+ */
+export function IconTile({ name, size = 44, tone = 'soft', color, className }: { name: string; size?: 28 | 36 | 44 | 52; tone?: 'soft' | 'solid' | 'medal'; color?: string; className?: string }) {
+  const toneCls = { soft: 'bg-brand-soft text-brand', solid: 'bg-forest text-white', medal: 'bg-sun-soft text-forest ring-2 ring-sun/70 ring-offset-2 ring-offset-paper' }[tone];
   return (
-    <span className="icon-tile grid shrink-0 place-items-center rounded-2xl" style={{ width: size, height: size, background: `color-mix(in srgb, ${color} 12%, white)`, color }}>
-      <Icon name={name} size={Math.round(size * 0.46)} />
+    <span className={cx('icon-tile grid shrink-0 place-items-center rounded-full', !color && toneCls, className)}
+      style={{ width: size, height: size, ...(color ? { background: `color-mix(in srgb, ${color} 13%, white)`, color } : {}) }}>
+      <Icon name={name} size={Math.round(size * 0.45)} />
     </span>
   );
 }

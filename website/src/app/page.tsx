@@ -1,38 +1,40 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { Icon } from '@/components/Icon';
-import { CountUp, HeroCopy, RouteExplainer, TrackerDemo } from '@/components/client';
+import { CountUp, HeroCopy, RouteExplainer } from '@/components/client';
+import { PhoneStory } from '@/components/phone-story';
 import { CategoryMarquee, CtaBand, GovPreview, StoryCard } from '@/components/sections';
-import { Btn, Checklist, Container, SectionHead, cx } from '@/components/ui';
+import { Btn, Checklist, Container, IconTile, SectionHead, cx } from '@/components/ui';
 import { ACCESS, appUrl, BADGES, FAQ, FOUR_QUESTIONS, QUOTES, STATS, STORIES } from '@/content/site';
 
-const Q_COLOR: Record<string, string> = { sun: '#C77700', brand: '#0B7A4B', sky: '#0284C7', clay: '#D9481F' };
 
 export default function Home() {
   return (
     <>
-      {/* ---------- Hero: copy left, demo phone on a painted panel-indigo ---------- */}
-      <section className="pt-32 sm:pt-36">
-        <Container className="grid items-center gap-12 pb-14 lg:grid-cols-[1fr_1.02fr] lg:gap-14">
-          <div>
+      {/* ---------- Hero: headline, body and buttons first; then the phone story fades in below ---------- */}
+      <section className="pt-32 sm:pt-40">
+        <Container className="text-center">
+          <div className="mx-auto max-w-3xl [&_p]:mx-auto">
             <HeroCopy />
-            <div className="mt-9 flex flex-wrap gap-3">
+            <div className="rise mt-9 flex flex-wrap justify-center gap-3 [&>*]:[animation-delay:.5s]">
               <Btn href={appUrl('/report')} size="lg" icon="arrowR">Report an issue</Btn>
               <Btn href="/how-it-works" size="lg" variant="ghost">See how it works</Btn>
             </div>
-            <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-6 text-[14px] text-ink-2">
+            <ul className="rise mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[14px] text-ink-2 [&>*]:[animation-delay:.65s]">
               {[['check', 'Free for citizens'], ['wifi', 'Works on low data'], ['lock', 'Stay anonymous if you like']].map(([ic, t]) => (
                 <li key={t} className="flex items-center gap-2"><Icon name={ic} size={15} className="text-brand" />{t}</li>
               ))}
             </ul>
           </div>
-          <div className="panel-calm relative overflow-hidden rounded-[24px] px-4 pb-6 pt-10 ring-1 ring-[#D3DFD5] sm:px-8 sm:pt-12">
+        </Container>
+        <Container className="mt-14 pb-14">
+          <div className="hero-phone panel-calm relative overflow-hidden rounded-[24px] px-4 pb-10 pt-12 ring-1 ring-[#D3DFD5] sm:px-8 sm:pt-16">
             <span className="absolute right-6 top-6 z-20 hidden sm:block" aria-hidden><span className="stamp stamp-green"><Icon name="shield" size={14} />Verified</span></span>
             <div className="relative mx-auto max-w-[340px]">
-              <TrackerDemo />
-              <FloatSticker className="-left-3 top-24 sm:-left-16" r="-5deg" delay="0s" icon="users" title="+23 neighbours" sub="confirmed this issue" />
-              <FloatSticker className="-right-2 top-[44%] sm:-right-20" r="4deg" delay="1.2s" icon="calendar" title="Inspection Sat" sub="16 Nov · 9am–12pm" />
-              <FloatSticker className="bottom-36 -left-2 sm:-left-20" r="3deg" delay="2.1s" icon="sparkle" title="Your report helped" sub="240 residents" accent />
+              <PhoneStory />
+              <FloatSticker className="-left-3 top-24 sm:-left-44" r="-5deg" delay="0s" icon="users" title="+23 neighbours" sub="confirmed this issue" />
+              <FloatSticker className="-right-2 top-[38%] sm:-right-48" r="4deg" delay="1.2s" icon="calendar" title="Inspection Sat" sub="16 Nov · 9am–12pm" />
+              <FloatSticker className="bottom-48 -left-2 sm:-left-48" r="3deg" delay="2.1s" icon="sparkle" title="Your report helped" sub="240 residents" accent />
             </div>
           </div>
         </Container>
@@ -77,7 +79,7 @@ export default function Home() {
             {FOUR_QUESTIONS.map((f, i) => (
               <div key={f.q} className={cx('wiggle-host border-b border-line py-7 md:px-8', i % 2 === 0 ? 'md:pl-0' : 'md:border-l', 'border-line')} data-reveal style={{ ['--d' as string]: `${i * 70}ms` }}>
                 <div className="flex items-center gap-3">
-                  <span className="grid h-8 w-8 place-items-center rounded-xl" style={{ background: `color-mix(in srgb, ${Q_COLOR[f.tone]} 12%, white)`, color: Q_COLOR[f.tone] }}><Icon name={f.icon} size={16} /></span>
+                  <IconTile name={f.icon} size={36} />
                   <h3 className="text-[20px] font-medium text-ink">{f.q}</h3>
                 </div>
                 <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink-2">{f.a}</p>
@@ -105,7 +107,7 @@ export default function Home() {
       <FeatureRow n="02" icon="building" title="We find who fixes it" body="Our routing engine checks the category, location, road ownership and service areas, then sends it to the right LGA, state agency, federal body or utility." sky="panel-green" flip>
         <div className="w-full max-w-[360px] space-y-2 text-[13px]">
           <div className="glass flex items-center gap-3 rounded-2xl p-3.5 text-ink-3"><Icon name="building" size={18} /><div className="min-w-0"><div className="font-medium line-through">Surulere LGA</div><div className="text-[11px]">Checked</div></div></div>
-          <div className="glass flex items-center gap-3 rounded-2xl p-3.5 text-ink"><span className="grid h-8 w-8 place-items-center rounded-xl bg-forest text-white"><Icon name="building" size={16} /></span><div className="min-w-0"><div className="font-semibold">Lagos State Public Works</div><div className="text-[11px] text-ink-2">Assigned · road is state-managed</div></div><Icon name="check" size={18} className="ml-auto text-brand" /></div>
+          <div className="glass flex items-center gap-3 rounded-2xl p-3.5 text-ink"><span className="grid h-8 w-8 place-items-center rounded-full bg-forest text-white"><Icon name="building" size={16} /></span><div className="min-w-0"><div className="font-semibold">Lagos State Public Works</div><div className="text-[11px] text-ink-2">Assigned · road is state-managed</div></div><Icon name="check" size={18} className="ml-auto text-brand" /></div>
         </div>
       </FeatureRow>
       <FeatureRow n="03" icon="eye" title="Track every step" body="Verified, inspected, scheduled, in progress, fixed. Each step has a date, who did it, and what happens next. Delays must come with a reason." sky="panel-indigo">
@@ -150,7 +152,7 @@ export default function Home() {
             <div className="glass mx-auto max-w-[420px] rounded-2xl p-5">
               <div className="flex items-center gap-2 text-[13px] font-medium text-[#8A5A00]"><Icon name="info" size={16} />This issue may already have been reported</div>
               <div className="mt-3 flex gap-3 rounded-xl bg-white p-3 ring-1 ring-line">
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-sky-soft text-sky"><Icon name="waves" size={22} /></span>
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-sky-soft text-sky"><Icon name="waves" size={22} /></span>
                 <div className="min-w-0"><div className="font-semibold text-ink">Blocked drain, Ogunlana Drive</div><div className="text-[13px] text-ink-2">80 m away · Inspection scheduled</div><div className="mt-1 text-[13px] font-medium text-brand">48 people have confirmed this</div></div>
               </div>
               <div className="mt-3 grid grid-cols-2 gap-2 text-[13px] font-medium">
@@ -161,7 +163,7 @@ export default function Home() {
               </div>
             </div>
             <div className="glass mx-auto mt-4 flex w-fit items-center gap-3 rounded-2xl p-3 pr-5" style={{ transform: 'rotate(-2deg)' }}>
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-clay text-white"><Icon name="alert" size={18} /></span><div><div className="text-[12px] text-ink-2">2 reports · Urgent safety risk</div><div className="text-[14px] font-semibold text-ink">Open manhole jumps the queue</div></div>
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-clay text-white"><Icon name="alert" size={18} /></span><div><div className="text-[12px] text-ink-2">2 reports · Urgent safety risk</div><div className="text-[14px] font-semibold text-ink">Open manhole jumps the queue</div></div>
             </div>
           </div>
           <div className="order-1 lg:order-2">
@@ -180,7 +182,7 @@ export default function Home() {
           <div className="mt-12 grid grid-cols-2 border-t border-line sm:grid-cols-3 lg:grid-cols-5">
             {BADGES.map((b, i) => (
               <div key={b.name} className={cx('wiggle-host border-b border-line py-7 pr-4', i > 0 && 'lg:border-l lg:pl-6')} data-reveal style={{ ['--d' as string]: `${i * 70}ms` }}>
-                <span className={cx('icon-tile grid h-12 w-12 place-items-center rounded-full', ['bg-sun text-ink', 'bg-brand text-white', 'bg-sky text-white', 'bg-violet text-white', 'bg-clay text-white'][i])}><Icon name={b.icon} size={22} /></span>
+                <IconTile name={b.icon} size={44} tone="medal" />
                 <div className="mt-4 text-[15px] font-medium text-ink">{b.name}</div>
                 <div className="mt-1 text-[13px] leading-snug text-ink-2">{b.how}</div>
               </div>
@@ -199,12 +201,15 @@ export default function Home() {
 
       {/* ---------- For government ---------- */}
       <section className="pb-20 sm:pb-28">
-        <Container className="grid items-center gap-12 border-t border-line pt-14 lg:grid-cols-[1fr_1.25fr] lg:gap-14">
-          <div>
+        <Container className="border-t border-line pt-14">
+          <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHead eyebrow={<><Icon name="building" size={14} />For government teams</>} title="Operational tools, not a complaint inbox." body="Triage, inspections, work orders, contractors and analytics in one place. Every action updates the public timeline automatically, so transparency is built into the work, not extra work." />
-            <div className="mt-8 flex flex-wrap gap-3" data-reveal><Btn href="/for-government" icon="arrowR">Explore the portal</Btn><Btn href={appUrl('/gov')} variant="ghost">Try the demo</Btn></div>
+            <div className="flex flex-wrap gap-3" data-reveal><Btn href="/for-government" icon="arrowR">Explore the portal</Btn><Btn href={appUrl('/gov')} variant="ghost">Try the demo</Btn></div>
           </div>
-          <div className="panel-green overflow-hidden rounded-[24px] p-5 sm:p-10" data-reveal><GovPreview /></div>
+          {/* Wide, landscape dashboard so it reads like the real desktop portal */}
+          <div className="panel-green mt-12 overflow-hidden rounded-[24px] px-4 pt-6 sm:px-12 sm:pt-12" data-reveal>
+            <div className="mx-auto max-w-[1040px] translate-y-px [&>div]:rounded-b-none"><GovPreview /></div>
+          </div>
         </Container>
       </section>
 
@@ -215,7 +220,7 @@ export default function Home() {
           <div className="mt-12 grid border-t border-line sm:grid-cols-2 lg:grid-cols-4">
             {ACCESS.map((a, i) => (
               <div key={a.title} className={cx('wiggle-host border-b border-line py-7 sm:pr-6', i > 0 && 'lg:border-l lg:pl-6', i % 2 === 1 && 'sm:border-l sm:pl-6')} data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
-                <span className="icon-tile grid h-11 w-11 place-items-center rounded-full bg-paper-2 text-ink"><Icon name={a.icon} size={20} /></span>
+                <IconTile name={a.icon} size={44} />
                 <h3 className="mt-4 text-[18px] font-medium text-ink">{a.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{a.body}</p>
               </div>
@@ -281,7 +286,7 @@ function FeatureRow({ n, icon, title, body, sky, flip = false, children }: { n: 
     <section className="py-8 sm:py-10">
       <Container className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div className={cx(flip && 'lg:order-2')} data-reveal>
-          <div className="flex items-center gap-2 text-[14px] font-medium text-ink"><span className="grid h-6 w-6 place-items-center rounded-full bg-paper-2 text-ink"><Icon name={icon} size={13} /></span><span className="tabular-nums text-ink-3">{n}</span></div>
+          <div className="flex items-center gap-2 text-[14px] font-medium text-ink"><IconTile name={icon} size={28} /><span className="tabular-nums text-ink-3">{n}</span></div>
           <h3 className="mt-5 text-[34px] leading-[1.05] font-medium text-ink sm:text-[44px]">{title}</h3>
           <p className="mt-4 max-w-md text-[16px] leading-relaxed text-ink-2">{body}</p>
           <div className="mt-7"><Btn href="/how-it-works" variant="ghost" icon="arrowR">See how it works</Btn></div>
@@ -306,7 +311,7 @@ function PromiseObject() {
 function FloatSticker({ className, r, delay, icon, title, sub, accent = false }: { className: string; r: string; delay: string; icon: string; title: string; sub: string; accent?: boolean }) {
   return (
     <div className={cx('glass absolute z-10 hidden animate-float items-center gap-3 rounded-2xl py-2.5 pl-2.5 pr-4 sm:flex', className)} style={{ ['--r' as string]: r, animationDelay: delay }} aria-hidden>
-      <span className={cx('grid h-9 w-9 place-items-center rounded-xl', accent ? 'bg-sun text-ink' : 'bg-forest text-white')}><Icon name={icon} size={17} /></span>
+      <span className={cx('grid h-9 w-9 place-items-center rounded-full', accent ? 'bg-sun text-ink' : 'bg-forest text-white')}><Icon name={icon} size={17} /></span>
       <span><b className="block text-[14px] font-semibold leading-tight text-ink">{title}</b><span className="text-[12px] text-ink-2">{sub}</span></span>
     </div>
   );

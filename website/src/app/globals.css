@@ -110,6 +110,36 @@ h1 em, h2 em, .serif-em { font-style: italic; color: var(--color-brand); }
   transform: scaleX(0); transform-origin: left; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
 .nav-link:hover::after, .nav-link[aria-current="page"]::after { transform: scaleX(1); }
 
+/* Hero phone story: each scene's motion, timed to its sound effects. */
+.story-scene { animation: rise .5s cubic-bezier(.2,.8,.2,1) both; }
+.story-caption { animation: rise .45s cubic-bezier(.2,.8,.2,1) both; }
+.story-fade { animation: rise .55s cubic-bezier(.2,.8,.2,1) both; }
+.story-flash { opacity: 0; animation: s-flash .5s ease-out .9s both; }
+@keyframes s-flash { 0% { opacity: 0; } 15% { opacity: .9; } 100% { opacity: 0; } }
+.story-press { animation: s-press .3s ease-in-out .85s both; }
+@keyframes s-press { 50% { transform: scale(.82); } }
+.story-ripple { transform: translate(-50%, -50%) scale(0); opacity: 0; animation: s-ripple .7s ease-out .8s both; }
+@keyframes s-ripple { 0% { transform: translate(-50%, -50%) scale(0); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; } }
+.story-pick { animation: s-pick .4s ease-out .8s both; }
+@keyframes s-pick { 0% { } 50% { transform: scale(.94); } 100% { background: var(--color-forest); color: #fff; box-shadow: none; } }
+.story-drop { animation: s-drop .7s cubic-bezier(.3,1.5,.5,1) .35s both; }
+@keyframes s-drop { 0% { transform: translate(-50%, -260%); opacity: 0; } 60% { opacity: 1; } 100% { transform: translate(-50%, -100%); opacity: 1; } }
+.story-ring { transform: translate(-50%, -50%) scale(0); animation: s-ring 1s ease-out .75s both; }
+@keyframes s-ring { 0% { transform: translate(-50%, -50%) scale(0); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; } }
+.story-press-btn { animation: s-press .3s ease-in-out .45s both; }
+.story-flyout { animation: s-fly .6s cubic-bezier(.5,0,.7,.4) .65s both; }
+@keyframes s-fly { to { transform: translate(40px, -120%) rotate(8deg) scale(.6); opacity: 0; } }
+.story-stamp { animation: stamp-in .6s cubic-bezier(.3,1.5,.5,1) .55s both; }
+.story-route-off { animation: s-dim .5s ease-out .8s both; }
+@keyframes s-dim { to { opacity: .45; } }
+.story-route-on { animation: s-on .5s cubic-bezier(.3,1.4,.5,1) .8s both; }
+@keyframes s-on { 50% { transform: scale(1.04); } to { box-shadow: 0 0 0 2px var(--color-brand), 0 10px 24px -12px rgb(11 122 75 / .5); } }
+.story-check { transform: scale(0); animation: s-check .4s cubic-bezier(.3,1.6,.5,1) both; }
+@keyframes s-check { to { transform: scale(1); } }
+.story-fill { width: 8%; animation: s-fill 1.8s cubic-bezier(.3,.8,.4,1) .3s both; }
+@keyframes s-fill { to { width: 76%; } }
+.hero-phone { animation: rise 1s cubic-bezier(.2,.8,.2,1) 1.1s both; }
+
 /* Accent card: a soft wash of the card's colour (--tint) from the top-right corner.
    Used instead of edge stripes so coloured cards look the same everywhere. */
 .tint-card { background:

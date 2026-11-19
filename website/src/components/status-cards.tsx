@@ -8,7 +8,7 @@ import { GROUP_COLOR, STATUSES } from '@/content/site';
 /* Small overlay pieces, in the style of app UI laid over a photo. */
 const Chip = ({ icon, children, className, tone = 'ink' }: { icon: string; children?: ReactNode; className?: string; tone?: 'ink' | 'clay' | 'brand' }) => (
   <span className={cx('glass absolute inline-flex items-center gap-2 rounded-xl px-3 py-2 text-[13px] font-medium text-ink', className)}>
-    <span className={cx('grid h-7 w-7 place-items-center rounded-xl text-white', tone === 'clay' ? 'bg-clay' : tone === 'brand' ? 'bg-brand' : 'bg-forest')}><Icon name={icon} size={15} /></span>
+    <span className={cx('grid h-7 w-7 place-items-center rounded-full text-white', tone === 'clay' ? 'bg-clay' : tone === 'brand' ? 'bg-brand' : 'bg-forest')}><Icon name={icon} size={15} /></span>
     {children}
   </span>
 );
