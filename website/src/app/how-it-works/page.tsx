@@ -3,16 +3,16 @@ import { Icon } from '@/components/Icon';
 import { CtaBand } from '@/components/sections';
 import { StatusCards } from '@/components/status-cards';
 import { JourneyTimeline } from '@/components/journey';
-import { Btn, Container, IconTile, PageHero, SectionHead, cx } from '@/components/ui';
+import { Btn, ColorTile, Container, PageHero, SectionHead, cx } from '@/components/ui';
 import { appUrl, PRINCIPLES } from '@/content/site';
 
 export const metadata: Metadata = { title: 'How it works', description: 'From a photo of a pothole to a confirmed repair: every step of a NaijaWorks report.' };
 
 const ROLES = [
-  { icon: 'user', color: '#C77700', name: 'You, the citizen', does: ['Report in about two minutes', 'Confirm issues others reported', 'Follow progress and get updates', 'Say whether it is really fixed'] },
-  { icon: 'building', color: '#0B7A4B', name: 'Government officer', does: ['Verify and prioritise reports', 'Assign the right department', 'Approve work and set dates', 'Post public updates'] },
-  { icon: 'clipboard', color: '#8B5CF6', name: 'Field inspector', does: ['Visit the site', 'Capture photos, GPS and time', 'Assess severity and scope', 'Recommend the action'] },
-  { icon: 'hammer', color: '#0284C7', name: 'Contractor or works team', does: ['See assigned jobs', 'Share progress photos', 'Report blockers honestly', 'Complete with evidence'] },
+  { icon: 'user', mood: 'sun' as const, name: 'You, the citizen', does: ['Report in about two minutes', 'Confirm issues others reported', 'Follow progress and get updates', 'Say whether it is really fixed'] },
+  { icon: 'building', mood: 'green' as const, name: 'Government officer', does: ['Verify and prioritise reports', 'Assign the right department', 'Approve work and set dates', 'Post public updates'] },
+  { icon: 'clipboard', mood: 'lilac' as const, name: 'Field inspector', does: ['Visit the site', 'Capture photos, GPS and time', 'Assess severity and scope', 'Recommend the action'] },
+  { icon: 'hammer', mood: 'sky' as const, name: 'Contractor or works team', does: ['See assigned jobs', 'Share progress photos', 'Report blockers honestly', 'Complete with evidence'] },
 ];
 
 export default function HowItWorks() {
@@ -56,13 +56,11 @@ export default function HowItWorks() {
           <SectionHead center eyebrow={<><Icon name="users" size={14} />Who does what</>} title="Four people, one journey." body="NaijaWorks connects the people who spot problems with the people who fix them. Everyone sees the part they need." />
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {ROLES.map((r, i) => (
-              <div key={r.name} className="lift rounded-[20px] bg-white p-6 ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
-                <IconTile name={r.icon} size={52} />
-                <h3 className="mt-5 text-xl font-medium text-ink">{r.name}</h3>
+              <ColorTile key={r.name} mood={r.mood} icon={r.icon} title={r.name} style={{ ['--d' as string]: `${i * 80}ms` }}>
                 <ul className="mt-4 space-y-2.5">
-                  {r.does.map((d) => <li key={d} className="flex gap-2.5 text-[15px] text-ink-2"><Icon name="check" size={18} className="mt-0.5 text-brand" />{d}</li>)}
+                  {r.does.map((d) => <li key={d} className="flex gap-2.5 text-[15px] opacity-85"><Icon name="check" size={18} className="mt-0.5 shrink-0" />{d}</li>)}
                 </ul>
-              </div>
+              </ColorTile>
             ))}
           </div>
         </Container>
@@ -97,10 +95,7 @@ export default function HowItWorks() {
           <SectionHead center eyebrow={<><Icon name="lock" size={14} />Trust & safety</>} title="Safe to speak up." body="An infrastructure platform, not a political battleground. Moderation blocks harassment, doxxing, false accusations and campaigning." />
           <div className="mt-12 grid gap-4 md:grid-cols-2">
             {PRINCIPLES.map((p, i) => (
-              <div key={p.title} className="flex gap-5 rounded-[20px] bg-white p-6 ring-1 ring-line sm:p-7" data-reveal style={{ ['--d' as string]: `${(i % 2) * 80}ms` }}>
-                <IconTile name={p.icon} size={52} />
-                <div><h3 className="text-xl font-medium text-ink">{p.title}</h3><p className="mt-2 text-[15px] leading-relaxed text-ink-2">{p.body}</p></div>
-              </div>
+              <ColorTile key={p.title} mood={p.mood} icon={p.icon} title={p.title} body={p.body} style={{ ['--d' as string]: `${(i % 2) * 80}ms` }} />
             ))}
           </div>
           <div className="mt-4 grid gap-3 rounded-[20px] bg-white p-6 ring-1 ring-line sm:grid-cols-3 sm:p-7" data-reveal>

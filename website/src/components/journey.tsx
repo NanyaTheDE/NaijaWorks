@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Icon } from './Icon';
 import { Scene } from './Scene';
 import { cx } from './ui';
-import { JOURNEY } from '@/content/site';
+import { JOURNEY, MOODS, WHO_MOOD } from '@/content/site';
 
 /* ---------- Mini illustrations, drawn in the site palette ---------- */
 const C = { brand: '#0B7A4B', brandSoft: '#DDF1E6', forest: '#0F3B2A', sun: '#F5B301', sunSoft: '#FFF2C7', sky: '#0284C7', skySoft: '#DCEFFA', clay: '#D9481F', claySoft: '#FDE4DA', line: '#E6DECD' };
@@ -122,7 +122,11 @@ export function JourneyTimeline({ extra }: { extra?: Record<number, ReactNode> }
                 <span className="rounded-full bg-paper-2 px-3 py-1 text-[13px] font-medium text-ink-2">{j.date}</span>
               </div>
               <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{j.text}</p>
-              <div className="mt-2 text-[13px] font-medium text-ink-3">{j.who}</div>
+              {(() => { const m = MOODS[WHO_MOOD[j.who] ?? 'green']; return (
+                <span className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium" style={{ background: m.bg, color: m.ink }}>
+                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: m.accent }} />{j.who}
+                </span>
+              ); })()}
               {extra?.[i]}
             </div>
           </li>

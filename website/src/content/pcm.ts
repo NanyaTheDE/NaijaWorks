@@ -264,6 +264,8 @@ export const PCM: Record<string, string> = {
   'Completed · Adeola St.': 'E don finish · Adeola St.',
   'Urgent · open manhole': 'Urgent · open manhole',
   'Online': 'Online',
+  'Closest': 'E near you pass',
+  'Furthest': 'E far pass',
   'Where is it?': 'Where e dey?',
   'Send report': 'Send report',
   'Report sent': 'Report don go',

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { Icon } from './Icon';
+import { MOODS, type Mood } from '@/content/site';
 
 export const cx = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(' ');
 
@@ -92,6 +93,30 @@ export function IconTile({ name, size = 44, tone = 'soft', color, className }: {
       style={{ width: size, height: size, ...(color ? { background: `color-mix(in srgb, ${color} 13%, white)`, color } : {}) }}>
       <Icon name={name} size={Math.round(size * 0.45)} />
     </span>
+  );
+}
+
+/**
+ * Colour tile: the site's one colourful card. Soft mood background, text and icon in the mood's deeper ink,
+ * a faint ring pattern fading in from the top corner and a large watermark icon. Lifts and wiggles on hover.
+ */
+export function ColorTile({ mood, icon, title, body, children, className, big = false, style }: {
+  mood: Mood; icon: string; title?: ReactNode; body?: ReactNode; children?: ReactNode; className?: string; big?: boolean; style?: React.CSSProperties;
+}) {
+  const m = MOODS[mood];
+  return (
+    <div data-reveal style={{ ...style, background: m.bg, color: m.ink }}
+      className={cx('lift wiggle-host group relative isolate flex flex-col overflow-hidden rounded-[24px] p-6 sm:p-7', className)}>
+      <span className="pointer-events-none absolute inset-0 -z-10 opacity-60 [background-image:radial-gradient(circle,transparent_10px,currentColor_10.5px,currentColor_11.5px,transparent_12px)] [background-size:44px_44px] [mask-image:linear-gradient(200deg,#000,transparent_55%)]"
+        style={{ color: `color-mix(in srgb, ${m.accent} 14%, transparent)` }} aria-hidden />
+      <span className="pointer-events-none absolute -bottom-6 -right-6 -z-10 opacity-[.09] transition-transform duration-700 group-hover:-rotate-6 group-hover:scale-110" style={{ color: m.accent }} aria-hidden>
+        <Icon name={icon} size={big ? 220 : 130} />
+      </span>
+      <span className="icon-tile grid h-12 w-12 shrink-0 place-items-center rounded-full" style={{ background: `color-mix(in srgb, ${m.accent} 16%, ${m.bg})`, color: m.accent }}><Icon name={icon} size={22} /></span>
+      {title && <h3 className="mt-6 text-[22px] font-normal leading-snug">{title}</h3>}
+      {body && <p className="mt-2 text-[15px] leading-relaxed opacity-80">{body}</p>}
+      {children}
+    </div>
   );
 }
 

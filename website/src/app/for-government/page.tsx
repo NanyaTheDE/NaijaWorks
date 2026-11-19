@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Icon } from '@/components/Icon';
 import { CtaBand, GovPreview } from '@/components/sections';
-import { Btn, Container, IconTile, PageHero, SectionHead, cx } from '@/components/ui';
+import { Btn, ColorTile, Container, IconTile, PageHero, SectionHead, cx } from '@/components/ui';
 import { appUrl, GOV_FEATURES } from '@/content/site';
 
 export const metadata: Metadata = { title: 'For government', description: 'Triage, inspections, work orders and analytics for LGAs, state agencies, federal bodies and utilities.' };
@@ -57,15 +57,17 @@ export default function ForGovernment() {
           <SectionHead eyebrow={<><Icon name="tools" size={14} />What's inside</>} title="Built for operations." />
           <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {GOV_FEATURES.map((f, i) => {
-                            const lead = i === 0;
+              const last = i === GOV_FEATURES.length - 1;
+              if (i > 0) return <ColorTile key={f.title} mood={f.mood} icon={f.icon} title={f.title} body={f.body} className={cx(last && 'md:col-span-2 lg:col-span-1')} style={{ ['--d' as string]: `${(i % 3) * 80}ms` }} />;
+              // Lead tile: deep green with the live triage queue
               return (
-                <div key={f.title} className={cx('lift rounded-[20px] p-6 ring-1 sm:p-7', lead ? 'grid min-w-0 grid-cols-1 items-end gap-6 bg-forest text-white ring-forest md:col-span-2 md:grid-cols-[1fr_1.2fr] lg:row-span-2' : 'bg-white ring-line', i === GOV_FEATURES.length - 1 && 'md:col-span-2 lg:col-span-1')} data-reveal style={{ ['--d' as string]: `${(i % 3) * 80}ms` }}>
+                <div key={f.title} className="lift grid min-w-0 grid-cols-1 items-end gap-6 rounded-[24px] bg-forest p-6 text-white sm:p-7 md:col-span-2 md:grid-cols-[1fr_1.2fr] lg:row-span-2" data-reveal>
                   <div className="min-w-0">
-                    {lead ? <IconTile name={f.icon} size={52} className="bg-sun text-forest" /> : <IconTile name={f.icon} size={52} />}
-                    <h3 className={cx('mt-5 font-bold', lead ? 'text-2xl' : 'text-xl text-ink')}>{f.title}</h3>
-                    <p className={cx('mt-2 text-[15px] leading-relaxed', lead ? 'text-white/70' : 'text-ink-2')}>{f.body}</p>
+                    <IconTile name={f.icon} size={52} className="bg-sun text-forest" />
+                    <h3 className="mt-6 text-[26px] font-normal leading-snug">{f.title}</h3>
+                    <p className="mt-2 text-[15px] leading-relaxed text-white/75">{f.body}</p>
                   </div>
-                  {lead && <TriageMock />}
+                  <TriageMock />
                 </div>
               );
             })}

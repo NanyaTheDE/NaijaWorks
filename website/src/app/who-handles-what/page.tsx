@@ -3,7 +3,7 @@ import { Icon } from '@/components/Icon';
 import { RouteExplainer } from '@/components/client';
 import { CtaBand } from '@/components/sections';
 import { Btn, Container, PageHero, SectionHead, cx } from '@/components/ui';
-import { appUrl, LEVELS } from '@/content/site';
+import { appUrl, LEVELS, MOODS } from '@/content/site';
 
 export const metadata: Metadata = { title: 'Who handles what', description: 'Federal, state, Local Government and utilities: who usually fixes what in Nigeria, explained simply.' };
 
@@ -25,17 +25,25 @@ export default function WhoHandlesWhat() {
         <Container>
           <SectionHead eyebrow={<><Icon name="layers" size={14} />The four layers</>} title="Closest to furthest." body="Generally, the bigger and busier the infrastructure, the higher the level of government that owns it. There are local exceptions, which is why NaijaWorks checks each location." />
           <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {[...LEVELS].reverse().map((l, i) => (
-              <div key={l.key} className="lift group flex flex-col overflow-hidden rounded-[20px] bg-white ring-1 ring-line" data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
-                <div className="tint-card relative border-b border-line p-6" style={{ ['--tint' as string]: l.color }}>
-                  <span className="grid h-11 w-11 place-items-center rounded-full text-white transition-transform duration-300 group-hover:rotate-[-8deg]" style={{ background: l.color }}><Icon name={l.icon} size={22} /></span>
-                  <h3 className="mt-5 text-[26px] font-medium text-ink">{l.name}</h3>
-                  <p className="mt-1 text-[15px] text-ink-2">{l.blurb}</p>
+            {[...LEVELS].reverse().map((l, i, all) => (
+              <article key={l.key} className="lift wiggle-host group relative isolate flex flex-col overflow-hidden rounded-[24px] p-6" data-reveal style={{ ['--d' as string]: `${i * 80}ms`, background: MOODS[l.mood].bg, color: MOODS[l.mood].ink }}>
+                <span className="pointer-events-none absolute -bottom-6 -right-6 -z-10 opacity-[.08] transition-transform duration-700 group-hover:-rotate-6 group-hover:scale-110" style={{ color: MOODS[l.mood].accent }} aria-hidden><Icon name={l.icon} size={130} /></span>
+                <div className="flex items-center gap-3">
+                  <span className="icon-tile grid h-11 w-11 shrink-0 place-items-center rounded-full" style={{ background: `color-mix(in srgb, ${MOODS[l.mood].accent} 16%, ${MOODS[l.mood].bg})`, color: MOODS[l.mood].accent }}><Icon name={l.icon} size={20} /></span>
+                  <h3 className="text-[24px] font-normal leading-tight">{l.name}</h3>
                 </div>
-                <ul className="flex-1 space-y-3 p-6">
-                  {l.items.map((it) => <li key={it} className="flex gap-2.5 text-[15px] text-ink"><span className="mt-2 h-2 w-2 shrink-0 rounded-full" style={{ background: l.color }} />{it}</li>)}
+                <p className="mt-3 text-[15px] leading-relaxed opacity-80">{l.blurb}</p>
+                {/* Where this level sits, from the one closest to you to the furthest */}
+                <div className="mt-5 flex items-center gap-1.5" aria-label={`${i + 1} of ${all.length}`}>
+                  {all.map((_, k) => (
+                    <span key={k} className={cx('h-1.5 flex-1 rounded-full transition-colors duration-500', k <= i ? '' : 'bg-white/70')} style={k <= i ? { background: `color-mix(in srgb, ${MOODS[l.mood].accent} ${k === i ? 100 : 40}%, white)` } : undefined} />
+                  ))}
+                </div>
+                <div className="mt-1.5 flex justify-between text-[11px] font-medium opacity-60"><span>Closest</span><span>Furthest</span></div>
+                <ul className="mt-5 flex flex-wrap gap-2 border-t border-current/10 pt-5">
+                  {l.items.map((it) => <li key={it} className="rounded-xl bg-white/70 px-3 py-1.5 text-[13px] leading-snug">{it}</li>)}
                 </ul>
-              </div>
+              </article>
             ))}
           </div>
         </Container>

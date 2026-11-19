@@ -9,6 +9,22 @@ export const appUrl = (path: string) => (APP_URL ? `${APP_URL}${path}` : `/launc
 
 export type Lang = 'en' | 'pcm';
 
+/**
+ * Colour moods: the one palette for colourful tiles. Each mood always means the same kind of thing:
+ * green = roads, state, the core action · sun = streetlights, citizens, highlights · sky = water, drains,
+ * utilities · lilac = inspection, federal · peach = waste, community · deep = the closing or lead tile.
+ * Red (clay) is not a mood: it stays reserved for urgent and danger.
+ */
+export const MOODS = {
+  green: { bg: '#DCEFE3', ink: '#0F3B2A', accent: '#0B7A4B' },
+  sun: { bg: '#FFF0C2', ink: '#5C3D00', accent: '#C78A00' },
+  sky: { bg: '#DCEDF8', ink: '#0C3A57', accent: '#0369A1' },
+  lilac: { bg: '#E7E7FB', ink: '#2B2A6B', accent: '#4F46E5' },
+  peach: { bg: '#FBE3D9', ink: '#6B2410', accent: '#C2410C' },
+  deep: { bg: '#0F3B2A', ink: '#FFFFFF', accent: '#F5C24A' },
+} as const;
+export type Mood = keyof typeof MOODS;
+
 export const NAV = [
   { href: '/how-it-works', label: 'How it works' },
   { href: '/who-handles-what', label: 'Who handles what' },
@@ -22,10 +38,10 @@ export const HERO = {
 };
 
 export const FOUR_QUESTIONS = [
-  { q: 'What is wrong?', a: 'Pick a category, add a photo, drop a pin. Done in about two minutes.', icon: 'camera', tone: 'sun' },
-  { q: 'Who is responsible?', a: 'We route it to the right LGA, state agency, federal body or utility. You never need to know which.', icon: 'building', tone: 'brand' },
-  { q: 'What is happening now?', a: 'Every report has a live status and a timeline of what officials have actually done.', icon: 'eye', tone: 'sky' },
-  { q: 'When is the next step?', a: 'Each stage shows the next expected action and a date, and delays must come with a reason.', icon: 'calendar', tone: 'clay' },
+  { q: 'What is wrong?', a: 'Pick a category, add a photo, drop a pin. Done in about two minutes.', icon: 'camera', tone: 'sun', mood: 'sun' },
+  { q: 'Who is responsible?', a: 'We route it to the right LGA, state agency, federal body or utility. You never need to know which.', icon: 'building', tone: 'brand', mood: 'green' },
+  { q: 'What is happening now?', a: 'Every report has a live status and a timeline of what officials have actually done.', icon: 'eye', tone: 'sky', mood: 'sky' },
+  { q: 'When is the next step?', a: 'Each stage shows the next expected action and a date, and delays must come with a reason.', icon: 'calendar', tone: 'clay', mood: 'peach' },
 ] as const;
 
 export const CATEGORIES = [
@@ -46,6 +62,12 @@ export const JOURNEY = [
   { key: 'progress', label: 'Work in progress', date: '30 Nov', icon: 'hammer', text: 'Work has started. Crew uploaded 3 progress photos.', who: 'Maintenance team' },
   { key: 'fixed', label: 'Fixed', date: '2 Dec', icon: 'check', text: 'Completed with photo evidence. 41 residents confirmed it is fixed.', who: 'Community' },
 ] as const;
+
+/** Which role (and so which colour mood) acted at each journey step. */
+export const WHO_MOOD: Record<string, Mood> = {
+  'Citizen': 'sun', 'Community': 'sun', 'NaijaWorks triage': 'green', 'Routing engine': 'green',
+  'Field inspector': 'lilac', 'Works department': 'sky', 'Maintenance team': 'sky',
+};
 
 export const STATUSES = [
   { name: 'Reported', group: 'new', meaning: 'Your report is in and has a reference number.', who: 'You', next: 'A quick check that it is real and in the right place.' },
@@ -68,10 +90,10 @@ export const GROUP_COLOR: Record<string, string> = {
 };
 
 export const LEVELS = [
-  { key: 'federal', name: 'Federal', color: '#4F46E5', icon: 'globe', blurb: 'Big national roads and bridges, plus regulators.', items: ['Federal highways and trunk roads', 'Major bridges on federal roads', 'Rules for the electricity sector (NERC)', 'National agencies for flooding and erosion'] },
-  { key: 'state', name: 'State', color: '#0B7A4B', icon: 'building', blurb: 'Most busy city roads, drainage channels and state water.', items: ['State roads and major streets', 'Primary drainage channels', 'Public water supply in many states', 'Streetlights on state roads', 'State schools and hospitals'] },
-  { key: 'lga', name: 'Local Government', color: '#C77700', icon: 'home', blurb: 'The closest government to you: local streets and services.', items: ['Local and estate roads', 'Waste collection in many areas', 'Small drains and gutters', 'Markets, motor parks and primary health centres', 'Primary schools (with the state)'] },
-  { key: 'utility', name: 'Utilities', color: '#0284C7', icon: 'bolt', blurb: 'Companies that run power and some water services.', items: ['Electricity distribution companies (DisCos)', 'Fallen poles, exposed cables, faulty transformers', 'Water boards and utility corporations'] },
+  { key: 'federal', mood: 'lilac', name: 'Federal', color: '#4F46E5', icon: 'globe', blurb: 'Big national roads and bridges, plus regulators.', items: ['Federal highways and trunk roads', 'Major bridges on federal roads', 'Rules for the electricity sector (NERC)', 'National agencies for flooding and erosion'] },
+  { key: 'state', mood: 'green', name: 'State', color: '#0B7A4B', icon: 'building', blurb: 'Most busy city roads, drainage channels and state water.', items: ['State roads and major streets', 'Primary drainage channels', 'Public water supply in many states', 'Streetlights on state roads', 'State schools and hospitals'] },
+  { key: 'lga', mood: 'sun', name: 'Local Government', color: '#C78A00', icon: 'home', blurb: 'The closest government to you: local streets and services.', items: ['Local and estate roads', 'Waste collection in many areas', 'Small drains and gutters', 'Markets, motor parks and primary health centres', 'Primary schools (with the state)'] },
+  { key: 'utility', mood: 'sky', name: 'Utilities', color: '#0369A1', icon: 'bolt', blurb: 'Companies that run power and some water services.', items: ['Electricity distribution companies (DisCos)', 'Fallen poles, exposed cables, faulty transformers', 'Water boards and utility corporations'] },
 ] as const;
 
 /** "Who fixes this?" explainer. Simplified: the real routing engine also checks road ownership and service areas. */
@@ -93,13 +115,14 @@ export const STATS = [
   { value: 1.9, label: 'Residents affected', context: 'People living near the issues that were fixed.', suffix: 'M', decimals: 1 },
 ];
 
-export const IMPACT_TILES = [
-  { icon: 'road', value: 1840, label: 'Roads repaired', tone: '#0B7A4B' },
-  { icon: 'lamp', value: 2310, label: 'Streetlights restored', tone: '#C77700' },
-  { icon: 'waves', value: 960, label: 'Drains cleared', tone: '#0284C7' },
-  { icon: 'droplet', value: 412, label: 'Water issues resolved', tone: '#4F46E5' },
-  { icon: 'trash', value: 1385, label: 'Dumpsites cleared', tone: '#D9481F' },
-  { icon: 'users', value: 318, label: 'Communities reached', tone: '#8B5CF6' },
+/** Impact tiles: one colour mood each. */
+export const IMPACT_TILES: { icon: string; value: number; label: string; mood: Mood }[] = [
+  { icon: 'road', value: 1840, label: 'Roads repaired', mood: 'green' },
+  { icon: 'lamp', value: 2310, label: 'Streetlights restored', mood: 'sun' },
+  { icon: 'waves', value: 960, label: 'Drains cleared', mood: 'sky' },
+  { icon: 'droplet', value: 412, label: 'Water issues resolved', mood: 'lilac' },
+  { icon: 'trash', value: 1385, label: 'Dumpsites cleared', mood: 'peach' },
+  { icon: 'users', value: 318, label: 'Communities reached', mood: 'deep' },
 ];
 
 export const STORIES = [
@@ -124,12 +147,12 @@ export const BADGES = [
 ] as const;
 
 export const GOV_FEATURES = [
-  { icon: 'inbox', title: 'A triage queue, not a complaint inbox', body: 'Reports arrive routed, de-duplicated and ranked by safety risk and people affected, not by how loud they are.' },
-  { icon: 'clipboard', title: 'Inspections with proof', body: 'Assign inspectors, book time windows, and get photos, GPS and timestamps captured on site from a mobile app that works offline.' },
-  { icon: 'wrench', title: 'Work orders end to end', body: 'Approve work, set budgets and funding sources internally, assign contractors or in-house teams, and track progress.' },
-  { icon: 'refresh', title: 'Transparent transfers', body: 'Wrong department? Transfer it with a reason. Citizens see "Transferred to State Works because the road is state-managed".' },
-  { icon: 'chart', title: 'Analytics for planning', body: 'Hotspots, recurring failures, seasonal flooding patterns and contractor performance, so maintenance becomes proactive.' },
-  { icon: 'shield', title: 'Audit log on every action', body: 'Who verified, assigned, approved and closed each report is recorded. Internal notes stay internal.' },
+  { icon: 'inbox', mood: 'deep', title: 'A triage queue, not a complaint inbox', body: 'Reports arrive routed, de-duplicated and ranked by safety risk and people affected, not by how loud they are.' },
+  { icon: 'clipboard', mood: 'lilac', title: 'Inspections with proof', body: 'Assign inspectors, book time windows, and get photos, GPS and timestamps captured on site from a mobile app that works offline.' },
+  { icon: 'wrench', mood: 'sun', title: 'Work orders end to end', body: 'Approve work, set budgets and funding sources internally, assign contractors or in-house teams, and track progress.' },
+  { icon: 'refresh', mood: 'sky', title: 'Transparent transfers', body: 'Wrong department? Transfer it with a reason. Citizens see "Transferred to State Works because the road is state-managed".' },
+  { icon: 'chart', mood: 'green', title: 'Analytics for planning', body: 'Hotspots, recurring failures, seasonal flooding patterns and contractor performance, so maintenance becomes proactive.' },
+  { icon: 'shield', mood: 'peach', title: 'Audit log on every action', body: 'Who verified, assigned, approved and closed each report is recorded. Internal notes stay internal.' },
 ] as const;
 
 export const PIPELINE = [
@@ -154,17 +177,17 @@ export const BY_CATEGORY = [
 ];
 
 export const PRINCIPLES = [
-  { icon: 'lock', title: 'Your identity, your choice', body: 'Show your first name, appear as "community member", or stay private. Phone numbers and home addresses are never public.' },
-  { icon: 'shield', title: 'Severity beats popularity', body: 'An open manhole with 2 reports outranks a cosmetic issue with 200. Confirmations measure impact, they are not votes.' },
-  { icon: 'check', title: 'No fix without proof', body: 'Work cannot be marked complete without completion photos, a date and a note. Then neighbours confirm it.' },
-  { icon: 'users', title: 'Built for contribution, not comments', body: 'Structured actions like "I’m affected too" and "Add evidence" instead of open comment threads. No political campaigning.' },
+  { icon: 'lock', mood: 'green', title: 'Your identity, your choice', body: 'Show your first name, appear as "community member", or stay private. Phone numbers and home addresses are never public.' },
+  { icon: 'shield', mood: 'peach', title: 'Severity beats popularity', body: 'An open manhole with 2 reports outranks a cosmetic issue with 200. Confirmations measure impact, they are not votes.' },
+  { icon: 'check', mood: 'sky', title: 'No fix without proof', body: 'Work cannot be marked complete without completion photos, a date and a note. Then neighbours confirm it.' },
+  { icon: 'users', mood: 'sun', title: 'Built for contribution, not comments', body: 'Structured actions like "I’m affected too" and "Add evidence" instead of open comment threads. No political campaigning.' },
 ] as const;
 
 export const ACCESS = [
-  { icon: 'globe', title: 'English & Naija Pidgin', body: 'More Nigerian languages can be added without redesigning anything.' },
-  { icon: 'wifi', title: 'Low-data mode', body: 'Compressed photos, a text-first view and a simple list instead of a heavy map.' },
-  { icon: 'upload', title: 'Works offline', body: 'Save a draft without network. It sends itself when your connection returns.' },
-  { icon: 'eye', title: 'Easy to see and tap', body: 'Large tap areas, high contrast, clear icons and screen reader labels.' },
+  { icon: 'globe', mood: 'sun', title: 'English & Naija Pidgin', body: 'More Nigerian languages can be added without redesigning anything.' },
+  { icon: 'wifi', mood: 'sky', title: 'Low-data mode', body: 'Compressed photos, a text-first view and a simple list instead of a heavy map.' },
+  { icon: 'upload', mood: 'lilac', title: 'Works offline', body: 'Save a draft without network. It sends itself when your connection returns.' },
+  { icon: 'eye', mood: 'green', title: 'Easy to see and tap', body: 'Large tap areas, high contrast, clear icons and screen reader labels.' },
 ] as const;
 
 export const FAQ = [

@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { Icon } from '@/components/Icon';
+import { Scene } from '@/components/Scene';
 import { CountUp } from '@/components/client';
 import { CtaBand, StoryCard } from '@/components/sections';
-import { Btn, Container, IconTile, PageHero, SectionHead } from '@/components/ui';
+import { Btn, ColorTile, Container, PageHero, SectionHead, cx } from '@/components/ui';
 import { appUrl, IMPACT_TILES, STORIES } from '@/content/site';
 
 export const metadata: Metadata = { title: 'Impact', description: 'Roads repaired, streetlights restored, drains cleared: see what Nigerian communities have fixed with NaijaWorks.' };
@@ -31,15 +32,24 @@ export default function Impact() {
 
       <section className="py-20 sm:py-24">
         <Container>
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
-            {IMPACT_TILES.map((t, i) => (
-              <div key={t.label} className="lift group relative overflow-hidden rounded-[20px] bg-white p-6 ring-1 ring-line sm:p-8" data-reveal style={{ ['--d' as string]: `${(i % 3) * 80}ms` }}>
-                <span className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-brand opacity-[.06] transition-transform duration-500 group-hover:scale-125" aria-hidden />
-                <IconTile name={t.icon} size={52} />
-                <div className="display mt-6 text-4xl font-medium text-ink sm:text-5xl"><CountUp value={t.value} /></div>
-                <div className="mt-1 text-[15px] text-ink-2">{t.label}</div>
-              </div>
-            ))}
+          {/* Bento: one hero tile with the repaired road, five colour-coded tiles around it */}
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-3">
+            {IMPACT_TILES.map((t, i) => {
+              const hero = i === 0;
+              return (
+                <ColorTile key={t.label} mood={t.mood} icon={t.icon} big={hero} style={{ ['--d' as string]: `${(i % 3) * 80}ms` }}
+                  className={cx(hero && 'col-span-2 lg:row-span-2', i === IMPACT_TILES.length - 1 && 'col-span-2 lg:col-span-1')}>
+                  <div className={cx('display mt-auto pt-8 font-normal leading-none tracking-tight', hero ? 'text-[64px] sm:text-[96px]' : 'text-[44px] sm:text-[56px]')}><CountUp value={t.value} /></div>
+                  <div className={cx('mt-2 font-medium opacity-80', hero ? 'text-[18px]' : 'text-[15px]')}>{t.label}</div>
+                  {hero && (
+                    <div className="relative mt-6 hidden h-44 overflow-hidden rounded-2xl ring-1 ring-black/5 sm:block [&_.scene]:h-full [&_.scene]:w-full">
+                      <Scene name="road-fixed" label="" />
+                      <span className="absolute bottom-4 right-4"><span className="stamp"><Icon name="check" size={14} />Fixed</span></span>
+                    </div>
+                  )}
+                </ColorTile>
+              );
+            })}
           </div>
         </Container>
       </section>

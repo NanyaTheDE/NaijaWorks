@@ -4,7 +4,7 @@ import { Icon } from '@/components/Icon';
 import { CountUp, HeroCopy, RouteExplainer } from '@/components/client';
 import { PhoneStory } from '@/components/phone-story';
 import { CategoryMarquee, CtaBand, GovPreview, StoryCard } from '@/components/sections';
-import { Btn, Checklist, Container, IconTile, SectionHead, cx } from '@/components/ui';
+import { Btn, Checklist, ColorTile, Container, IconTile, SectionHead, cx } from '@/components/ui';
 import { ACCESS, appUrl, BADGES, FAQ, FOUR_QUESTIONS, QUOTES, STATS, STORIES } from '@/content/site';
 
 
@@ -75,15 +75,9 @@ export default function Home() {
               <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-ink-2">A report should never disappear into a void. Every report on NaijaWorks answers these four things, in plain language.</p>
             </div>
           </div>
-          <div className="mt-12 grid border-t border-line md:grid-cols-2">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {FOUR_QUESTIONS.map((f, i) => (
-              <div key={f.q} className={cx('wiggle-host border-b border-line py-7 md:px-8', i % 2 === 0 ? 'md:pl-0' : 'md:border-l', 'border-line')} data-reveal style={{ ['--d' as string]: `${i * 70}ms` }}>
-                <div className="flex items-center gap-3">
-                  <IconTile name={f.icon} size={36} />
-                  <h3 className="text-[20px] font-medium text-ink">{f.q}</h3>
-                </div>
-                <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink-2">{f.a}</p>
-              </div>
+              <ColorTile key={f.q} mood={f.mood} icon={f.icon} title={f.q} body={f.a} className="min-h-[280px] [&>h3]:mt-auto [&>h3]:pt-10" style={{ ['--d' as string]: `${i * 70}ms` }} />
             ))}
           </div>
         </Container>
@@ -217,13 +211,9 @@ export default function Home() {
       <section className="pb-20 sm:pb-28">
         <Container>
           <div className="border-t border-line pt-14"><SectionHead eyebrow={<><Icon name="globe" size={14} />Made for every Nigerian</>} title="For grandma’s old phone and your new one." body="Designed for older users, first-time reporters, patchy networks and expensive data." /></div>
-          <div className="mt-12 grid border-t border-line sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {ACCESS.map((a, i) => (
-              <div key={a.title} className={cx('wiggle-host border-b border-line py-7 sm:pr-6', i > 0 && 'lg:border-l lg:pl-6', i % 2 === 1 && 'sm:border-l sm:pl-6')} data-reveal style={{ ['--d' as string]: `${i * 80}ms` }}>
-                <IconTile name={a.icon} size={44} />
-                <h3 className="mt-4 text-[18px] font-medium text-ink">{a.title}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{a.body}</p>
-              </div>
+              <ColorTile key={a.title} mood={a.mood} icon={a.icon} title={a.title} body={a.body} style={{ ['--d' as string]: `${i * 80}ms` }} />
             ))}
           </div>
           <div className="panel-indigo mt-8 grid items-center gap-6 overflow-hidden rounded-[24px] p-6 sm:p-10 md:grid-cols-[1fr_auto]" data-reveal>
