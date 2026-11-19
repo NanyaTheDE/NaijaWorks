@@ -245,7 +245,7 @@ export const PCM: Record<string, string> = {
   'Projects': 'Projects',
   'Map': 'Map',
   'Analytics': 'Analytics',
-  'Good morning, Folake': 'Good morning, Folake',
+  'Good morning, Nanya': 'Good morning, Nanya',
   '6 urgent': '6 urgent',
   'New': 'New',
   '9 to assign': '9 to give person',

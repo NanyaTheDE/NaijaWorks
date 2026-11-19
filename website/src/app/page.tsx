@@ -4,7 +4,7 @@ import { Icon } from '@/components/Icon';
 import { CountUp, HeroCopy, RouteExplainer } from '@/components/client';
 import { PhoneStory } from '@/components/phone-story';
 import { CategoryMarquee, CtaBand, GovPreview, StoryCard } from '@/components/sections';
-import { Btn, Checklist, ColorTile, Container, IconTile, SectionHead, cx } from '@/components/ui';
+import { Btn, Checklist, ColorTile, Logo, Container, IconTile, SectionHead, cx } from '@/components/ui';
 import { ACCESS, appUrl, BADGES, FAQ, FOUR_QUESTIONS, QUOTES, STATS, STORIES } from '@/content/site';
 
 
@@ -219,7 +219,7 @@ export default function Home() {
           <div className="panel-indigo mt-8 grid items-center gap-6 overflow-hidden rounded-[24px] p-6 sm:p-10 md:grid-cols-[1fr_auto]" data-reveal>
             {/* An iOS-style notification, in Pidgin */}
             <div className="glass max-w-xl rounded-[20px] p-4">
-              <div className="flex items-center gap-2 text-[12px] text-ink-2"><span className="grid h-5 w-5 place-items-center rounded-[6px] bg-sun"><span className="text-[10px] font-bold text-[#063D27]">N</span></span><span className="font-medium uppercase tracking-wide">NaijaWorks</span><span className="ml-auto">now</span></div>
+              <div className="flex items-center gap-2 text-[12px] text-ink-2"><Logo size={20} /><span className="font-medium uppercase tracking-wide">NaijaWorks</span><span className="ml-auto">now</span></div>
               <div className="mt-1.5 text-[16px] font-semibold text-ink">&ldquo;Good news! Work don start for the streetlight wey you report.&rdquo;</div>
               <div className="mt-1 text-[14px] text-ink-2">Friendly notifications, in the language you choose. Try the toggle at the top.</div>
             </div>

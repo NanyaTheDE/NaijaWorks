@@ -5,20 +5,27 @@ import { MOODS, type Mood } from '@/content/site';
 
 export const cx = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(' ');
 
-export function Logo({ size = 30 }: { size?: number }) {
+/** The NaijaWorks mark: a sun-yellow tile with an N whose right stroke rises into a map pin ("report it here"). */
+export function Logo({ size = 32 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden="true">
-      <rect width="40" height="40" rx="11" fill="#F5B301" />
-      <path d="M11 29V12l18 17V12" stroke="#063D27" strokeWidth="4.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <rect width="40" height="40" rx="12" fill="#F5B301" />
+      <path d="M11.5 30V11.5L26.5 28.5" fill="none" stroke="#0F3B2A" strokeWidth="4.4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M26.5 28.5V21" fill="none" stroke="#0F3B2A" strokeWidth="4.4" strokeLinecap="round" />
+      <path d="M26.5 22.5c-3.2-3.4-5-5.8-5-8.1a5 5 0 0 1 10 0c0 2.3-1.8 4.7-5 8.1Z" fill="#0F3B2A" />
+      <circle cx="26.5" cy="14.4" r="1.9" fill="#F5B301" />
     </svg>
   );
 }
 
+/** Logo lockup: the mark plus the wordmark, "Naija" upright and "Works" in green italic, the site's emphasis style. */
 export function Wordmark({ light = false }: { light?: boolean }) {
   return (
     <span className="flex items-center gap-2.5">
       <Logo />
-      <span className={cx('display text-[19px] font-semibold tracking-tight', light ? 'text-white' : 'text-ink')}>NaijaWorks</span>
+      <span className={cx('display text-[22px] font-normal leading-none tracking-tight', light ? 'text-white' : 'text-ink')} translate="no">
+        Naija<em className={cx('font-normal', light ? 'text-sun' : 'text-brand')}>Works</em>
+      </span>
     </span>
   );
 }

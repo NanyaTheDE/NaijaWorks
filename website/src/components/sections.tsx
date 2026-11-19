@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Icon } from './Icon';
 import { BeforeAfter } from './client';
-import { Btn, Container, Wordmark, cx } from './ui';
+import { Logo, Btn, Container, Wordmark, cx } from './ui';
 import { appUrl, BY_CATEGORY, CATEGORIES, DASH_RECENT, DASH_TREND, NAV, PIPELINE, STORIES } from '@/content/site';
 
 export function CategoryMarquee({ dark = false }: { dark?: boolean }) {
@@ -57,9 +57,9 @@ export function GovPreview() {
     <div className="@container overflow-hidden rounded-[16px] bg-white text-ink shadow-pop ring-1 ring-black/5" aria-label="Preview of the government dashboard" role="img">
       {/* App top bar */}
       <div className="flex items-center gap-3 border-b border-line px-4 py-2.5">
-        <span className="flex items-center gap-2 text-[13px] font-semibold"><span className="grid h-6 w-6 place-items-center rounded-[7px] bg-sun text-[11px] font-bold text-[#063D27]">N</span>Operations</span>
+        <span className="flex items-center gap-2 text-[13px] font-semibold"><Logo size={24} />Operations</span>
         <span className="ml-auto flex items-center gap-1.5 rounded-full bg-brand-soft px-2.5 py-1 text-[11px] font-medium text-brand"><span className="h-1.5 w-1.5 rounded-full bg-brand" />Online</span>
-        <span className="hidden items-center gap-2 text-[12px] text-ink-2 @md:flex"><span className="grid h-6 w-6 place-items-center rounded-full bg-paper-2 text-[10px] font-semibold text-ink">FA</span>Folake</span>
+        <span className="hidden items-center gap-2 text-[12px] text-ink-2 @md:flex"><span className="grid h-6 w-6 place-items-center rounded-full bg-paper-2 text-[10px] font-semibold text-ink">NA</span>Nanya</span>
       </div>
       <div className="flex">
         {/* Sidebar */}
@@ -73,7 +73,7 @@ export function GovPreview() {
         </div>
         {/* Main */}
         <div className="min-w-0 flex-1 bg-paper/40 p-4 @xl:p-5">
-          <div className="display text-[20px] text-ink">Good morning, Folake</div>
+          <div className="display text-[20px] text-ink">Good morning, Nanya</div>
           <div className="text-[11px] text-ink-3">Lagos State Public Works</div>
           {/* KPI cards */}
           <div className="mt-4 grid grid-cols-2 gap-2.5 @2xl:grid-cols-4">
