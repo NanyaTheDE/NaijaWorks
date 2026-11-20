@@ -73,7 +73,7 @@ export function PageHero({ eyebrow, title, body, children, icon = 'sparkle' }: {
     <section className="pt-28 sm:pt-36">
       <Container className="grid items-center gap-10 pb-16 lg:grid-cols-[1.25fr_1fr] lg:pb-24">
         <div className="rise">
-          <h1 className="text-[46px] leading-[1.02] text-ink sm:text-6xl lg:text-[72px] [&_.text-sun]:italic [&_.text-sun]:text-brand">{title}</h1>
+          <h1 className="text-[46px] leading-[1.02] text-ink sm:text-6xl lg:text-[72px] [&_.text-sun]:text-brand">{title}</h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-2">{body}</p>
           {children && <div className="mt-8 flex flex-wrap gap-3">{children}</div>}
         </div>
