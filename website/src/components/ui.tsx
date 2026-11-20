@@ -5,26 +5,27 @@ import { MOODS, type Mood } from '@/content/site';
 
 export const cx = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(' ');
 
-/** The NaijaWorks mark: a sun-yellow tile with an N whose right stroke rises into a map pin ("report it here"). */
+/**
+ * The NaijaWorks mark: a sun-yellow tile with a location pin that is also a speech bubble, holding a tick.
+ * A citizen speaks up about a place, and it gets fixed.
+ */
 export function Logo({ size = 32 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden="true">
       <rect width="40" height="40" rx="12" fill="#F5B301" />
-      <path d="M11.5 30V11.5L26.5 28.5" fill="none" stroke="#0F3B2A" strokeWidth="4.4" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M26.5 28.5V21" fill="none" stroke="#0F3B2A" strokeWidth="4.4" strokeLinecap="round" />
-      <path d="M26.5 22.5c-3.2-3.4-5-5.8-5-8.1a5 5 0 0 1 10 0c0 2.3-1.8 4.7-5 8.1Z" fill="#0F3B2A" />
-      <circle cx="26.5" cy="14.4" r="1.9" fill="#F5B301" />
+      <path d="M20 33.5c-1.1 0-6.2-5.4-8.3-8.6A10.6 10.6 0 1 1 30.6 18c0 2.6-.9 4.8-2.3 6.9-2.1 3.2-7.2 8.6-8.3 8.6Z" fill="#0F3B2A" />
+      <path d="M15.4 18.3l3.2 3.2 6.2-6.6" fill="none" stroke="#F5B301" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
-/** Logo lockup: the mark plus the wordmark, "Naija" upright and "Works" in green italic, the site's emphasis style. */
+/** Logo lockup: the mark plus a sans wordmark, "Naija" in deep ink and "Works" in green (white and gold on dark). */
 export function Wordmark({ light = false }: { light?: boolean }) {
   return (
     <span className="flex items-center gap-2.5">
       <Logo />
-      <span className={cx('display text-[22px] font-normal leading-none tracking-tight', light ? 'text-white' : 'text-ink')} translate="no">
-        Naija<em className={cx('font-normal', light ? 'text-sun' : 'text-brand')}>Works</em>
+      <span className={cx('font-sans text-[20px] font-semibold leading-none tracking-[-0.035em]', light ? 'text-white' : 'text-ink')} translate="no">
+        Naija<span className={light ? 'text-sun' : 'text-brand'}>Works</span>
       </span>
     </span>
   );
